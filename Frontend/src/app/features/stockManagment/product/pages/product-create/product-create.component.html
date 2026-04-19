@@ -1,0 +1,135 @@
+<div class="page-container">
+  <div class="card">
+
+    <!-- HEADER -->
+    <div class="card-header">
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        Store Management
+      </div>
+      <h2>Create Product</h2>
+      <p>Add a new product to your inventory</p>
+    </div>
+
+    <!-- FORM -->
+    <form [formGroup]="productForm" class="form-body">
+
+      <p class="section-label">Product info</p>
+
+      <!-- GRID 1 -->
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Reference</mat-label>
+          <input matInput formControlName="reference" placeholder="e.g. PRD-001">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Designation</mat-label>
+          <input matInput formControlName="designation" placeholder="Product name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Brand</mat-label>
+          <input matInput formControlName="brand" placeholder="Brand name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Base Price</mat-label>
+          <input matInput type="number" formControlName="basePrice" 
+                placeholder="0.00" min="0">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="3" formControlName="description"
+                  placeholder="product description..."></textarea>
+      </mat-form-field>
+
+      <p class="section-label">Classification</p>
+
+      <div class="grid-2">
+        <div class="field-with-action">
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let category of categorys | async"
+                          [value]="category.categoryId">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-stroked-button
+                        type="button"
+                        class="add-btn"
+                        (click)="addCategory()">
+                  <mat-icon>add</mat-icon>
+                  Add
+                </button>
+        </div>
+
+        <div class="field-with-action">
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>Aisle / Rayon</mat-label>
+            <mat-select formControlName="aisleId">
+              <mat-option *ngFor="let aisle of aisles | async"
+                          [value]="aisle.aisleId">
+                {{ aisle.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+              <button mat-stroked-button
+            type="button"
+            class="add-btn"
+            (click)="addAisle()">
+              <mat-icon>add</mat-icon>
+              Add
+            </button>
+        </div>
+
+        <div class="characteristics-section">
+
+          <div class="">
+            <h3>Characteristics</h3>
+        
+            <mat-checkbox
+              class=""
+              [checked]="characteristicsState().completed"
+              [indeterminate]="partiallyComplete()"
+              (change)="update($event.checked)">
+              Select All
+            </mat-checkbox>
+          </div>
+        
+          <div class="characteristics-list">
+            <div class="characteristic-item"
+                 *ngFor="let item of characteristicsState().items; let i = index">
+        
+              <mat-checkbox
+                [checked]="item.completed"
+                (change)="update($event.checked, i)">
+                {{ item.name }}
+              </mat-checkbox>
+            </div>
+            <button mat-flat-button color="primary" (click)="AddCharacteristic()" class="btn-primary">
+              Add Characteristic
+            </button>
+          </div>
+        
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="divider"></div>
+      <div class="actions">
+        <button mat-flat-button color="primary" type="submit"(click)="createProduct()" class="btn-primary">
+          Create Product
+        </button>
+        <button mat-stroked-button type="button"  class="btn-back" (click)="goBack()">
+         Back
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

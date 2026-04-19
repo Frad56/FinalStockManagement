@@ -1,0 +1,65 @@
+<div class="login-container">
+  <mat-card class="login-card">
+
+    <h2 class="title">Login</h2>
+
+    <form class="group-filed"   [formGroup]="userForm" (ngSubmit)="login()">
+
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+
+        <mat-error *ngIf="userForm.get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+        />
+
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword = !hidePassword"
+        >
+          <mat-icon>
+            {{ hidePassword ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+
+        <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+
+      
+      </mat-form-field>
+
+  
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="full-width"
+        [disabled]="userForm.invalid"
+      >
+        Login
+      </button>
+
+    </form>
+
+  </mat-card>
+</div>

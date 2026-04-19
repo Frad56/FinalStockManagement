@@ -1,0 +1,21 @@
+.login-container{
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+}
+  
+  .login-card {
+    width: 500px;
+    height: 500px;
+    border: 2px solid rgba(18, 51, 117, 0.9); /* Définit le cadre */
+    background-color: rgb(242, 248, 250);
+    align-items: center;
+  }
+  .full-width{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+
+  }

@@ -1,0 +1,100 @@
+.container{
+  height:100vh;
+  }
+  
+  .sidenav{
+  width:250px;
+  padding:15px;
+  background:#fafafa;
+  }
+  
+  .menu-title{
+  text-align:center;
+  margin-bottom:0px;
+  }
+  
+  .submenu{
+  display:flex;
+  flex-direction:column;
+  margin-left:10px;
+  margin-bottom:25px;
+  width:100%;
+  }
+  
+  .submenu button{
+  text-align:left;
+  }
+
+  .sidenav button{
+    margin-bottom:20px;
+    width:100%;
+    }
+  .content{
+  padding:20px;
+  }
+
+
+  .cog-square {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    font-size: 34px;
+    cursor: pointer;
+  }
+  
+  /* menu isolé */
+  .floating-menu {
+    position: fixed; /* indépendant */
+    bottom: 20px;
+    right: 60px; /*  espace entre bouton et menu */
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+  }
+  .enf-btn {
+    background: linear-gradient(135deg, #4174cd, #1b6ee2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  
+  .enf-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+ 
+
+  .par-enf-btn{
+    background: linear-gradient(135deg,  #2a5eb8, #0f4794);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  
+  .par-enf-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+
+  .par-btn {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(69, 68, 68, 0.2);
+  }
+   .par-btn {
+    background: linear-gradient(135deg,  #2a5eb8, #06295b);
+    color: white;
+  }

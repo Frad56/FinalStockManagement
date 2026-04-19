@@ -1,0 +1,77 @@
+<h2 class="title">Edit Product</h2>
+
+<div class="form-container">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-supplier-form">
+
+    <!-- reference -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Reference</mat-label>
+      <input matInput type="text" formControlName="reference" placeholder="reference">
+    </mat-form-field>
+
+    <!-- designation -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Designation</mat-label>
+      <input matInput type="text" formControlName="designation" placeholder="designation">
+    </mat-form-field>
+
+    <!-- brand -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Brand</mat-label>
+      <input matInput type="text" formControlName="brand" placeholder="brand">
+    </mat-form-field>
+
+    <!-- description -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <input matInput type="text" formControlName="description" placeholder="description">
+    </mat-form-field>
+
+    <!-- basePrice -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Base Price</mat-label>
+      <input matInput type="number" formControlName="basePrice" placeholder="basePrice">
+    </mat-form-field>
+
+    <!-- Category -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId">
+        <mat-option *ngFor="let category of categorys | async"
+                    [value]="category.categoryId" >
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="productForm.get('categoryId')?.hasError('required')">
+        Category is required
+      </mat-error>
+    </mat-form-field>
+
+     <!-- Aisle /Rayon  -->
+     <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Aisle /Rayon </mat-label>
+      <mat-select formControlName="aisleId">
+        <mat-option *ngFor="let aisle of aisles | async"
+                    [value]="aisle.aisleId" >
+          {{ aisle.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button class="Create-button" color="primary" type="submit">
+        Update
+      </button>
+
+      <button type="button"
+              class="back-button"
+              mat-raised-button
+              color="primary"
+              (click)="goBack()">
+        Back
+      </button>
+    </div>
+
+  </form>
+</div>
+

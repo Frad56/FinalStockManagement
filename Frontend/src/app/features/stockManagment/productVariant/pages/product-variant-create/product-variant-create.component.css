@@ -1,0 +1,85 @@
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background: #f5f7fb;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 800px;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+
+.product-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #eef2ff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.product-badge .label {
+  font-size: 12px;
+  color: #555;
+}
+
+.product-badge .value {
+  font-weight: 600;
+
+  color: #3f51b5;
+}
+
+
+.table-container {
+  margin-top: 20px;
+}
+
+.section-title {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.custom-table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+.table-input {
+  width: 100%;
+}
+
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.create-btn {
+  padding: 8px 20px;
+}

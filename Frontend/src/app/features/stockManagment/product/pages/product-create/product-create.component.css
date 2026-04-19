@@ -1,0 +1,173 @@
+/* ===== PAGE ===== */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f0f4f8;
+  padding: 32px 16px;
+}
+
+/* ===== CARD ===== */
+.card {
+  width: 100%;
+  max-width: 680px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08);
+  animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HEADER ===== */
+.card-header {
+  background: linear-gradient(135deg, #1a56db, #3b82f6);
+  padding: 28px 32px 24px;
+  color: #fff;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  background: #4ade80;
+  border-radius: 50%;
+}
+
+.card-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.card-header p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+/* ===== FORM BODY ===== */
+.form-body {
+  padding: 28px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #9ca3af;
+  margin: 0 0 16px;
+}
+
+.section-label:not(:first-child) {
+  margin-top: 8px;
+}
+
+/* ===== GRID ===== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 14px;
+  margin-bottom: 4px;
+}
+
+.full {
+  width: 100%;
+}
+
+/* ===== FIELD + ADD BUTTON ===== */
+.field-with-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-with-action .full {
+  flex: 1;
+}
+
+.add-btn {
+  width: 42px  ;
+  height: 42px  ;
+  flex-shrink: 0;
+  border: 1.5px solid #e5e7eb  ;
+  border-radius: 10px  ;
+  background: #fff  ;
+  color: #6b7280  ;
+  transition: all 0.2s ease  ;
+}
+
+.add-btn:hover {
+  border-color: #3b82f6  ;
+  background: #eff6ff  ;
+  color: #3b82f6  ;
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 20px 0;
+}
+
+/* ===== ACTIONS ===== */
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary {
+  flex: 1;
+  height: 46px  ;
+  font-size: 14px  ;
+  font-weight: 600  ;
+  border-radius: 10px  ;
+  letter-spacing: 0.1px;
+  background-color: #1a56db;
+}
+
+.btn-back {
+  height: 46px  ;
+  padding: 0 22px  ;
+  font-size: 14px  ;
+  font-weight: 500  ;
+  border-radius: 10px  ;
+  border-color: #e5e7eb  ;
+  color: #374151  ;
+
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 560px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header,
+  .form-body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

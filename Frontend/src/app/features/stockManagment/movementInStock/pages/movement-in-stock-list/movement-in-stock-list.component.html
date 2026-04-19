@@ -1,0 +1,76 @@
+<mat-card class="product-card">
+
+    <mat-card-title>Movement In Stock List</mat-card-title>
+  
+   
+    <div class="Add-button">
+      
+      <button mat-raised-button color="primary" (click)="addMovmentInStock()">
+        Add 
+      </button>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        Back
+      </button>
+    </div>
+    <table mat-table [dataSource]="(movmentInStockList$ | async) || []" class="mat-elevation-z8">
+  
+      <!-- ID -->
+      <ng-container matColumnDef="movementInStockId">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.movementInStockId}} </td>
+      </ng-container>
+  
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.date}} </td>
+      </ng-container>
+  
+
+      <ng-container matColumnDef="movementInStockType">
+        <th mat-header-cell *matHeaderCellDef> movement In Stock Type </th>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.movementInStockType}}</td>
+      </ng-container>
+  
+
+      <ng-container matColumnDef="quantityInStock">
+        <th mat-header-cell *matHeaderCellDef> quantityInStock </th>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.quantityInStock}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="productVariantCode">
+        <th mat-header-cell *matHeaderCellDef> Product Variant Code </th>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.productVariant.code}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="unitSymbol">
+        <th mat-header-cell *matHeaderCellDef> unit Symbol </th>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.unit.symbol}} </td>
+      </ng-container>
+      
+      
+  
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let movementInStock">
+         
+          <!-- Edit -->
+          <button mat-icon-button matTooltip="Edit" class="btn-edit" (click)="editMovmentInStock(movementInStock.movementInStockId)">
+            <img src="https://cdn-icons-png.flaticon.com/512/764/764599.png" alt="edit" width="20" height="20">
+          </button>
+      
+          <!-- Delete -->
+          <button mat-icon-button matTooltip="Delete" class="btn-delete" (click)="deleteMovmentInStock(movementInStock.movementInStockId)">
+            <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="delete" width="20" height="20">
+          </button>
+      
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+  
+  </mat-card>

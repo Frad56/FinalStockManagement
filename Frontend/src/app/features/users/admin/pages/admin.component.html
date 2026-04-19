@@ -1,0 +1,225 @@
+
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></head>
+<mat-drawer-container class="container">
+
+  <mat-drawer #drawer mode="side" opened class="sidenav">
+
+    <h3 class="menu-title">Menu</h3>
+
+    <!-- STOCK MANAGEMENT -->
+    <button mat-raised-button  class="par-btn" color="primary"
+            (click)="showStockManagment = !showStockManagment">
+      Stock Management
+    </button>
+
+    <div *ngIf="showStockManagment" class="submenu">
+
+        <button class="par-enf-btn"  color="primary"
+              (click)="showProductManagment = !showProductManagment">
+        Product Management
+        </button>
+            <div *ngIf="showProductManagment" class="submenu">
+                <button class="enf-btn"  (click)="getProducts()">
+                Products List
+                </button>
+            </div>
+
+        <button class="par-enf-btn" color="primary"
+            (click)="showCategoryManagment = !showCategoryManagment">
+            Category Management
+            </button>
+            <div *ngIf="showCategoryManagment" class="submenu">
+                <button class="enf-btn" (click)="getProducts()">
+                  Category List
+                </button>
+          
+            </div>
+          <button class="par-enf-btn" color="primary"
+            (click)="showUnitManagment = !showUnitManagment">
+            Unit Management
+            </button>
+            <div *ngIf="showUnitManagment" class="submenu">
+                <button class="enf-btn" (click)="allUnits()">
+                 Unit List
+                </button>
+                <button class="enf-btn" (click)="addUnit()">
+                  add Unit 
+                 </button>
+          
+            </div>    
+      
+
+
+      
+        <!-- Add Product supplier  -->
+        <button mat-button (click)="addProductSupplier()">
+          Add Product Supplier
+        </button>
+        <!-- Characteristic MANAGEMENT -->
+        <button class="par-enf-btn" color="primary"
+          (click)="showcharacteristicManagment = !showcharacteristicManagment">
+          Characteristic  Managment
+          </button>
+
+              <div *ngIf="showcharacteristicManagment" class="submenu">
+
+                  <button class="enf-btn" (click)="addCharacteristic()">
+                    Add Characteristic
+                  </button>
+                  <button class="enf-btn" (click)="allCharacteristic()" >
+                    Characteristic List
+                  </button>
+
+              </div>
+
+      <!-- Aisle MANAGEMENT -->
+      <button class="par-enf-btn" color="primary"
+          (click)="showAisleManagment = !showAisleManagment">
+                Aisle Managment
+          </button>
+
+          <div *ngIf="showAisleManagment" class="submenu">
+
+              <button class="enf-btn"(click)="addAisle()">
+                Add Aisle
+              </button>
+              <button class="enf-btn"(click)="allAisle()">
+                  Aisle List
+              </button>
+          </div>
+
+      <!-- ProductUnitsale MANAGEMENT -->
+     <button class="par-enf-btn" color="primary"
+      (click)="showProductUnitsaleManagment = !showProductUnitsaleManagment">
+        Product Unit sale Management
+        </button>
+ 
+         <div *ngIf="showProductUnitsaleManagment" class="submenu">
+ 
+         <button class="enf-btn" (click)="addProductUnitsale()">
+         Add Product Unit sale
+         </button>
+ 
+         <button class="enf-btn" (click)="allProductUnitsale()">
+         All Product Unit sale
+         </button>
+ 
+     </div>
+
+     
+       <!--   ProductVariant Managment   -->
+      <button class="par-enf-btn" color="primary"
+       (click)="showProductVariantManagment = !showProductVariantManagment">
+       Product Variant Management
+           </button>
+   
+           <div *ngIf="showProductVariantManagment" class="submenu">
+   
+           <button class="enf-btn" (click)="addProductVariant()">
+           Add Product Variant
+           </button>
+   
+           <button class="enf-btn" (click)="allProductVariant()">
+           All Product Variant
+          </button>
+   
+       </div>
+       <!-- Unit MANAGEMENT -->
+       <button class="par-enf-btn" color="primary"
+        (click)="showUnitManagment = !showUnitManagment">
+        Unit Management
+        </button>
+
+        <div *ngIf="showUnitManagment" class="submenu">
+
+          <button class="enf-btn"(click)="addUnit()">
+          Add Unit
+          </button>
+
+          <button class="enf-btn" (click)="allUnits()">
+          All Units
+          </button>
+
+         </div>
+
+    </div>
+      
+
+
+    <!-- USER MANAGEMENT -->
+    <button mat-raised-button  class="par-btn" color="primary"
+            (click)="showUserManagment = !showUserManagment">
+      User Management
+    </button>
+
+    <div *ngIf="showUserManagment" class="submenu">
+
+      <button class="enf-btn" (click)="signUp()">
+        Add User
+      </button>
+
+    </div>       
+      
+
+
+    <!-- SUPPLIER MANAGEMENT -->
+    <button mat-raised-button  class="par-btn" color="primary"
+            (click)="showSupplierManagment = !showSupplierManagment">
+      Supplier Management
+    </button>
+
+    <div *ngIf="showSupplierManagment" class="submenu">
+
+      <button class="enf-btn" (click)="addSupplier()">
+        Add Supplier
+      </button>
+
+      <button class="enf-btn" (click)="allSuppliers()">
+        All Suppliers
+      </button>
+    </div>
+      
+    
+  
+        <!--MovmentInStock -->
+            <button mat-raised-button  class="par-btn"color="primary"
+            (click)="showMovmentInStockManagment = !showMovmentInStockManagment">
+            Movment In Stock Management
+            </button>
+        
+            <div *ngIf="showMovmentInStockManagment" class="submenu">
+        
+              <button class="enf-btn" (click)="addPurchaseOrder()">
+                Add Purchase Order
+                </button>
+          
+              <button class="enf-btn" (click)="allMovmentInStock()">
+                All Movment In Stock
+                </button>
+            </div>
+  </mat-drawer>
+
+<div class="cog-square">
+  <i class="fa-solid fa-gear" (click)="seeButtons()"></i>
+</div>
+
+
+<div *ngIf="showMenu" class="floating-menu">
+  <button mat-button (click)="changePassword()">Change Password</button>
+  <button mat-button (click)="logout()">Logout</button>
+</div>
+ 
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <button class="par-btn" mat-raised-button color="primary"
+            (click)="drawer.toggle()">
+       Menu
+    </button>
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</mat-drawer-container>

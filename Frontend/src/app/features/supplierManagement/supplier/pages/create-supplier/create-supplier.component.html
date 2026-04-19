@@ -1,0 +1,68 @@
+<h2 class="title">Create Supplier</h2>
+<div class="form-container">
+
+  <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="supplier-form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Company Name</mat-label>
+      <input matInput formControlName="companyName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contact Name</mat-label>
+      <input matInput formControlName="contactName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Fax</mat-label>
+      <input matInput formControlName="fax">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Postal Code</mat-label>
+      <input matInput formControlName="postalCode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Country</mat-label>
+      <input matInput formControlName="country">
+    </mat-form-field>
+
+   <!-- <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Select Products</mat-label>
+      <mat-select formControlName="productIds" multiple>
+        <ng-container *ngFor="let product of products">
+          <mat-option [value]="product.product_id">{{ product.name }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+-->
+   
+
+    <div class="button-group">
+        <button mat-raised-button color="primary" type="submit">
+          Create Supplier
+        </button>
+        <button type="button" class="back-button" mat-raised-button  color="primary"
+                  (click)="goBack()">
+          Back
+        </button>
+    </div>
+
+  </form>
+</div>

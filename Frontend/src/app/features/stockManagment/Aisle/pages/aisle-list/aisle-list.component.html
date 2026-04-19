@@ -1,0 +1,50 @@
+<mat-card class="aisle-card">
+
+    <mat-card-title>Aisle List</mat-card-title>
+  
+    <div class="Add-button">
+      <button mat-raised-button color="primary" (click)="addAisle()">
+        Add Aisle
+      </button>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        Back
+      </button>
+    </div>
+    <table mat-table [dataSource]="(aisles$ | async) || []" class="mat-elevation-z8">
+  
+      <!-- ID -->
+      <ng-container matColumnDef="aisleId">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let aisle"> {{aisle.aisleId}} </td>
+      </ng-container>
+  
+      <!-- name -->
+      <ng-container matColumnDef="aisleName">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let aisle"> {{aisle.name}} </td>
+      </ng-container>
+  
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let aisle">
+          
+          <!-- Edit -->
+          <button mat-icon-button matTooltip="Edit" class="btn-edit" (click)="editAisle(aisle.aisleId)">
+            <img src="https://cdn-icons-png.flaticon.com/512/764/764599.png" alt="edit" width="20" height="20">
+          </button>
+      
+          <!-- Delete -->
+          <button mat-icon-button matTooltip="Delete" class="btn-delete" (click)="deleteAisle(aisle.aisleId)">
+            <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="delete" width="20" height="20">
+          </button>
+      
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+  
+  </mat-card>

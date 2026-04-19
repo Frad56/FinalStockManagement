@@ -1,0 +1,27 @@
+<h2 class="title">Create Unit</h2>
+
+<div class="form-container">
+  <form [formGroup]="unitForm" (ngSubmit)="onSubmit()" class="form-card">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Unit Name</mat-label>
+      <input matInput formControlName="unitName" placeholder="Enter unit name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Unit Symbol</mat-label>
+      <input matInput formControlName="unitSymbol" placeholder="Enter unit symbol">
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button type="submit">
+        Create
+      </button>
+
+      <button mat-raised-button  type="button" (click)="goBack()">
+        Back
+      </button>
+    </div>
+
+  </form>
+</div>
