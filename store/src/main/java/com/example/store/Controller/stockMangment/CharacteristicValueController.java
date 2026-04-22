@@ -53,9 +53,18 @@ public class CharacteristicValueController {
     }
 
 
-//    @GetMapping("/allCharacteristicValuesByProductVariantId/{productVariantId}")
-//    public ResponseEntity<Map<String, String> > findCharacteristicValueByProductVariantId(@PathVariable("productVariantId")  Long productVariantId) {
-//        return ResponseEntity.ok(characteristicValueService.findCharacteristicValueByProductVariantId(productVariantId));
-//    }
+    @GetMapping("/allCharacteristicValuesByProductVariantId/{productVariantId}")
+    public ResponseEntity<Map<String, String> > findCharacteristicValueByProductVariantId(@PathVariable("productVariantId")  Long productVariantId) {
+        return ResponseEntity.ok(characteristicValueService.findCharacteristicValueByProductVariantId(productVariantId));
+    }
+
+    @PutMapping("/{id}/characteristics")
+    public ResponseEntity<String> updateCharacteristics(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> values) {
+        characteristicValueService.updateCharacteristicValues(id, values);
+
+        return ResponseEntity.ok("Updated successfully");
+    }
 
 }

@@ -10,6 +10,12 @@ export class PurchaseOrderLine{
     productVariant!:ProductVariant;
     unit!:Unit;
     quantity!:number;
-    unitPrice!:number;
-    discount!:number;
+    discount!:string;
+    unitPriceHt!:number;
+    unitPriceTTC!:number;
+    totalHT!:number;
+    totalTTC!:number;
+    tax!:number;
+    total!:number;
+  
 }

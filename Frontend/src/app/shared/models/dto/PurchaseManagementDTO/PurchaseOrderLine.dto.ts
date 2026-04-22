@@ -1,9 +1,23 @@
-import Decimal from "decimal.js";
+
 
 export interface PurchaseOrderLineDTO{
 
     purchaseOrderId:number;
     productVariantId:number;
+    unitId:number;
+
     quantity:number;
-    unitPrice:number;
+    discount:string;
+
+    unitPriceHt:number;
+    unitPriceTTC:number;
+
+    totalHT:number;
+    totalTTC:number;
+
+    tax:number;
+    total:number;
+
+
+
 }

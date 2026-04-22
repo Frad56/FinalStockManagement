@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
 import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
 import Swal from 'sweetalert2';
+import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
 
 @Component({
   selector: 'app-product-variant-list',
@@ -26,18 +28,42 @@ export class ProductVariantListComponent  implements OnInit{
 private location = inject(Location);
 private router = inject(Router);
 private productVariantService = inject(ProductVariantService);
-productVariants$ !:Observable<ProductVariant[]>;
-displayedColumns: string[] = ['productVariantId', 'code', 'specificPrice', 'quantityInStock', 'productId','actions'];
+private characteristicValueService = inject(CharacteristicValueService);
+productVariants :ProductVariant[] =[];
+displayedColumns: string[] = ['productVariantId', 'code', 'specificPrice', 'quantityInStock', 'productId','charcteristic','actions'];
+
 
 loadProductVariants(){
-  this.productVariants$ = this.productVariantService.getProductVariant();
-
+  this.productVariantService.getProductVariant().subscribe({
+    next:(variants)=>{
+      console.log("Product Variants:", variants);
+      this.productVariants= variants;
+      variants.forEach(productVariant => {
+        this.loadCharacteristics(productVariant.productVariantId);
+      });
+    },
+    error:(error)=>{
+      console.error("Error fetching product variants:", error);
+    }
+  });
 }
 
 ngOnInit(): void {
   this.loadProductVariants();
 }
 
+characteristicsMap: { [key: number]: any } = {};
+loadCharacteristics(productVariantId: number){
+  this.characteristicValueService.findCharacteristicValueListByProductVariantId(productVariantId).subscribe({
+    next:(response)=>{
+      console.log("Characteristic Values for Product Variant ID", productVariantId, ":", response);
+      this.characteristicsMap[productVariantId] = response;
+    },
+    error:(error)=>{
+      console.error("Error fetching characteristic values for Product Variant ID", productVariantId, ":", error);
+    }
+  });
+}
 
 editProductVariant(id:number){
   this.router.navigate(['/admin/productVariant/edit-productVariant',id]);

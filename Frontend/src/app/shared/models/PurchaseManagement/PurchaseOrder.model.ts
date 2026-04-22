@@ -3,6 +3,7 @@ import { Supplier } from "../SupplierManagement/Suplier.model";
 import { Status } from "../enum/status";
 
 
+
 export class PurchaseOrder{
 
     purchaseOrderId!:number;

@@ -22,6 +22,8 @@ public interface CharacteristicValueService {
 
     List<CharacteristicValue>  saveAll(List<CharacteristicValueDTO> characteristicValues);
 
-   // Map<String, String> findCharacteristicValueByProductVariantId(Long productVariantId);
+   Map<String, String> findCharacteristicValueByProductVariantId(Long productVariantId);
+
+    void updateCharacteristicValues(Long productVariantId, Map<String, String> newValues);
 
 }

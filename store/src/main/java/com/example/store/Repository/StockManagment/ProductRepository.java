@@ -1,11 +1,10 @@
 package com.example.store.Repository.StockManagment;
 
 import com.example.store.Model.StockMangement.Aisle;
-import com.example.store.Model.StockMangement.Category;
 import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.StockMangement.ProductVariant;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Repository;
 
 

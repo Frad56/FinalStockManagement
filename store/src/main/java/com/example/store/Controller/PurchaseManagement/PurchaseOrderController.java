@@ -38,6 +38,11 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.findPurchaseOrderById(purchaseOrderId));
     }
 
+    @GetMapping("/listNotDelivered")
+    public ResponseEntity<List<PurchaseOrder>> findPurchaseOrderListNotDelivered(){
+        return ResponseEntity.ok(purchaseOrderService.findPurchaseOrderListNotDelivered());
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<PurchaseOrder> updatePurchaseOrder(

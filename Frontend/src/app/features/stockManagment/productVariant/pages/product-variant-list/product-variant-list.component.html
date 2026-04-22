@@ -13,7 +13,7 @@
         Back
       </button>
     </div>
-    <table mat-table [dataSource]="(productVariants$ | async) || []" class="mat-elevation-z8">
+    <table mat-table [dataSource]="productVariants|| []" class="mat-elevation-z8">
   
       <!-- ID -->
     <ng-container matColumnDef="productVariantId">
@@ -42,6 +42,21 @@
         <td mat-cell *matCellDef="let productVariant"> {{productVariant.product.reference}} </td>
     </ng-container>
 
+
+    <ng-container matColumnDef="charcteristic">
+      <th mat-header-cell *matHeaderCellDef> charcteristic  </th>
+      <td mat-cell *matCellDef="let productVariant" >
+        <div *ngIf="characteristicsMap[productVariant.productVariantId]" >
+          <div *ngFor="let c of characteristicsMap[productVariant.productVariantId] | keyvalue">
+            {{ c.key }} : {{ c.value }}
+          </div>
+        </div>
+      
+      
+      </td>
+  </ng-container>
+
+ 
     <!-- Actions -->
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>

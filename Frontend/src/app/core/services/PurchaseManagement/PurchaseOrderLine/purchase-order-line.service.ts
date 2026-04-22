@@ -17,8 +17,12 @@ export class PurchaseOrderLineService {
     return this.http.get<PurchaseOrderLine[]>(`${this.apiUrl}/listPurchaseOrderLine`);
   }
 
-  addPurchaseOrderLine(purchaseOrderLineDTO : PurchaseOrderLineDTO):Observable<PurchaseOrderLine>{
-    return this.http.post<PurchaseOrderLine>(`${this.apiUrl}/addPurchaseOrderLine`,purchaseOrderLineDTO)
+  addPurchaseOrderLineWithoutPercentage(purchaseOrderLineDTO : PurchaseOrderLineDTO):Observable<PurchaseOrderLine>{
+    return this.http.post<PurchaseOrderLine>(`${this.apiUrl}/addPurchaseOrderLineWithoutPercentage`,purchaseOrderLineDTO)
+  }
+
+  addPurchaseOrderLineWithPercentage(purchaseOrderLineDTO : PurchaseOrderLineDTO):Observable<PurchaseOrderLine>{
+    return this.http.post<PurchaseOrderLine>(`${this.apiUrl}/addPurchaseOrderLineWithPercentage`,purchaseOrderLineDTO)
   }
 
   findPurchaseOrderLineById(id:number):Observable<PurchaseOrderLine>{
@@ -35,8 +39,20 @@ export class PurchaseOrderLineService {
 
   //addPurchaseOrderLineList
   //PurchaseOrderLineCreateRequest
-  addpurchaseOrderLineList(purchaseOrderLineRq : PurchaseOrderLineRequest[]):Observable<{ message: string }>{
-    return this.http.post<{ message: string }>(`${this.apiUrl}/addPurchaseOrderLineList`,purchaseOrderLineRq)
+  addPurchaseOrderLineListWithPercentage(purchaseOrderLineRq : PurchaseOrderLineDTO[]):Observable<{ message: string }>{
+    return this.http.post<{ message: string }>(`${this.apiUrl}/addPurchaseOrderLineListWithPercentage`,purchaseOrderLineRq)
   }
 
+  addPurchaseOrderLineListWithoutPercentage(purchaseOrderLineRq : PurchaseOrderLineDTO[]):Observable<{ message: string }>{
+    return this.http.post<{ message: string }>(`${this.apiUrl}/addPurchaseOrderLineListWithoutPercentage`,purchaseOrderLineRq)
+  }
+
+  totalOfPurchaseOrder(purchaseOrderId: number): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>( `${this.apiUrl}/totalAmountOfPurchaseOrder/${purchaseOrderId}`,{});
+  }
+
+
+  deletePurchaseOrderLineByPurchaseOrderId(purchaseOrderId:number):Observable<string>{
+    return this.http.delete<string>(`${this.apiUrl}/deleteByPurchaseOrder/${purchaseOrderId}`);
+  }
 }

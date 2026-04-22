@@ -168,7 +168,9 @@ signUp(){
         this.router.navigate(['/admin/movementInStock/movementInStock-list']);
     
       }
-
+      NotDeliveredPurchaseOrders(){
+        this.router.navigate(['/admin/purchase-order/not-delivered-purchase-orders']);
+      }
       addPurchaseOrder(){
         this.router.navigate(['/admin/purchase-order/add-purchase-order']);
 

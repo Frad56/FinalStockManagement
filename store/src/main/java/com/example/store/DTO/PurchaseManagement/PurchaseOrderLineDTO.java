@@ -12,8 +12,13 @@ public class PurchaseOrderLineDTO {
 
     private Long purchaseOrderId;
     private Long productVariantId;
-   // private Long unitId;
+    private Long unitId;
     private BigDecimal quantity;
-    private BigDecimal unitPrice;
-  //  private BigDecimal discount;
+    private String discount;
+    private BigDecimal unitPriceHt;
+    private BigDecimal unitPriceTTC;
+    private BigDecimal totalHT;
+    private BigDecimal totalTTC;
+    private BigDecimal tax;
+    private BigDecimal total;
 }

@@ -189,9 +189,14 @@
         
             <div *ngIf="showMovmentInStockManagment" class="submenu">
         
-              <button class="enf-btn" (click)="addPurchaseOrder()">
+                <button class="enf-btn" (click)="addPurchaseOrder()">
                 Add Purchase Order
                 </button>
+
+                <button class="enf-btn" (click)="NotDeliveredPurchaseOrders()">
+                Edit Purchase Order 
+                </button>
+                
           
               <button class="enf-btn" (click)="allMovmentInStock()">
                 All Movment In Stock

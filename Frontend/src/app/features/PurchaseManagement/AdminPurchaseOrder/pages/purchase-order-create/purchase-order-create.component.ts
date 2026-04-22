@@ -23,6 +23,7 @@ import { PurchaseOrderLineService } from '../../../../../core/services/PurchaseM
 import { PurchaseOrderLineRequest } from '../../../../../shared/models/Request/PurchaseOrderLineRequest';
 import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
+import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
 
 @Component({
   selector: 'app-purchase-order-create',
@@ -46,8 +47,7 @@ export class PurchaseOrderCreateComponent {
   private productService = inject(ProductService);
   private fb = inject(FormBuilder);
   private location = inject(Location);
-
-
+  
   protected suppliers$!:Observable<Supplier[]>;
   protected unitList$!:Observable<Unit[]>;
   private unitService = inject(UnitService);
@@ -58,10 +58,11 @@ export class PurchaseOrderCreateComponent {
   hasTyped = false;
 
   purchaseOrderForm = this.fb.group({
-    supplierId: [, Validators.required],
+    supplierId: [null,Validators.required],
     totalAmount: [],
     searchValue:[''],
-    unitPriceSelection:[],
+    unitPriceSelection:['TTC'],
+    discountType:['fixed'],
     lines: this.fb.array([])
   });
 
@@ -74,19 +75,20 @@ export class PurchaseOrderCreateComponent {
     .subscribe((value) => {
       this.hasTyped = value!.trim().length > 0;
       this.searchProducts();
-     if(!this.hasTyped){
+    if(!this.hasTyped){
       this.filteredProducts = [];
-     }
+    }
     });
     this.VariantsSelected$.subscribe(variants => {
       this.lines.clear(); 
       variants.forEach(variant => {
         this.lines.push(this.fb.group({
           productVariantId: [variant.productVariantId],
-          quantity: [0],
-          unitPrice: [0],
-          discount: [0],
-          unitId:[]
+          quantity: [null,Validators.required],
+          unitPrice: [null,Validators.required],
+          discount: ['0'],
+          unitId:[null],
+          tax: [null,Validators.required]
         }));
       });
   
@@ -288,8 +290,7 @@ export class PurchaseOrderCreateComponent {
   removeVariantSelected(variantId: number) {
     this.productVariantService.removeVariantSelected(variantId);
   }
-  unitPriceSelection:string = 'Unit_price_including_tax(TTC)';
-  displayedColumns: string[] = [ 'Product_designation','Product_variant_code','Product_reference','Product_quantity','Product_Unit','discount','Unit_Price','delete'];
+  displayedColumns: string[] = [ 'Product_designation','Product_variant_code','Product_reference','Product_quantity','Product_Unit','discount','Unit_Price','tax','delete'];
   /*
   updateColumns(): void {
     if (this.unitPriceSelection === 'Unit_price_including_tax(TTC)') {
@@ -325,29 +326,71 @@ export class PurchaseOrderCreateComponent {
 
   savePurchaseOrder(){
     const purchaseOrder = this.mapfbToPurchaseOrderDTO();
+ 
     this.purchaseOrderService.addPurchaseOrder(purchaseOrder).subscribe({
       next:(response)=>{
         console.log("first step of creatation PurchaseOrder successful")
         this.purchaseOrderId= response.purchaseOrderId;
         alert("ADD PurchaseOrder")
-        const lines = this.lines.value.map((line:any) => ({
-          productVariantId: line.productVariantId,
-          quantity: line.quantity,
-          unitPrice: line.unitPrice,
-          discount: line.discount,
-          purchaseOrderId: this.purchaseOrderId
-        }));
+        const priceType = this.purchaseOrderForm.get('unitPriceSelection')?.value;
+        const discountType=this.purchaseOrderForm.get('discountType')?.value;
+        const lines = this.lines.value.map((line:any) => {
+
+          let unitPriceHT: number | null = null;
+          let unitPriceTTC: number | null = null;
+      
+          if (priceType === 'TTC') {
+            unitPriceTTC = line.unitPrice;
+          } else {
+            unitPriceHT = line.unitPrice;
+          }
+          return {
+            productVariantId: line.productVariantId,
+            purchaseOrderId: this.purchaseOrderId,
+            unitId: line.unitId,
+            quantity: line.quantity,
+            discount: line.discount,
+            unitPriceHt: unitPriceHT,
+            unitPriceTTC: unitPriceTTC,
+            tax: line.tax,
+          };
+          
+        });
         console.log("LINES TO SEND:", lines);
-        this.purchseOrderLineService.addpurchaseOrderLineList(lines).subscribe({
+        if(discountType && discountType === 'percentage' ){
+          this.purchseOrderLineService.addPurchaseOrderLineListWithPercentage(lines).subscribe({
+            next:(res)=>{
+              console.log("purchaseOrderListe added Suceefully");
+              
+              this.productVariantService.resetVariantSelectedList();
+              this.lines.clear(); 
+            },
+            error:(err)=>{
+              console.log("Error in add PurchaseOrderList");
+            }
+          })
+        }
+        if(discountType && discountType === 'fixed' ){
+          this.purchseOrderLineService.addPurchaseOrderLineListWithoutPercentage(lines).subscribe({
+            next:(res)=>{
+              console.log("purchaseOrderListe added Suceefully");
+              this.productVariantService.resetVariantSelectedList();
+              this.lines.clear(); 
+            },
+            error:(err)=>{
+              console.log("Error in add PurchaseOrderList");
+            }
+          })
+        }
+        this.purchseOrderLineService.totalOfPurchaseOrder(this.purchaseOrderId).subscribe({
           next:(res)=>{
-            console.log("purchaseOrderListe added Suceefully");
-            this.productVariantService.resetVariantSelectedList();
-            this.lines.clear(); 
+            console.log("Total amount of PurchaseOrder updated successfully");
           },
           error:(err)=>{
-            console.log("Error in add PurchaseOrderList");
-          }
-        })
+            console.log("Error in updating total amount of PurchaseOrder");
+       }
+       })
+        
       },
       error:(err) => {
         alert("Error for creatation PurchaseOrder ")

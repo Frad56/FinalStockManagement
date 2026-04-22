@@ -10,6 +10,7 @@ import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderServ
 import com.example.store.Service.supplierManagement.SupplierService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.example.store.Model.PurchaseManagement.Status.PENDING;
@@ -43,11 +44,34 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         purchaseOrder.setStatus(PENDING);
         return purchaseOrderRepository.save(purchaseOrder);
     }
+
+    @Override
+    public PurchaseOrder updatePurchaseOrderTotalAmount(PurchaseOrder purchaseOrder){
+        return purchaseOrderRepository.save(purchaseOrder);
+    }
+
+
+
     @Override
     public PurchaseOrder findPurchaseOrderById(Long purchaseOrderId){
         return purchaseOrderRepository.findById(purchaseOrderId).orElseThrow(()->
                 new ElementNotFoundException(purchaseOrderId));
     }
+
+
+    @Override
+    public PurchaseOrder setTotalAmountOrderById(Long purchaseOrderId, BigDecimal totalAmount){
+       PurchaseOrder purchaseOrder = findPurchaseOrderById(purchaseOrderId);
+       purchaseOrder.setTotalAmount(totalAmount);
+       return purchaseOrderRepository.save(purchaseOrder);
+
+    }
+
+    @Override
+    public List<PurchaseOrder> findPurchaseOrderListNotDelivered(){
+        return purchaseOrderRepository.findPurchaseOrderListNotDelivered();
+    }
+
     @Override
     public List<PurchaseOrder> fetchPurchaseOrderList(){
         return purchaseOrderRepository.findAll();

@@ -78,3 +78,21 @@ button:hover {
  z-index: 9999;
  animation: slideIn 0.3s ease;
 }
+
+
+.header-title {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

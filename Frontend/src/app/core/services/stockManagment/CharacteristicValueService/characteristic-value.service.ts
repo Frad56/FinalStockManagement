@@ -37,6 +37,13 @@ export class CharacteristicValueService {
   saveAllCharacteristicValue(characteristics : CharacteristicValueDTO[]):Observable<CharacteristicValue[]>{
     return this.http.post<CharacteristicValue[]>(`${this.apiUrl}/save-all`,characteristics);
   }
+
+
+  findCharacteristicValueListByProductVariantId(productVariantId: number):Observable<Record<string, string>> {
+  return this.http.get<Record<string, string>>(`${this.apiUrl}/allCharacteristicValuesByProductVariantId/${productVariantId}`);
+  }
+
+
 /*
   findCharacteristicValueByProductVariantId(productVariantId:number):Observable<{characteristicName:String,characteristicValue:String}[]>{
     return this.http.get<{characteristicName:String,characteristicValue:String}[]>(`${this.apiUrl}/allCharacteristicValuesByProductVariantId/${productVariantId}`);

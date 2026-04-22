@@ -2,15 +2,14 @@ package com.example.store.Service.PurchaseManagement.interfaces;
 
 
 import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
-import com.example.store.DTO.PurchaseManagement.request.PurchaseOrderLineListRequest;
-import com.example.store.DTO.PurchaseManagement.request.PurchaseOrderLineRequest;
 import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
 
 import java.util.List;
 
 public interface PurchaseOrderLineService {
 
-    PurchaseOrderLine savePurchaseOrderLine(PurchaseOrderLineDTO purchaseOrderLineDTO);
+    public PurchaseOrderLine savePurchaseOrderLineWithPercentage(PurchaseOrderLineDTO purchaseOrderDTO);
+    public PurchaseOrderLine savePurchaseOrderLineWithoutPercentage(PurchaseOrderLineDTO purchaseOrderDTO);
 
     PurchaseOrderLine findPurchaseOrderLineById(Long purchaseOrderLineId);
 
@@ -20,5 +19,11 @@ public interface PurchaseOrderLineService {
 
     void deletePurchaseOrderLineById(Long purchaseOrderLineId);
 
-    void saveListOfPurchaseOrder(List<PurchaseOrderLineRequest> purchaseOrderLineCreateRequests);
+    void saveListOfPurchaseOrderIfDiscountWithoutPercentage(List<PurchaseOrderLineDTO> purchaseOrderLineCreateRequests);
+
+    void saveListOfPurchaseOrderIfDiscountWithPercentage(List<PurchaseOrderLineDTO> purchaseOrderLineCreateRequests);
+
+    void totalAmountOfPurchaseOrder(Long purchaseOrderId);
+
+    void deleteByPurchaseOrder(Long purchaseOrderId);
 }

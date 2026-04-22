@@ -2,7 +2,6 @@ package com.example.store.Controller.PurchaseManagement;
 
 
 import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
-import com.example.store.DTO.PurchaseManagement.request.PurchaseOrderLineRequest;
 import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
 import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderLineService;
 import jakarta.validation.Valid;
@@ -23,9 +22,14 @@ public class PurchaseOrderLineController {
         this.purchaseOrderLineService=purchaseOrderLineService;
     }
 
-    @PostMapping("/addPurchaseOrderLine")
-    public ResponseEntity<PurchaseOrderLine> addPurchaseOrderLine(@Valid @RequestBody PurchaseOrderLineDTO purchaseOrderLineDTO){
-        return ResponseEntity.ok(purchaseOrderLineService.savePurchaseOrderLine(purchaseOrderLineDTO));
+    @PostMapping("/addPurchaseOrderLineWithoutPercentage")
+    public ResponseEntity<PurchaseOrderLine> addPurchaseOrderLineWithoutPercentage(@Valid @RequestBody PurchaseOrderLineDTO purchaseOrderLineDTO){
+        return ResponseEntity.ok(purchaseOrderLineService.savePurchaseOrderLineWithoutPercentage(purchaseOrderLineDTO));
+    }
+
+    @PostMapping("/addPurchaseOrderLineWithPercentage")
+    public ResponseEntity<PurchaseOrderLine> addPurchaseOrderLineWithPercentage(@Valid @RequestBody PurchaseOrderLineDTO purchaseOrderLineDTO){
+        return ResponseEntity.ok(purchaseOrderLineService.savePurchaseOrderLineWithPercentage(purchaseOrderLineDTO));
     }
 
     @GetMapping("/listPurchaseOrderLine")
@@ -58,10 +62,29 @@ public class PurchaseOrderLineController {
     }
 
 
-    @PostMapping("/addPurchaseOrderLineList")
-    public ResponseEntity<Map<String,String>> addPurchaseOrderLineList(@Valid @RequestBody List<PurchaseOrderLineRequest>  purchaseOrderLineCreateRequest){
-        purchaseOrderLineService.saveListOfPurchaseOrder(purchaseOrderLineCreateRequest);
+    @PostMapping("/addPurchaseOrderLineListWithoutPercentage")
+    public ResponseEntity<Map<String,String>> addPurchaseOrderLineListWithoutPercentage(@Valid @RequestBody List<PurchaseOrderLineDTO>  purchaseOrderLineCreateRequest){
+        purchaseOrderLineService.saveListOfPurchaseOrderIfDiscountWithoutPercentage(purchaseOrderLineCreateRequest);
         return ResponseEntity.ok(Map.of("message","List Of PurchaseOrder added Successfully"));
+    }
+
+    @PostMapping("/addPurchaseOrderLineListWithPercentage")
+    public ResponseEntity<Map<String,String>> addPurchaseOrderLineListWithPercentage(@Valid @RequestBody List<PurchaseOrderLineDTO>  purchaseOrderLineCreateRequest){
+        purchaseOrderLineService.saveListOfPurchaseOrderIfDiscountWithPercentage(purchaseOrderLineCreateRequest);
+        return ResponseEntity.ok(Map.of("message","List Of PurchaseOrder added Successfully"));
+    }
+
+    @PostMapping("/totalAmountOfPurchaseOrder/{id}")
+    public ResponseEntity<Map<String,String>> totalOfPurchaseOrder(@PathVariable("id") Long purchaseOrderId){
+        purchaseOrderLineService.totalAmountOfPurchaseOrder(purchaseOrderId);
+        return ResponseEntity.ok(Map.of("message","Total Price Updated Successfully"));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/deleteByPurchaseOrder/{id}")
+    public ResponseEntity<Map<String,String>> deleteByPurchaseOrder(@PathVariable("id") Long purchaseOrderId) {
+        purchaseOrderLineService.deleteByPurchaseOrder(purchaseOrderId);
+        return ResponseEntity.ok(Map.of("message", "Deleted Successfully"));
     }
 
 }

@@ -16,6 +16,10 @@ export class PurchaseOrderService {
     return this.http.get<PurchaseOrder[]>(`${this.apiUrl}/listPurchaseOrder`);
   }
 
+  getPurchaseOrderListNotDelivered():Observable<PurchaseOrder[]>{
+    return this.http.get<PurchaseOrder[]>(`${this.apiUrl}/listNotDelivered`);
+  }
+
   addPurchaseOrder(PurchaseOrderDTO : PurchaseOrderDTORequest):Observable<PurchaseOrder>{
     return this.http.post<PurchaseOrder>(`${this.apiUrl}/addPurchaseOrder`,PurchaseOrderDTO)
   
