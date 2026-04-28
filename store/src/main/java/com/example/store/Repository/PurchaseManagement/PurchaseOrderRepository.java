@@ -13,8 +13,6 @@ import java.util.List;
 public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder,Long> {
 
 
-
-
     @Query("SELECT po FROM PurchaseOrder po WHERE po.status <> 'DELIVERED'")
     List<PurchaseOrder> findPurchaseOrderListNotDelivered();
 }

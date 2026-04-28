@@ -15,7 +15,7 @@ export class PurchaseOrderService {
   getPurchaseOrderList():Observable<PurchaseOrder[]>{
     return this.http.get<PurchaseOrder[]>(`${this.apiUrl}/listPurchaseOrder`);
   }
-
+  
   getPurchaseOrderListNotDelivered():Observable<PurchaseOrder[]>{
     return this.http.get<PurchaseOrder[]>(`${this.apiUrl}/listNotDelivered`);
   }
@@ -40,5 +40,7 @@ export class PurchaseOrderService {
       this.id =productId
   }
  
+ 
+
 
 }

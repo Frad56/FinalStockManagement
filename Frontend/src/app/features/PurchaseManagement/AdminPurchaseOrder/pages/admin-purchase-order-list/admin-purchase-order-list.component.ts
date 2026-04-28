@@ -8,6 +8,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import Swal from 'sweetalert2';
+import { PurchaseOrderService } from '../../../../../core/services/PurchaseManagement/PurchaseOrder/purchase-order.service';
+import { PurchaseOrderLineService } from '../../../../../core/services/PurchaseManagement/PurchaseOrderLine/purchase-order-line.service';
+import { PurchaseOrder } from '../../../../../shared/models/PurchaseManagement/PurchaseOrder.model';
+import { Router } from '@angular/router';
 
 
 export interface ProductVariantItem {
@@ -28,74 +33,90 @@ export interface ProductVariantItem {
   styleUrl: './admin-purchase-order-list.component.css'
 })
 export class AdminPurchaseOrderListComponent {
+  private location = inject(Location);
+  private purchaseOrderService = inject(PurchaseOrderService);
+  private purchaseOrderLineService = inject(PurchaseOrderLineService);
 
-  selection: boolean[] = [];
-  protected productVariantSelectedList:ProductVariant[] = [];
-  private productVariantService =inject(ProductVariantService);
-  protected productVariants$!:Observable<ProductVariant[]>;
-  displayedColumns: string[] = ['productVariantId', 'code', 'specificPrice', 'quantityInStock', 'productId','select'];
+  protected purchaseOrders:PurchaseOrder[] =[];
+  displayedColumns: string[] = ['companyName', 'contactName', 'orderDate','totalAmount','actions'];
+
 
   ngOnInit(){
-    this.productVariants$ = this.productVariantService.variants$;
-    this.productVariants$.subscribe(data => {
-      this.selection = data.map(() => false);
-    });
-    console.log("Selection elememnts")
+    this.loadPurchaseOrders();
   }
-  setSelectedVariants(producVariant:ProductVariant): ProductVariant {
-     this.productVariantSelectedList.push(producVariant);
-     return producVariant;
+  loadPurchaseOrders(){
+    this.purchaseOrderService.getPurchaseOrderList().subscribe({
+      next:(response)=>{
+        console.log("Purchase Orders:", response);
+        this.purchaseOrders = response;
+      },
+      error:(error)=>{
+        console.error("Error fetching purchase orders:", error);
+      }
+    }) ;
   }
-  saveSelection(){
 
-    this.productVariantService.setVariantsSelected(this.productVariantSelectedList);
-    console.log("Selected variants saved successfully!", this.productVariantSelectedList);
-    this.goBack();
+  private router = inject(Router);
+
+  findPurchaseOrderLineListByOrderId(id:number){
+      this.purchaseOrderLineService.getListByPurchaseOrderId(id).subscribe({
+        next:(response)=>{
+          alert("edit!")
+          console.log("Purchase Orders:", response);
+        },
+        error:(error)=>{
+          console.error("Error fetching purchase orders:", error);
+        }
+      }) ;
   }
- 
-  toggle(index: number, element: ProductVariant): void {
-    //section contient true si il est selectionné et false sinon
-    this.selection[index] = !this.selection[index];
-  
-    if (this.selection[index]) {
-      const exists = this.productVariantSelectedList.some(
-        pv => pv.productVariantId === element.productVariantId
-      );
-  
-      if (!exists) {
-        this.productVariantSelectedList.push(element);
-        console.log("Current list:", this.productVariantSelectedList);
+  editPurchaseOrderLineList(id:number){
+    this.router.navigate(['/admin/purchase-order/edit-purchase-order-list',id]);
+  }
+
+  deletePurchaseOrder(id:number){
+    Swal.fire({
+      title: "Are you sure you want to delete this Purchase Order ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.purchaseOrderLineService.deletePurchaseOrderLineByPurchaseOrderId(id).subscribe({
+          next:(response)=>{
+            console.log("purchase Order Line ListDeleted! :",response)
+            this.purchaseOrderService.deletePurchaseOrder(id).subscribe({ 
+              next:(response)=>{
+                console.log("Deleted! :",response)
+                Swal.fire('Deleted!', 'The product Variant has been deleted.', 'success');
+                this.loadPurchaseOrders();
+              },error:(error)=>{
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: error.error?.message || 'An error occurred while deleting!'
+                });
+              }
+            });
+          },error:(error)=>{
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error.error?.message || 'An error occurred while deleting purchaseOrderLine!'
+            });
+          }
+        });
+        
       }
-  
-    } else {
-      this.productVariantSelectedList = this.productVariantSelectedList.filter(
-        pv => pv.productVariantId !== element.productVariantId
-      );
-      console.log("Current list:", this.productVariantSelectedList);
+    }) 
     }
-  }
-  
-  toggleAll(checked: boolean): void {
-    this.selection = this.selection.map(() => checked);
-  
-    this.productVariants$.subscribe(list => {
-      if (checked) {
-        this.productVariantSelectedList = [...list];
-      } else {
-        this.productVariantSelectedList = [];
-      }
-    });
-  }
-  
-  isAllSelected(): boolean {
-    return this.selection.every(v => v);
-  }
-  
-  isIndeterminate(): boolean {
-    return this.selection.some(v => v) && !this.isAllSelected();
-  }
-  private location = inject(Location);
-  goBack() {
+
+
+
+
+
+
+  goBack(){
     this.location.back();
   }
 }

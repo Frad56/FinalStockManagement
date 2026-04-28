@@ -40,6 +40,10 @@ export class CategoryService {
   findCategoriesWithoutProducts():Observable<Category[]>{
     return this.http.get<Category[]>(`${this.apiUrl}findCategoriesWithoutProducts`);
   }
+
+  findAllWithChildren():Observable<Category[]>{
+    return this.http.get<Category[]>(`${this.apiUrl}findAllWithChildren`);
+  }
   
   
 }

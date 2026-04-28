@@ -1,8 +1,10 @@
 package com.example.store.Service.PurchaseManagement.implementation;
 
 
+import com.example.store.DTO.PurchaseManagement.PurchaseOrderDTO;
 import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
 
+import com.example.store.DTO.stockManagment.MovementInStockDTO;
 import com.example.store.Exception.ElementNotFoundException;
 import com.example.store.Model.PurchaseManagement.PurchaseOrder;
 import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
@@ -12,13 +14,19 @@ import com.example.store.Model.StockMangement.Unit;
 import com.example.store.Repository.PurchaseManagement.PurchaseOrderLineRepository;
 import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderLineService;
 import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderService;
+import com.example.store.Service.stockManagment.interfaces.MovementInStockService;
 import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
 import com.example.store.Service.stockManagment.interfaces.UnitService;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
+
+import static com.example.store.Model.StockMangement.MovementInStockType.ENTRY;
 
 @Service
 public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
@@ -28,15 +36,18 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
     private final PurchaseOrderService purchaseOrderService;
     private final ProductVariantService productVariantService;
     private final UnitService unitService;
+    private final MovementInStockService movementInStockService;
 
     public PurchaseOrderLineServiceImpl(PurchaseOrderLineRepository  purchaseOrderLineRepository,
                                         PurchaseOrderService purchaseOrderService,
                                         ProductVariantService productVariantService,
-                                        UnitService unitService){
+                                        UnitService unitService,
+                                        MovementInStockService movementInStockService){
         this.purchaseOrderLineRepository=purchaseOrderLineRepository;
         this.purchaseOrderService=purchaseOrderService;
         this.productVariantService=productVariantService;
         this.unitService=unitService;
+        this.movementInStockService=movementInStockService;
     }
 
 
@@ -73,12 +84,19 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
 
     }
 
+
     private void mapDTOToPurchaseOrderLine(PurchaseOrderLineDTO purchaseOrderLineDTO, PurchaseOrderLine purchaseOrderLine) {
 
         ProductVariant pv = productVariantService.findProductVariantById(purchaseOrderLineDTO.getProductVariantId());
+        System.out.println("pv.getProductVariantId() = " + pv.getProductVariantId());
         purchaseOrderLine.setProductVariant(pv);
         PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseOrderLineDTO.getPurchaseOrderId());
+        System.out.println("purchaseOrder.getPurchaseOrderId() = " + purchaseOrder.getPurchaseOrderId());
         purchaseOrderLine.setPurchaseOrder(purchaseOrder);
+
+
+
+
 
         if (purchaseOrderLineDTO.getUnitId() != null) {
             Unit unit = unitService.findUnitById(purchaseOrderLineDTO.getUnitId());
@@ -90,10 +108,8 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
             throw new IllegalArgumentException("Quantity is required");
         }
 
-
-
-
         purchaseOrderLine.setQuantity(purchaseOrderLineDTO.getQuantity());
+
 
 
         if (purchaseOrderLineDTO.getUnitPriceHt() != null && purchaseOrderLineDTO.getUnitPriceTTC() != null) {
@@ -106,12 +122,11 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
             throw new IllegalArgumentException("Tax is required");
         }
 
+
         BigDecimal tax = purchaseOrderLineDTO.getTax().divide(BigDecimal.valueOf(100), 5, RoundingMode.HALF_UP);
         BigDecimal multiplier = BigDecimal.ONE.add(tax);
         purchaseOrderLine.setTax(purchaseOrderLineDTO.getTax());
         if (purchaseOrderLineDTO.getUnitPriceHt() != null) {
-
-
             purchaseOrderLine.setUnitPriceHt(purchaseOrderLineDTO.getUnitPriceHt());
             BigDecimal totalHt = purchaseOrderLineDTO.getUnitPriceHt().multiply(purchaseOrderLineDTO.getQuantity());
             purchaseOrderLine.setTotalHT(totalHt);
@@ -135,7 +150,6 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
             BigDecimal totalHt = unitPriceHt.multiply(purchaseOrderLineDTO.getQuantity());
             purchaseOrderLine.setTotalHT(totalHt);
         }
-
     }
 
 
@@ -146,7 +160,6 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
         PurchaseOrderLine purchaseOrder = new PurchaseOrderLine();
         mapDTOToPurchaseOrderLine(purchaseOrderDTO,purchaseOrder);
         //purchaseOrderLineRepository.save(purchaseOrder);
-
         calculateTotalIfDiscountWithPercentage(purchaseOrderDTO.getDiscount(),purchaseOrderDTO,purchaseOrder);
         return purchaseOrderLineRepository.save(purchaseOrder);
     }
@@ -176,12 +189,23 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
     public PurchaseOrderLine updatePurchaseOrderLine(PurchaseOrderLineDTO purchaseOrderLineDTO, Long purchaseOrderLineId){
         PurchaseOrderLine purchaseOrderLine = findPurchaseOrderLineById(purchaseOrderLineId);
         mapDTOToPurchaseOrderLine(purchaseOrderLineDTO,purchaseOrderLine);
+        if(purchaseOrderLineDTO.getDiscount() != null && !purchaseOrderLineDTO.getDiscount().trim().isEmpty()){
+            calculateTotalIfDiscountWithoutPercentage(purchaseOrderLineDTO,purchaseOrderLine);
+        }
         return purchaseOrderLineRepository.save(purchaseOrderLine);
     }
 
     @Override
     public void deletePurchaseOrderLineById(Long purchaseOrderLineId){
-        findPurchaseOrderLineById(purchaseOrderLineId);
+       PurchaseOrderLine purchaseOrderLine= findPurchaseOrderLineById(purchaseOrderLineId);
+       PurchaseOrder purchaseOrder = purchaseOrderLine.getPurchaseOrder();
+       BigDecimal totalAmountPurchaseOrder = purchaseOrder.getTotalAmount();
+        BigDecimal totalPurchaseOrderLine = purchaseOrderLine.getTotal();
+         if (totalAmountPurchaseOrder != null || totalPurchaseOrderLine != null) {
+                BigDecimal newTotalAmount = totalAmountPurchaseOrder.subtract(totalPurchaseOrderLine);
+                purchaseOrder.setTotalAmount(newTotalAmount);
+                purchaseOrderService.updatePurchaseOrderTotalAmount(purchaseOrder);
+         }
         purchaseOrderLineRepository.deleteById(purchaseOrderLineId);
     }
 
@@ -237,7 +261,9 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
         List<PurchaseOrderLine> purchaseOrderLines = purchaseOrderLineRepository.findByPurchaseOrder_PurchaseOrderId(purchaseOrderId);
         BigDecimal totalAmount = BigDecimal.ZERO;
         for (PurchaseOrderLine line : purchaseOrderLines) {
-            totalAmount = totalAmount.add(line.getTotal());
+            System.out.println("line.getTotal() = " + line.getTotal());
+            totalAmount=totalAmount.add(line.getTotal());
+            System.out.println("totalAmount = " + totalAmount);
         }
         purchaseOrder.setTotalAmount(totalAmount);
         purchaseOrderService.updatePurchaseOrderTotalAmount(purchaseOrder);
@@ -245,8 +271,21 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
 
 
     @Override
+    @Transactional
     public void deleteByPurchaseOrder(Long purchaseOrderId) {
         purchaseOrderService.findPurchaseOrderById(purchaseOrderId);
-        purchaseOrderLineRepository.deleteByPurchaseOrder_PurchaseOrderId(purchaseOrderId);
+        purchaseOrderLineRepository.deleteByPurchaseOrderId(purchaseOrderId);
+    }
+
+
+    @Override
+    public List<PurchaseOrderLine> findByPurchaseOrderLineByPurchaseOrderId(Long purchaseOrderId)
+    {
+        PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseOrderId);
+
+//        List<PurchaseOrderLine> list = purchaseOrderLineRepository.findByPurchaseOrder_PurchaseOrderId(purchaseOrderId);
+//
+//        System.out.println("SIZE = " + list.size());
+        return purchaseOrderLineRepository.findByPurchaseOrder_PurchaseOrderId(purchaseOrderId);
     }
 }

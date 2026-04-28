@@ -4,6 +4,7 @@ package com.example.store.Service.PurchaseManagement.interfaces;
 import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
 import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PurchaseOrderLineService {
@@ -26,4 +27,8 @@ public interface PurchaseOrderLineService {
     void totalAmountOfPurchaseOrder(Long purchaseOrderId);
 
     void deleteByPurchaseOrder(Long purchaseOrderId);
+
+
+    List<PurchaseOrderLine> findByPurchaseOrderLineByPurchaseOrderId(Long purchaseOrderId);
+
 }

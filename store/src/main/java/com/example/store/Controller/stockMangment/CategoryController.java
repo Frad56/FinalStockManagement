@@ -64,5 +64,11 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findCategoriesWithoutProducts());
     }
 
+    @GetMapping("/findAllWithChildren")
+    public ResponseEntity<List<Category>> findSubcategories()
+    {
+        return ResponseEntity.ok(categoryService.findAllWithChildren());
+    }
+
 
 }

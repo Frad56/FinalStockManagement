@@ -87,4 +87,8 @@ public class PurchaseOrderLineController {
         return ResponseEntity.ok(Map.of("message", "Deleted Successfully"));
     }
 
+    @GetMapping("/findByPurchaseOrder/{purchaseOrderId}")
+    public ResponseEntity<List<PurchaseOrderLine>> findListByPurchaseOrderDate(@PathVariable("purchaseOrderId") Long purchaseOrderId) {
+        return ResponseEntity.ok(purchaseOrderLineService.findByPurchaseOrderLineByPurchaseOrderId(purchaseOrderId));
+    }
 }

@@ -52,11 +52,36 @@
         <div class="field-with-action">
           <mat-form-field appearance="outline" class="full">
             <mat-label>Category</mat-label>
+          
             <mat-select formControlName="categoryId">
-              <mat-option *ngFor="let category of categorys | async"
-                          [value]="category.categoryId">
-                {{ category.name }}
-              </mat-option>
+          
+              <ng-container *ngFor="let parent of categorys | async">
+
+                <mat-option disabled class="parent-option">
+                  {{ parent.name }}
+                </mat-option>
+          
+        
+                <ng-container *ngFor="let child of parent.children">
+          
+                 
+                  <mat-option disabled class="child-option" *ngIf="child.children?.length">
+                    ├── {{ child.name }}
+                  </mat-option>
+          
+                  <mat-option
+                    *ngIf="!child.children || child.children.length === 0"
+                    [value]="child.categoryId"
+                    class="leaf-option">
+          
+                    └── {{ child.name }}
+          
+                  </mat-option>
+          
+                </ng-container>
+          
+              </ng-container>
+          
             </mat-select>
           </mat-form-field>
           <button mat-stroked-button

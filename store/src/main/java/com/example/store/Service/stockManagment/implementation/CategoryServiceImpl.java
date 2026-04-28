@@ -136,5 +136,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findCategoriesWithoutProducts(){
         return  categoryRepository.findCategoriesWithoutProducts();
     }
+
+    @Override
+    public List<Category> findAllWithChildren(){
+        return categoryRepository.findAllWithChildren();
+    }
 }
 

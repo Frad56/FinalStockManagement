@@ -10,13 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
-import { Category } from '../../../../../shared/models/StockManagment/Category.model';
 import { CategoryService } from '../../../../../core/services/stockManagment/categoryService/category.service';
 import { Location } from '@angular/common';
 import { AisleService } from '../../../../../core/services/stockManagment/aisleService/aisle.service';
 import { Aisle } from '../../../../../shared/models/StockManagment/Aisle.model';
 import { MatIcon } from '@angular/material/icon';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { FormStateService } from '../../../../../core/services/form-state.service';
 import {FormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -25,6 +24,7 @@ import { Characteristic } from '../../../../../shared/models/StockManagment/Char
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
 import Swal from 'sweetalert2';
+import { CategoryChildren } from '../../../../../shared/models/dto/stockManagmentDTO/CategoryChildren.dto';
 
 
 export interface CharacteristicItem {
@@ -52,7 +52,7 @@ export class ProductCreateComponent implements OnInit{
 
   
   private formStateService = inject(FormStateService);
-  categorys!:Observable<Category[]>;
+  categorys!:Observable<CategoryChildren[]>;
   aisles!:Observable<Aisle[]>;
   characteristics!:Observable<Characteristic[]>;
   private productService  = inject(ProductService);
@@ -86,7 +86,7 @@ export class ProductCreateComponent implements OnInit{
   });
 
   ngOnInit(){
-    this.categorys=this.categoryService.leafCategoryList();
+    this.categorys=this.categoryService.findAllWithChildren();
     this.aisles =this.aisleService.getAisles();
     console.log( "###########")
     console.log( this.categorys)

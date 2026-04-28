@@ -1,74 +1,62 @@
-<p>admin-purchase-order-list works!</p>
 
-<mat-card-title>Product Variant List</mat-card-title>
+<mat-card class="product-card">
 
-<div class="Add-button">
-  <button mat-raised-button color="primary" (click)="goBack()">
-    Back
+ 
+  <div class="Add-button">
+    
+  
+    <button mat-raised-button color="primary" (click)="goBack()">
+      Back
+    </button>
+  </div>
+  <table mat-table [dataSource]="purchaseOrders|| []" class="mat-elevation-z8">
+
+
+  <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef> Supplier company Name </th>
+      <td mat-cell *matCellDef="let purchaseOrder"> {{purchaseOrder.supplier.companyName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="contactName">
+      <th mat-header-cell *matHeaderCellDef> Supplier contact Name</th>
+      <td mat-cell *matCellDef="let purchaseOrder"> {{purchaseOrder.supplier.contactName}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="orderDate">
+      <th mat-header-cell *matHeaderCellDef> order Date </th>
+      <td mat-cell *matCellDef="let purchaseOrder"> {{purchaseOrder.orderDate}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="totalAmount">
+      <th mat-header-cell *matHeaderCellDef> total Amount  </th>
+      <td mat-cell *matCellDef="let purchaseOrder"> {{purchaseOrder.totalAmount}} </td>
+  </ng-container>
+
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let purchaseOrder">
+
+  <!-- Edit -->
+  <button mat-icon-button matTooltip="Edit" class="btn-edit"  (click)="editPurchaseOrderLineList(purchaseOrder.purchaseOrderId)">
+      <img src="https://cdn-icons-png.flaticon.com/512/764/764599.png" alt="edit" width="20" height="20" >
   </button>
-</div>
-<mat-checkbox
-  [checked]="isAllSelected()"
-  [indeterminate]="isIndeterminate()"
-  (change)="toggleAll($event.checked)">
-  Select All
-</mat-checkbox>
-<table mat-table [dataSource]="(productVariants$ | async) || []" class="mat-elevation-z8">
-  
-      <ng-container matColumnDef="productVariantId">
-          <th mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let productVariant"> {{productVariant.productVariantId}} </td>
-      </ng-container>
     
-      <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef> code </th>
-          <td mat-cell *matCellDef="let productVariant"> {{productVariant.code}} </td>
-      </ng-container>
+  <!-- Delete -->
+  <button mat-icon-button matTooltip="Delete" class="btn-delete" (click)="deletePurchaseOrder(purchaseOrder.purchaseOrderId)">
+    <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="delete" width="20" height="20">
+  </button>
     
-  
-      <ng-container matColumnDef="specificPrice">
-          <th mat-header-cell *matHeaderCellDef> specificPrice </th>
-          <td mat-cell *matCellDef="let productVariant"> {{productVariant.specificPrice}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="quantityInStock">
-          <th mat-header-cell *matHeaderCellDef> quantityInStock </th>
-          <td mat-cell *matCellDef="let productVariant"> {{productVariant.quantityInStock}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="productId">
-          <th mat-header-cell *matHeaderCellDef> Product  </th>
-          <td mat-cell *matCellDef="let productVariant"> {{productVariant.product.reference}} </td>
-      </ng-container>
-      
-      <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef> Select </th>
-        <td mat-cell *matCellDef="let element; let i = index">
-          <mat-checkbox
-            [checked]="selection[i] "
-            (change)="toggle(i,element)">
-          </mat-checkbox>
-        </td>
-      </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-      </table>
-      <button mat-raised-button color="accent" (click)="saveSelection()">
-        Save Selected
-        
-      </button>
-      <div *ngIf="productVariantSelectedList.length > 0">
-        <h3>Selected Variants:</h3>
-      
-        <ul>
-          <li *ngFor="let variant of productVariantSelectedList">
-            {{ variant.productVariantId }} - {{ variant.code }}
-          </li>
-        </ul>
-      </div>
-      <div *ngIf="productVariantSelectedList.length == 0">
-        empty List 
-    </div>
-      
+  </td>
+  </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</mat-card>

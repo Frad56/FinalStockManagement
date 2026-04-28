@@ -26,4 +26,7 @@ public interface CategoryService {
     List<Category> leafCategoryList();
 
     List<Category> findCategoriesWithoutProducts();
+
+
+    List<Category> findAllWithChildren();
 }

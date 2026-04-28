@@ -1,6 +1,7 @@
 package com.example.store.Model.StockMangement;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -29,11 +30,12 @@ public class Category {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
+    @JsonBackReference
     private Category parent;
 
 
-//   @OneToMany(mappedBy = "parent",cascade = CascadeType.ALL)
-//    private List<Category> children;
+    @OneToMany(mappedBy = "parent",cascade = CascadeType.ALL)
+    private List<Category> children;
 
 }
 

@@ -51,8 +51,11 @@ export class PurchaseOrderLineService {
     return this.http.post<{ message: string }>( `${this.apiUrl}/totalAmountOfPurchaseOrder/${purchaseOrderId}`,{});
   }
 
-
   deletePurchaseOrderLineByPurchaseOrderId(purchaseOrderId:number):Observable<string>{
     return this.http.delete<string>(`${this.apiUrl}/deleteByPurchaseOrder/${purchaseOrderId}`);
+  }
+
+  getListByPurchaseOrderId(purchaseOrderId:number):Observable<PurchaseOrderLine[]>{
+    return this.http.get<PurchaseOrderLine[]>(`${this.apiUrl}/findByPurchaseOrder/${purchaseOrderId}`);
   }
 }

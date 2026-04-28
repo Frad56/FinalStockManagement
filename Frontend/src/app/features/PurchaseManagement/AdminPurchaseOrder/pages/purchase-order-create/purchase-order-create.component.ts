@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { PurchaseOrderService } from '../../../../../core/services/PurchaseManagement/PurchaseOrder/purchase-order.service';
 import { CommonModule, Location } from '@angular/common';
-import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SupplierService } from '../../../../../core/services/supplierManagment/supplier.service';
 import { Observable} from 'rxjs';
 import { Supplier } from '../../../../../shared/models/SupplierManagement/Suplier.model';
@@ -18,12 +18,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { PurchaseOrderLine } from '../../../../../shared/models/PurchaseManagement/PurchaseOrderLine.model';
 import { PurchaseOrderLineService } from '../../../../../core/services/PurchaseManagement/PurchaseOrderLine/purchase-order-line.service';
-import { PurchaseOrderLineRequest } from '../../../../../shared/models/Request/PurchaseOrderLineRequest';
 import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
-import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
+import { FormStateService } from '../../../../../core/services/form-state.service';
 
 @Component({
   selector: 'app-purchase-order-create',
@@ -56,7 +54,7 @@ export class PurchaseOrderCreateComponent {
   filteredProducts:Product[]=[];
   purchaseOrderId!:number;
   hasTyped = false;
-
+  dataSource: any[] = [];
   purchaseOrderForm = this.fb.group({
     supplierId: [null,Validators.required],
     totalAmount: [],
@@ -67,7 +65,7 @@ export class PurchaseOrderCreateComponent {
   });
 
   VariantsSelected$ = this.productVariantService.variantsSelected$;
-
+  formStateService = inject(FormStateService);
   ngOnInit(){
     this.suppliers$ = this.supplierService.getSuppliers();
     this.unitList$ = this.unitService.getUnits();
@@ -82,17 +80,33 @@ export class PurchaseOrderCreateComponent {
     this.VariantsSelected$.subscribe(variants => {
       this.lines.clear(); 
       variants.forEach(variant => {
-        this.lines.push(this.fb.group({
-          productVariantId: [variant.productVariantId],
-          quantity: [null,Validators.required],
-          unitPrice: [null,Validators.required],
-          discount: ['0'],
-          unitId:[null],
-          tax: [null,Validators.required]
+          const exists = this.lines.value.find(
+         (line: any) => line.productVariantId === variant.productVariantId
+         );
+         
+          this.lines.push(this.fb.group({
+            productVariantId: [variant.productVariantId],
+            quantity: [1, Validators.required],
+            unitPrice: [0, Validators.required],
+            discount: [0],
+            unitId: [null],
+            tax: [19, Validators.required],
+            product: [variant.product],
+            code: [variant.code]
         }));
+      
       });
-  
+      // sig il ya une modication dans la liste des variants selected on met a jour la datasource de la table
+      //met le dans une variable la nouvelle liste
+      this.dataSource = [...this.lines.controls];
     });
+    const savedData = this.formStateService.getProductForm();
+    if(savedData){
+      console.log("***********");
+      console.log(savedData);
+      console.log("***********");
+      this.lines.patchValue(savedData);
+    }
   }
 
   
@@ -100,7 +114,7 @@ export class PurchaseOrderCreateComponent {
     const value = this.purchaseOrderForm.get('searchValue')?.value?.trim() ;
     if (!value) return;
     switch (this.selectedSearchType) {
-  
+
       case 'Product_designation':
         this.productService.findProductByDesignation({
           productDesignation: value
@@ -138,7 +152,6 @@ export class PurchaseOrderCreateComponent {
   }
 
 
-
   purchseOrderLineService= inject(PurchaseOrderLineService)
   showSearchBar = false;
 
@@ -148,7 +161,7 @@ export class PurchaseOrderCreateComponent {
   searchValue: string = '';
   router= inject(Router);
 
-    onSearchTypeChange() {
+  onSearchTypeChange() {
       this.purchaseOrderForm.get('searchValue')?.setValue('', {
         emitEvent: false
       });
@@ -228,11 +241,9 @@ export class PurchaseOrderCreateComponent {
         console.log("Successful operation to find product variants by designation")
         this.productVariantService.setVariants(variants);
         this.router.navigate(['/admin/purchase-order/select-product-variants']);
-  
       },
       error:()=>{
         console.error("Failed operation to find product variants by designation ");
-        
       }
     });
   }
@@ -288,34 +299,19 @@ export class PurchaseOrderCreateComponent {
 
 
   removeVariantSelected(variantId: number) {
+
+    const index = this.lines.value.findIndex(
+      (l: any) => l.productVariantId === variantId
+    );
+  
+    if (index !== -1) {
+      this.lines.removeAt(index);
+    }
     this.productVariantService.removeVariantSelected(variantId);
+  
   }
   displayedColumns: string[] = [ 'Product_designation','Product_variant_code','Product_reference','Product_quantity','Product_Unit','discount','Unit_Price','tax','delete'];
-  /*
-  updateColumns(): void {
-    if (this.unitPriceSelection === 'Unit_price_including_tax(TTC)') {
-      this.displayedColumns = [
-        'Product_designation',
-        'Product_variant_code',
-        'Product_reference',
-        'Product_quantity',
-        'discount',
-        'Unit_price_including_tax(TTC)',
-        'delete'
-      ];
-    } else {
-      this.displayedColumns = [
-        'Product_designation',
-        'Product_variant_code',
-        'Product_reference',
-        'Product_quantity',
-        'discount',
-        'Unit price before tax(HT)',
-        'delete'
-      ];
-    }
-  }
-  */
+
 
   
   get lines(): FormArray {
@@ -326,7 +322,7 @@ export class PurchaseOrderCreateComponent {
 
   savePurchaseOrder(){
     const purchaseOrder = this.mapfbToPurchaseOrderDTO();
- 
+
     this.purchaseOrderService.addPurchaseOrder(purchaseOrder).subscribe({
       next:(response)=>{
         console.log("first step of creatation PurchaseOrder successful")
@@ -360,7 +356,15 @@ export class PurchaseOrderCreateComponent {
         if(discountType && discountType === 'percentage' ){
           this.purchseOrderLineService.addPurchaseOrderLineListWithPercentage(lines).subscribe({
             next:(res)=>{
-              console.log("purchaseOrderListe added Suceefully");
+              console.log("purchaseOrderListe WithPercentage added Suceefully");
+              this.purchseOrderLineService.totalOfPurchaseOrder(this.purchaseOrderId).subscribe({
+                next:(res)=>{
+                  console.log("Total amount of PurchaseOrder updated successfully",res);
+                },
+                error:(err)=>{
+                  console.log("Error in updating total amount of PurchaseOrder");
+             }
+             })
               
               this.productVariantService.resetVariantSelectedList();
               this.lines.clear(); 
@@ -373,7 +377,15 @@ export class PurchaseOrderCreateComponent {
         if(discountType && discountType === 'fixed' ){
           this.purchseOrderLineService.addPurchaseOrderLineListWithoutPercentage(lines).subscribe({
             next:(res)=>{
-              console.log("purchaseOrderListe added Suceefully");
+              console.log("purchaseOrderListe WithoutPercentage added Suceefully");
+              this.purchseOrderLineService.totalOfPurchaseOrder(this.purchaseOrderId).subscribe({
+                next:(res)=>{
+                  console.log("Total amount of PurchaseOrder updated successfully",res);
+                },
+                error:(err)=>{
+                  console.log("Error in updating total amount of PurchaseOrder");
+             }
+             })
               this.productVariantService.resetVariantSelectedList();
               this.lines.clear(); 
             },
@@ -382,14 +394,7 @@ export class PurchaseOrderCreateComponent {
             }
           })
         }
-        this.purchseOrderLineService.totalOfPurchaseOrder(this.purchaseOrderId).subscribe({
-          next:(res)=>{
-            console.log("Total amount of PurchaseOrder updated successfully");
-          },
-          error:(err)=>{
-            console.log("Error in updating total amount of PurchaseOrder");
-       }
-       })
+     
         
       },
       error:(err) => {

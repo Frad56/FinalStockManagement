@@ -17,5 +17,5 @@ export class PurchaseOrderLine{
     totalTTC!:number;
     tax!:number;
     total!:number;
-  
+
 }
