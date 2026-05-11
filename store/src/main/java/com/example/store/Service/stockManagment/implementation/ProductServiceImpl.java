@@ -11,14 +11,12 @@ import com.example.store.Exception.ResourceInUseException;
 import com.example.store.Model.StockMangement.Aisle;
 import com.example.store.Model.StockMangement.Category;
 import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.StockMangement.ProductVariant;
 import com.example.store.Repository.StockManagment.ProductCharacteristicRepository;
 import com.example.store.Repository.StockManagment.ProductRepository;
 import com.example.store.Repository.StockManagment.ProductUnitSaleRepository;
 import com.example.store.Service.stockManagment.interfaces.AisleService;
 import com.example.store.Service.stockManagment.interfaces.CategoryService;
 import com.example.store.Service.stockManagment.interfaces.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

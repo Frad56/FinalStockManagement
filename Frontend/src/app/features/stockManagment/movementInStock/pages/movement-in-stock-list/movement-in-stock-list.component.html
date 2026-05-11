@@ -45,7 +45,7 @@
 
       <ng-container matColumnDef="unitSymbol">
         <th mat-header-cell *matHeaderCellDef> unit Symbol </th>
-        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.unit.symbol}} </td>
+        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.unit?.symbol}} </td>
       </ng-container>
       
       

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PurchaseOrderLineService } from '../../../../../core/services/PurchaseManagement/PurchaseOrderLine/purchase-order-line.service';
-import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
+import { UnitService } from '../../../../../core/services/stockManagement/unitService/unit.service';
 import { Observable } from 'rxjs';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { MatFormFieldModule } from '@angular/material/form-field';

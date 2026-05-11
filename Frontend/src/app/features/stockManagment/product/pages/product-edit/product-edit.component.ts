@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
 import { ProductDTO } from '../../../../../shared/models/dto/stockManagmentDTO/product.dto';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -10,12 +10,12 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
 import { Category } from '../../../../../shared/models/StockManagment/Category.model';
-import { CategoryService } from '../../../../../core/services/stockManagment/categoryService/category.service';
+import { CategoryService } from '../../../../../core/services/stockManagement/categoryService/category.service';
 import { Location } from '@angular/common';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { ActivatedRoute } from '@angular/router';
 import { Aisle } from '../../../../../shared/models/StockManagment/Aisle.model';
-import { AisleService } from '../../../../../core/services/stockManagment/aisleService/aisle.service';
+import { AisleService } from '../../../../../core/services/stockManagement/aisleService/aisle.service';
 
 @Component({
   selector: 'app-product-edit',

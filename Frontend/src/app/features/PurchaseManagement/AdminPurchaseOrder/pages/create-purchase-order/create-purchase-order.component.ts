@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
 import { CommonModule ,Location} from '@angular/common';

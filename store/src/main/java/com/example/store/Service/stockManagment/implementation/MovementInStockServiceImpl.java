@@ -1,98 +1,139 @@
 package com.example.store.Service.stockManagment.implementation;
 
 
-import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
-import com.example.store.DTO.stockManagment.MovementInStockDTO;
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Model.StockMangement.MovementInStock;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Model.StockMangement.Unit;
-import com.example.store.Repository.StockManagment.MovementInStockRepository;
-import com.example.store.Service.stockManagment.interfaces.MovementInStockService;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
-import com.example.store.Service.stockManagment.interfaces.UnitService;
+import com.example.store.Model.StockMangement.MovementInStock.MovementInStock;
+import com.example.store.Repository.StockManagment.MovmentInStock.MovementInStockRepository;
+import com.example.store.Service.stockManagment.interfaces.movmentInStock.MovementInStockService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-
-import static com.example.store.Model.StockMangement.MovementInStockType.ENTRY;
 
 @Service
 public class MovementInStockServiceImpl implements MovementInStockService {
-
-    private final MovementInStockRepository movementInStockRepository;
-
-    private final ProductVariantService productVariantService;
-
-    private final UnitService unitService;
-    public MovementInStockServiceImpl(MovementInStockRepository movementInStockRepository,
-                                      ProductVariantService productVariantService
-                                        ,UnitService unitService) {
-
+//
+   private final MovementInStockRepository movementInStockRepository;
+//
+//    private final ProductVariantService productVariantService;
+//
+//    private final UnitService unitService;
+    public MovementInStockServiceImpl(MovementInStockRepository movementInStockRepository){
         this.movementInStockRepository = movementInStockRepository;
-        this.productVariantService=productVariantService;
-        this.unitService=unitService;
+
     }
 
-    private void mapDTOToMovementInStock(MovementInStockDTO movementInStockDTO, MovementInStock movementInStock) {
-        movementInStock.setDate(movementInStockDTO.getDate());
-        movementInStock.setMovementInStockType(movementInStockDTO.getMovementInStockType());
-        movementInStock.setQuantityInStock(movementInStockDTO.getQuantityInStock());
-        movementInStock.setProductVariant(productVariantService.findProductVariantById(movementInStockDTO.getProductVariantId()));
-        if(movementInStock.getUnit() != null){
-            movementInStock.setUnit(unitService.findUnitById(movementInStockDTO.getUnitId()));
-        }
-    }
-
-    @Override
-    public MovementInStock saveMovementInStock(MovementInStockDTO movementInStock) {
-        MovementInStock movementInStockDB = new MovementInStock();
-        mapDTOToMovementInStock(movementInStock, movementInStockDB);
-        return movementInStockRepository.save(movementInStockDB);
-    }
-
-
-    @Override
-    public MovementInStock saveMovementInStockForPurchaseOrderLine(MovementInStock movementInStock, PurchaseOrderLineDTO purchaseOrderLineDTO) {
-        MovementInStock movementInStockDB = new MovementInStock();
-        movementInStock.setDate(new Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
-
-        if(purchaseOrderLineDTO.getUnitId() != null){
-            Unit unit =unitService.findUnitById(purchaseOrderLineDTO.getUnitId());
-            movementInStock.setUnit(unit);
-        }
-        ProductVariant pv =productVariantService.findProductVariantById(purchaseOrderLineDTO.getProductVariantId());
-        movementInStock.setProductVariant(pv);
-        movementInStock.setMovementInStockType(ENTRY);
-        movementInStock.setQuantityInStock(purchaseOrderLineDTO.getQuantity());
-
-        return movementInStockRepository.save(movementInStockDB);
-    }
-
-    @Override
-    public MovementInStock findMovementInStockById(Long movementInStockId) {
-        return movementInStockRepository.findById(movementInStockId).orElseThrow(() ->
-                new RuntimeException("MovementInStock not found with id: " + movementInStockId));
-    }
-
+//    private void mapDTOToMovementInStock(MovementInStockDTO movementInStockDTO, MovementInStock movementInStock) {
+//        movementInStock.setDate(movementInStockDTO.getDate());
+//        movementInStock.setMovementInStockType(movementInStockDTO.getMovementInStockType());
+//        movementInStock.setQuantityInStock(movementInStockDTO.getQuantityInStock());
+//        movementInStock.setProductVariant(productVariantService.findProductVariantById(movementInStockDTO.getProductVariantId()));
+//        if(movementInStock.getUnit() != null){
+//            movementInStock.setUnit(unitService.findUnitById(movementInStockDTO.getUnitId()));
+//        }
+//    }
+//
+//    @Override
+//    public MovementInStock saveMovementInStock(MovementInStockDTO movementInStock) {
+//        MovementInStock movementInStockDB = new MovementInStock();
+//        mapDTOToMovementInStock(movementInStock, movementInStockDB);
+//        return movementInStockRepository.save(movementInStockDB);
+//    }
+//
+//
+//    @Override
+//    public MovementInStock createFromPurchaseOrderLine( PurchaseOrderLine purchaseOrderLine) {
+//        PurchaseStockMovement movementInStockDB = new PurchaseStockMovement();
+//        movementInStockDB.setDate(new Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+//        movementInStockDB.setMovementInStockType(ENTRY);
+//        movementInStockDB.setQuantityInStock(purchaseOrderLine.getQuantity());
+//
+//        ProductVariant pv =purchaseOrderLine.getProductVariant();
+//        int currentStock = pv.getQuantityInStock() != null ? pv.getQuantityInStock() : 0;
+//
+//        int qtyToAdd = purchaseOrderLine.getQuantity().intValue();
+//        pv.setQuantityInStock(currentStock + qtyToAdd);
+//
+//
+//        movementInStockDB.setProductVariant(purchaseOrderLine.getProductVariant());
+//
+//        if(purchaseOrderLine.getUnit() != null){
+//            movementInStockDB.setUnit(purchaseOrderLine.getUnit());
+//        }
+//
+//        movementInStockDB.setPurchaseOrder(purchaseOrderLine.getPurchaseOrder());
+//        movementInStockDB.setPurchaseOrderLine(purchaseOrderLine);
+//
+//        return movementInStockRepository.save(movementInStockDB);
+//    }
+//
+//    @Override
+//    public MovementInStock createFromSaleOrderLine(SalesOrderLine salesOrderLine){
+//        MovementInStock movementInStock = new MovementInStock();
+//        movementInStock.setDate(new Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+//        movementInStock.setMovementInStockType(EXIT);
+//        movementInStock.setQuantityInStock(salesOrderLine.getQuantity());
+//
+//        ProductVariant pv = salesOrderLine.getProductVariant();
+//        int currentStock = pv.getQuantityInStock() != null ? pv.getQuantityInStock() : 0;
+//
+//        int qtyToSale = salesOrderLine.getQuantity().intValue();
+//        pv.setQuantityInStock(currentStock - qtyToSale);
+//
+//        movementInStock.setProductVariant(salesOrderLine.getProductVariant());
+//
+//        if(salesOrderLine.getUnit() != null){
+//            movementInStock.setUnit(salesOrderLine.getUnit());
+//        }
+//        movementInStock.setPurchaseOrder(purchaseOrderLine.getPurchaseOrder());
+//        movementInStockDB.setPurchaseOrderLine(purchaseOrderLine);
+//
+//
+//    }
+//
+//    @Override
+//    public MovementInStock findMovementInStockByPurchaseOrderLine(Long purchaseOrderLineId) {
+//        return movementInStockRepository.findByPurchaseOrderLine_purchaseOrderLineId(purchaseOrderLineId).orElseThrow(() ->
+//                new RuntimeException("MovementInStock not found with purchaseOrderLineId: " + purchaseOrderLineId));
+//    }
+//
+//    @Override
+//    public MovementInStock findMovementInStockById(Long movementInStockId) {
+//        return movementInStockRepository.findById(movementInStockId).orElseThrow(() ->
+//                new RuntimeException("MovementInStock not found with id: " + movementInStockId));
+//    }
+//
+//
     @Override
     public List<MovementInStock> fetchMovementInStockList() {
         return movementInStockRepository.findAll();
     }
-
-    @Override
-    public MovementInStock updateMovementInStock(MovementInStockDTO movementInStock, Long movementInStockId) {
-        MovementInStock existingMovementInStock = findMovementInStockById(movementInStockId);
-        mapDTOToMovementInStock(movementInStock, existingMovementInStock);
-        return movementInStockRepository.save(existingMovementInStock);
-    }
-
-    @Override
-    public void deleteMovementInStockById(Long movementInStockId) {
-        if (!movementInStockRepository.existsById(movementInStockId)) {
-            throw new RuntimeException("MovementInStock not found with id: " + movementInStockId);
-        }
-        movementInStockRepository.deleteById(movementInStockId);
-    }
+//
+//    @Override
+//    public void updateFromPurchaseOrderLine( PurchaseOrderLine purchaseOrderLine, Long purchaseOrderLineId) {
+//        MovementInStock movementInStockDB = findMovementInStockByPurchaseOrderLine(purchaseOrderLineId);
+//        movementInStockDB.setDate(new Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+//        movementInStockDB.setMovementInStockType(ENTRY);
+//        movementInStockDB.setQuantityInStock(purchaseOrderLine.getQuantity());
+//        movementInStockDB.setProductVariant(purchaseOrderLine.getProductVariant());
+//        if (purchaseOrderLine.getUnit() != null) {
+//
+//            movementInStockDB.setUnit(purchaseOrderLine.getUnit());
+//        }
+//
+//        movementInStockRepository.save(movementInStockDB);
+//
+//    }
+//    @Override
+//    public MovementInStock updateMovementInStock(MovementInStockDTO movementInStock, Long movementInStockId) {
+//        MovementInStock existingMovementInStock = findMovementInStockById(movementInStockId);
+//        mapDTOToMovementInStock(movementInStock, existingMovementInStock);
+//        return movementInStockRepository.save(existingMovementInStock);
+//    }
+//
+//    @Override
+//    public void deleteMovementInStockById(Long movementInStockId) {
+//        if (!movementInStockRepository.existsById(movementInStockId)) {
+//            throw new RuntimeException("MovementInStock not found with id: " + movementInStockId);
+//        }
+//        movementInStockRepository.deleteById(movementInStockId);
+//    }
 }

@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { ProductCharacteristic } from '../../../../../shared/models/StockManagment/ProductCharacteristic.model';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-characteristic-list',

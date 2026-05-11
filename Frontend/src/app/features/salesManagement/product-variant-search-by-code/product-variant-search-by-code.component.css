@@ -1,0 +1,77 @@
+.search-container {
+    max-width: 500px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Input moderne */
+  .input-wrapper input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  .input-wrapper input:focus {
+    border-color: #2c54a5;
+    box-shadow: 0 4px 10px rgba(10, 86, 153, 0.2);
+  }
+  
+  /* Messages */
+  .info-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+  }
+  
+  .info-message.error {
+    color: #e74c3c;
+  }
+  
+  /* Résultats */
+  .results {
+    margin-top: 15px;
+  }
+  
+  /* Card produit */
+  .product-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  }
+  
+  /* Header */
+  .card-header {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+  
+  /* Code style badge */
+  .code {
+    background: #234fae;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  
+  /* Body */
+  .card-body p {
+    margin: 5px 0;
+    font-size: 14px;
+  }

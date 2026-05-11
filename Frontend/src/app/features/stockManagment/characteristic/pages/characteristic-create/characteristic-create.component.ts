@@ -6,13 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 import { Location } from '@angular/common';
 import { CharacteristicTypeValue } from '../../../../../shared/models/enum/Characteristic-type-value';
 import { CharacteristicDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Characteristic.dto';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCharacteristic } from '../../../../../shared/models/StockManagment/ProductCharacteristic.model';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import { ProductCharacteristicDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductCharacteristic.dto';
 
 @Component({

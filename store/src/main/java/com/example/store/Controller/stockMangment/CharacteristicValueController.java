@@ -3,7 +3,6 @@ package com.example.store.Controller.stockMangment;
 
 import com.example.store.DTO.stockManagment.CharacteristicValueDTO;
 import com.example.store.Model.StockMangement.CharacteristicValue;
-import com.example.store.Model.StockMangement.ProductCharacteristic;
 import com.example.store.Service.stockManagment.interfaces.CharacteristicValueService;
 
 import org.springframework.http.ResponseEntity;

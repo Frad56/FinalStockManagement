@@ -1,6 +1,6 @@
 package com.example.store.Model.PurchaseManagement;
 
-import com.example.store.Model.supplierManagement.Supplier;
+import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Supplier;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

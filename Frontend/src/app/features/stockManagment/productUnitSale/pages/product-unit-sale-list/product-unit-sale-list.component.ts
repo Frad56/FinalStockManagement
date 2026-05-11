@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ProductUnitSale } from '../../../../../shared/models/StockManagment/ProductUnitSale.model';
-import { ProductUnitSaleService } from '../../../../../core/services/stockManagment/productUnitSaleService/product-unit-sale.service';
+import { ProductUnitSaleService } from '../../../../../core/services/stockManagement/productUnitSaleService/product-unit-sale.service';
 
 @Component({
   selector: 'app-product-unit-sale-list',

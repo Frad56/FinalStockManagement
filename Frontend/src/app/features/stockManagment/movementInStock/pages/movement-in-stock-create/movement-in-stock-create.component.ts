@@ -6,14 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MovementInStockService } from '../../../../../core/services/stockManagment/movementInStockService/movement-in-stock.service';
-import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
+import { MovementInStockService } from '../../../../../core/services/stockManagement/movementInStockService/movement-in-stock.service';
+import { UnitService } from '../../../../../core/services/stockManagement/unitService/unit.service';
 import { Observable } from 'rxjs';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { MovementInStockDTO } from '../../../../../shared/models/dto/stockManagmentDTO/MovementInStock.dto';
 import { Location } from '@angular/common';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { MovementInStock } from '../../../../../shared/models/StockManagment/MovementInStock.model';
 import { MovementInStockType } from '../../../../../shared/models/enum/MovementInStockType';
 

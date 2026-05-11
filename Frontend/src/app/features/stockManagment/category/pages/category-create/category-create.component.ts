@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CategoryService } from '../../../../../core/services/stockManagment/categoryService/category.service';
+import { CategoryService } from '../../../../../core/services/stockManagement/categoryService/category.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CategoryDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Category.dto';
 import { CommonModule, Location } from '@angular/common';

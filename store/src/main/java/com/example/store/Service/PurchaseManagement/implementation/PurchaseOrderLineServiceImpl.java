@@ -1,10 +1,8 @@
 package com.example.store.Service.PurchaseManagement.implementation;
 
 
-import com.example.store.DTO.PurchaseManagement.PurchaseOrderDTO;
 import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
 
-import com.example.store.DTO.stockManagment.MovementInStockDTO;
 import com.example.store.Exception.ElementNotFoundException;
 import com.example.store.Model.PurchaseManagement.PurchaseOrder;
 import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
@@ -14,19 +12,15 @@ import com.example.store.Model.StockMangement.Unit;
 import com.example.store.Repository.PurchaseManagement.PurchaseOrderLineRepository;
 import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderLineService;
 import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderService;
-import com.example.store.Service.stockManagment.interfaces.MovementInStockService;
 import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
 import com.example.store.Service.stockManagment.interfaces.UnitService;
-import org.springframework.data.jpa.repository.Modifying;
+import com.example.store.Service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
 import java.util.List;
-
-import static com.example.store.Model.StockMangement.MovementInStockType.ENTRY;
 
 @Service
 public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
@@ -36,18 +30,18 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
     private final PurchaseOrderService purchaseOrderService;
     private final ProductVariantService productVariantService;
     private final UnitService unitService;
-    private final MovementInStockService movementInStockService;
+    private final PurchaseStockMovementService purchaseStockMovementService;
 
     public PurchaseOrderLineServiceImpl(PurchaseOrderLineRepository  purchaseOrderLineRepository,
                                         PurchaseOrderService purchaseOrderService,
                                         ProductVariantService productVariantService,
                                         UnitService unitService,
-                                        MovementInStockService movementInStockService){
+                                        PurchaseStockMovementService purchaseStockMovementService){
         this.purchaseOrderLineRepository=purchaseOrderLineRepository;
         this.purchaseOrderService=purchaseOrderService;
         this.productVariantService=productVariantService;
         this.unitService=unitService;
-        this.movementInStockService=movementInStockService;
+        this.purchaseStockMovementService=purchaseStockMovementService;
     }
 
 
@@ -93,8 +87,6 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
         PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseOrderLineDTO.getPurchaseOrderId());
         System.out.println("purchaseOrder.getPurchaseOrderId() = " + purchaseOrder.getPurchaseOrderId());
         purchaseOrderLine.setPurchaseOrder(purchaseOrder);
-
-
 
 
 
@@ -157,11 +149,11 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
 
     @Override
     public PurchaseOrderLine savePurchaseOrderLineWithPercentage(PurchaseOrderLineDTO purchaseOrderDTO){
-        PurchaseOrderLine purchaseOrder = new PurchaseOrderLine();
-        mapDTOToPurchaseOrderLine(purchaseOrderDTO,purchaseOrder);
+        PurchaseOrderLine purchaseOrderLine = new PurchaseOrderLine();
+        mapDTOToPurchaseOrderLine(purchaseOrderDTO,purchaseOrderLine);
         //purchaseOrderLineRepository.save(purchaseOrder);
-        calculateTotalIfDiscountWithPercentage(purchaseOrderDTO.getDiscount(),purchaseOrderDTO,purchaseOrder);
-        return purchaseOrderLineRepository.save(purchaseOrder);
+        calculateTotalIfDiscountWithPercentage(purchaseOrderDTO.getDiscount(),purchaseOrderDTO,purchaseOrderLine);
+        return purchaseOrderLineRepository.save(purchaseOrderLine);
     }
 
     @Override
@@ -197,15 +189,15 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
 
     @Override
     public void deletePurchaseOrderLineById(Long purchaseOrderLineId){
-       PurchaseOrderLine purchaseOrderLine= findPurchaseOrderLineById(purchaseOrderLineId);
-       PurchaseOrder purchaseOrder = purchaseOrderLine.getPurchaseOrder();
-       BigDecimal totalAmountPurchaseOrder = purchaseOrder.getTotalAmount();
+        PurchaseOrderLine purchaseOrderLine= findPurchaseOrderLineById(purchaseOrderLineId);
+        PurchaseOrder purchaseOrder = purchaseOrderLine.getPurchaseOrder();
+        BigDecimal totalAmountPurchaseOrder = purchaseOrder.getTotalAmount();
         BigDecimal totalPurchaseOrderLine = purchaseOrderLine.getTotal();
-         if (totalAmountPurchaseOrder != null || totalPurchaseOrderLine != null) {
-                BigDecimal newTotalAmount = totalAmountPurchaseOrder.subtract(totalPurchaseOrderLine);
-                purchaseOrder.setTotalAmount(newTotalAmount);
-                purchaseOrderService.updatePurchaseOrderTotalAmount(purchaseOrder);
-         }
+        if (totalAmountPurchaseOrder != null || totalPurchaseOrderLine != null) {
+            BigDecimal newTotalAmount = totalAmountPurchaseOrder.subtract(totalPurchaseOrderLine);
+            purchaseOrder.setTotalAmount(newTotalAmount);
+            purchaseOrderService.updatePurchaseOrderTotalAmount(purchaseOrder);
+        }
         purchaseOrderLineRepository.deleteById(purchaseOrderLineId);
     }
 
@@ -221,20 +213,9 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
             mapDTOToPurchaseOrderLine(purchaseOrderRequest,purchaseOrderLine);
             calculateTotalIfDiscountWithoutPercentage(purchaseOrderRequest,purchaseOrderLine);
 
-            purchaseOrderLineRepository.save(purchaseOrderLine);
+            PurchaseOrderLine purchaseOrderLine1 =purchaseOrderLineRepository.save(purchaseOrderLine);
+            purchaseStockMovementService.createFromPurchaseOrderLine(purchaseOrderLine1);
         }
-       // List<PurchaseOrderLineListRequest> purchaseOrderLineCreateRequests, Long productVariantId, Long purchaseOrderId
-//         ProductVariant pv=productVariantService.findProductVariantById(purchaseOrderLineCreateRequests.getProductVariantId());
-//         PurchaseOrder purchaseOrder= purchaseOrderService.findPurchaseOrderById(purchaseOrderLineCreateRequests.getPurchaseOrderId());
-//
-//        for(PurchaseOrderLineListRequest purchaseOrderLineCreateRequest:purchaseOrderLineCreateRequests.getPurchaseOrderLineListRequest()){
-//            PurchaseOrderLine purchaseOrderLine =new PurchaseOrderLine();
-//            purchaseOrderLine.setUnitPrice(purchaseOrderLineCreateRequest.getUnitPrice());
-//            purchaseOrderLine.setQuantity(purchaseOrderLineCreateRequest.getQuantity());
-//            purchaseOrderLine.setProductVariant(pv);
-//            purchaseOrderLine.setPurchaseOrder(purchaseOrder);
-//        }
-//        return purchaseOrder.getPurchaseOrderId();
 
     }
 
@@ -247,10 +228,10 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
 
             PurchaseOrderLine purchaseOrderLine = new PurchaseOrderLine();
             mapDTOToPurchaseOrderLine(purchaseOrderRequest, purchaseOrderLine);
-            calculateTotalIfDiscountWithoutPercentage(purchaseOrderRequest, purchaseOrderLine);
+            calculateTotalIfDiscountWithPercentage(purchaseOrderRequest.getDiscount(),purchaseOrderRequest, purchaseOrderLine);
 
-
-            purchaseOrderLineRepository.save(purchaseOrderLine);
+            PurchaseOrderLine purchaseOrderLine1 =purchaseOrderLineRepository.save(purchaseOrderLine);
+            purchaseStockMovementService.createFromPurchaseOrderLine(purchaseOrderLine1);
         }
     }
 

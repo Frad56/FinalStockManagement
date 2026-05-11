@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AisleService } from '../../../../../core/services/stockManagment/aisleService/aisle.service';
+import { AisleService } from '../../../../../core/services/stockManagement/aisleService/aisle.service';
 import { AisleDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Aisle.dto';
 
 

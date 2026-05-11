@@ -178,28 +178,55 @@
         All Suppliers
       </button>
     </div>
+
+    <!-- CLIENT MANAGEMENT -->
+    <button mat-raised-button  class="par-btn" color="primary"
+            (click)="showClientManagment = !showClientManagment">
+      Client Management
+    </button>
+
+    <div *ngIf="showClientManagment" class="submenu">
+
+      <button class="enf-btn" (click)="addClient()">
+        Add Client
+      </button>
+
+      <button class="enf-btn" (click)="allClients()">
+        All clients
+      </button>
+    </div>
       
     
   
         <!--MovmentInStock -->
             <button mat-raised-button  class="par-btn"color="primary"
             (click)="showMovmentInStockManagment = !showMovmentInStockManagment">
-            Movment In Stock Management
+            Stock Movement Management
             </button>
         
             <div *ngIf="showMovmentInStockManagment" class="submenu">
         
                 <button class="enf-btn" (click)="addPurchaseOrder()">
-                Add Purchase Order
+                Add Purchase Operation
                 </button>
 
                 <button class="enf-btn" (click)="NotDeliveredPurchaseOrders()">
-                Edit Purchase Order 
+                 Purchase Operation List
                 </button>
+
+
+                <button class="enf-btn" (click)="addSale()">
+                  Add Sale
+                  </button>
+                  <button class="enf-btn" (click)="salesOrderList()">
+                    Sales List 
+                  </button>
+
+
                 
           
               <button class="enf-btn" (click)="allMovmentInStock()">
-                All Movment In Stock
+                 Stock Movement
                 </button>
             </div>
   </mat-drawer>

@@ -1,21 +1,131 @@
-.login-container{
-    display: flex;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
-    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-  
-  .login-card {
-    width: 500px;
-    height: 500px;
-    border: 2px solid rgba(18, 51, 117, 0.9); /* Définit le cadre */
-    background-color: rgb(242, 248, 250);
-    align-items: center;
-  }
-  .full-width{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
 
+.login-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background: linear-gradient(
+      135deg,
+      #021b3a,
+      #0b3d91,
+      #1565c0,
+      #42a5f5
+  );
+
+  position: relative;
+}
+
+
+/* Card */
+.login-card {
+
+  width: 450px;
+  padding: 40px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.92);
+
+  border: 2px solid #ffffff;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+  animation: cardAppear 0.8s ease;
+}
+
+
+/* Title */
+.title{
+
+  text-align: center;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  color: #000;
+
+  margin-bottom: 30px;
+}
+
+
+/* Form */
+.group-filed{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* Inputs container */
+.full-width{
+  width: 100%;
+}
+
+
+/* LABEL + TEXT en noir */
+::ng-deep .mdc-floating-label{
+  color: #000 !important;
+}
+
+::ng-deep input{
+  color: #000 !important;
+}
+
+
+/* Bordure blanche des inputs */
+::ng-deep .mat-mdc-text-field-wrapper{
+  background: #fff !important;
+  border-radius: 10px !important;
+}
+
+/* contour blanc */
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing{
+  border-color: #ffffff !important;
+}
+
+
+/* Button */
+button[mat-raised-button]{
+
+  height: 50px;
+
+  border-radius: 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  background: #0b3d91 !important;
+
+  color: white !important;
+}
+
+
+/* Error */
+.error-message{
+  color: red;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+/* Animation simple */
+@keyframes cardAppear {
+
+  from{
+    opacity: 0;
+    transform: translateY(30px);
   }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

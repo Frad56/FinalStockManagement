@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { inject } from '@angular/core';
 import { Category } from '../../../../../shared/models/StockManagment/Category.model';
-import { CategoryService } from '../../../../../core/services/stockManagment/categoryService/category.service';
+import { CategoryService } from '../../../../../core/services/stockManagement/categoryService/category.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

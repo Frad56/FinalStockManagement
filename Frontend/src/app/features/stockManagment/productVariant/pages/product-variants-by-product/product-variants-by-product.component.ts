@@ -4,14 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
-import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 import { ProductCharacteristic } from '../../../../../shared/models/StockManagment/ProductCharacteristic.model';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import Swal from 'sweetalert2';
 
 @Component({

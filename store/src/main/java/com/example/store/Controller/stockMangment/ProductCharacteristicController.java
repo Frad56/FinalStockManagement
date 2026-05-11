@@ -2,7 +2,6 @@ package com.example.store.Controller.stockMangment;
 
 
 import com.example.store.DTO.stockManagment.ProductCharacteristicDTO;
-import com.example.store.Model.StockMangement.Characteristic;
 import com.example.store.Model.StockMangement.ProductCharacteristic;
 import com.example.store.Service.stockManagment.interfaces.ProductCharacteristicService;
 import org.springframework.http.ResponseEntity;

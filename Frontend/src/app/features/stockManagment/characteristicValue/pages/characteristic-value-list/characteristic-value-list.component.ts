@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
 
 @Component({
   selector: 'app-characteristic-value-list',

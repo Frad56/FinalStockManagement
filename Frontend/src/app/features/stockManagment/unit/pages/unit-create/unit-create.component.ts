@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from '@angular/common';
 import { SizeType } from '../../../../../shared/models/enum/SizeType';
-import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
+import { UnitService } from '../../../../../core/services/stockManagement/unitService/unit.service';
 import { UnitDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Unit.dto';
 import { UnitName } from '../../../../../shared/models/enum/UnitName';
 import Swal from 'sweetalert2';

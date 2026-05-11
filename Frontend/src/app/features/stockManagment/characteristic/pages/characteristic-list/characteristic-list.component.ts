@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Characteristic } from '../../../../../shared/models/StockManagment/Characteristic.model';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 import Swal from 'sweetalert2';
 
 @Component({

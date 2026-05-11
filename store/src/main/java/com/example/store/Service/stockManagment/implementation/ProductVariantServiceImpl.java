@@ -3,6 +3,7 @@ package com.example.store.Service.stockManagment.implementation;
 
 import com.example.store.DTO.stockManagment.ProductVariantDTO;
 import com.example.store.DTO.stockManagment.request.CategoryRequest;
+import com.example.store.DTO.stockManagment.request.CodeRequest;
 import com.example.store.DTO.stockManagment.request.DesignationRequest;
 import com.example.store.DTO.stockManagment.request.ReferenceRequest;
 import com.example.store.Exception.ElementAlreadyExistException;
@@ -12,7 +13,8 @@ import com.example.store.Model.StockMangement.Product;
 import com.example.store.Model.StockMangement.ProductVariant;
 import com.example.store.Repository.StockManagment.CharacteristicValueRepository;
 import com.example.store.Repository.StockManagment.ProductVariantRepository;
-import com.example.store.Service.stockManagment.interfaces.*;
+import com.example.store.Service.stockManagment.interfaces.ProductService;
+import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
 
 import org.springframework.stereotype.Service;
 
@@ -80,11 +82,16 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 
 
     @Override
-    public ProductVariant updateProductVariant(ProductVariantDTO productVariantDTO, Long productVariantId) {
+    public ProductVariant updateProductVariantDTO(ProductVariantDTO productVariantDTO, Long productVariantId) {
         ProductVariant productVariantToUpdate = findProductVariantById(productVariantId);
         mapDTOToVariant(productVariantDTO, productVariantToUpdate);
         return productVariantRepository.save(productVariantToUpdate);
 
+    }
+    @Override
+    public ProductVariant updateProductVariant(ProductVariant productVariant, Long productVariantId){
+        ProductVariant productVariantToUpdate = findProductVariantById(productVariantId);
+        return productVariantRepository.save(productVariantToUpdate);
     }
 
 
@@ -188,5 +195,11 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public List<Product> findProductByCategoryNameStartingWithIgnoreCase(CategoryRequest keyword){
         return productVariantRepository.findByProductCategoryName(keyword.getProductCategoryName());
+    }
+
+
+    @Override
+    public List<ProductVariant> findByCodeStartingWithIgnoreCase(CodeRequest keyword){
+        return productVariantRepository.findByCodeStartingWithIgnoreCase(keyword.getCode());
     }
 }

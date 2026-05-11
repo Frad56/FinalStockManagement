@@ -4,10 +4,10 @@ package com.example.store.Service.PurchaseManagement.implementation;
 import com.example.store.DTO.PurchaseManagement.PurchaseOrderDTO;
 import com.example.store.Exception.ElementNotFoundException;
 import com.example.store.Model.PurchaseManagement.PurchaseOrder;
-import com.example.store.Model.supplierManagement.Supplier;
+import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Supplier;
 import com.example.store.Repository.PurchaseManagement.PurchaseOrderRepository;
 import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderService;
-import com.example.store.Service.supplierManagement.SupplierService;
+import com.example.store.Service.BusinessPartnerManagement.supplierManagement.SupplierService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -34,6 +34,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         Supplier supplier = supplierService.findSupplierById(purchaseOrderDTO.getSupplierId());
         purchaseOrder.setSupplier(supplier);
         purchaseOrder.setStatus(purchaseOrderDTO.getStatus());
+
         purchaseOrder.setTotalAmount(purchaseOrderDTO.getTotalAmount());
 
     }

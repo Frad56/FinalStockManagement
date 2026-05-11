@@ -7,16 +7,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { ProductCharacteristic } from '../../../../../shared/models/StockManagment/ProductCharacteristic.model';
 import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
 import { ActivatedRoute } from '@angular/router';
 import { CharacteristicValueDTO } from '../../../../../shared/models/dto/stockManagmentDTO/CharacteristicValue.dto';
 import { Characteristic } from '../../../../../shared/models/StockManagment/Characteristic.model';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 @Component({
   selector: 'app-characteristic-value-edit',
   standalone: true,

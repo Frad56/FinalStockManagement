@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { Aisle } from '../../../../../shared/models/StockManagment/Aisle.model';
-import { AisleService } from '../../../../../core/services/stockManagment/aisleService/aisle.service';
+import { AisleService } from '../../../../../core/services/stockManagement/aisleService/aisle.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';

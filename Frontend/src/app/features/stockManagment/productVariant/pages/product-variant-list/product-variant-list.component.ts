@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,10 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import Swal from 'sweetalert2';
 import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
-import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
 
 @Component({
   selector: 'app-product-variant-list',

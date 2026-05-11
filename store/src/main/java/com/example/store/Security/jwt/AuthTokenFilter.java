@@ -34,35 +34,64 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+
         try {
+
             String jwt = parseJwt(request);
 
-            if (jwt != null ) {
+            if (jwt != null) {
+
                 jwtUtil.validateJwtToken(jwt);
+
                 final String username = jwtUtil.getUserFromToken(jwt);
 
                 final UserDetails userDetails =
                         userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
                                 userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource()
-                        .buildDetails(request));
+
+                authenticationToken.setDetails(
+                        new WebAuthenticationDetailsSource()
+                                .buildDetails(request));
+
                 SecurityContextHolder.getContext()
                         .setAuthentication(authenticationToken);
             }
-        } catch (Exception e) {
-            log.error("Cannot set user authentication: {}", e);
-            SecurityContextHolder.clearContext();
-            if (e.getMessage().contains("expired")) {
-                request.setAttribute("exception", "TOKEN_EXPIRED");
-            } else {
-                request.setAttribute("exception", "INVALID_TOKEN");
-            }
-        }
 
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
+
+        } catch (Exception e) {
+
+            log.error("Cannot set user authentication: {}", e.getMessage());
+
+            SecurityContextHolder.clearContext();
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+
+            if (e.getMessage().contains("expired")) {
+
+                response.getWriter().write("""
+                {
+                    "error": "TOKEN_EXPIRED"
+                }
+            """);
+
+            } else {
+
+                response.getWriter().write("""
+                {
+                    "error": "INVALID_TOKEN"
+                }
+                """);
+            }
+
+
+        }
     }
 
     private String parseJwt(HttpServletRequest request) {

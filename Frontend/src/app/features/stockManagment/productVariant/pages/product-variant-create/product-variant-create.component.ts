@@ -6,18 +6,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { FormArray, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { Observable } from 'rxjs';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
 import { ProductVariantDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductVariant.dto';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import { ProductCharacteristic } from '../../../../../shared/models/StockManagment/ProductCharacteristic.model';
 import { MatTableModule } from '@angular/material/table';
 import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
-import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
 
 @Component({
   selector: 'app-product-variant-create',

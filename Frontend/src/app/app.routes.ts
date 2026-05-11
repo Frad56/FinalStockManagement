@@ -13,8 +13,13 @@ export const routes: Routes = [
     {path:'', loadChildren:() =>import('./features/stockManagment/product/product.routes').then(m => m.PRODUCT_ROUTES)},
 
     {path:'categorys', loadChildren:() => import('./features/stockManagment/category/category.routes').then(m => m.CATEGORY_ROUTES)},
-    {path:'suppliers', loadChildren:() =>import('./features/supplierManagement/supplier/supplier.routes').then(m => m.SUPPLIER_ROUTES)},
-    {path:'product-suppliers', loadChildren:() =>import('./features/supplierManagement/productSupplier/productSupplier.routes').then(m => m.PRODUCT_SUPPLIER_ROUTES)},
+
+
+    {path:'suppliers', loadChildren:() =>import('./features/BusinessPartnerManagement/supplierManagement/supplier/supplier.routes').then(m => m.SUPPLIER_ROUTES)},
+    {path:'client', loadChildren:() =>import('./features/BusinessPartnerManagement/clientManagement/client.routes').then(m => m.CLIENT_ROUTES)},
+
+
+    {path:'product-suppliers', loadChildren:() =>import('./features/BusinessPartnerManagement/supplierManagement/productSupplier/productSupplier.routes').then(m => m.PRODUCT_SUPPLIER_ROUTES)},
     {path:'aisle',loadChildren:()=>import('./features/stockManagment/Aisle/aisle.routes').then(m => m.Aisle_ROUTES)},
     {path:'characteristic',loadChildren:()=>import('./features/stockManagment/characteristic/characteristic.routes').then(m => m.CHARACTERISTIC_ROUTES)},
 
@@ -31,6 +36,7 @@ export const routes: Routes = [
 
 
 
+
     {path:'unit',loadChildren:()=>import('./features/stockManagment/unit/unit.routes').then(m => m.Unit_ROUTES)},
 
     {
@@ -40,6 +46,8 @@ export const routes: Routes = [
             .then(m => m.ADMIN_PURCHASE_ORDER_ROUTES)
       },
       
+
+      {path:'sale',loadChildren:()=> import('./features/salesManagement/salesManagement.routes').then(m=>m.SALES_MANAGEMENT_ROUTES)}
       
 
 

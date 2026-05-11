@@ -5,19 +5,19 @@
   
     <ng-container matColumnDef="Product_designation">
         <th mat-header-cell *matHeaderCellDef> <div class="header-title"> Product_designation </div>  </th>
-        <td mat-cell *matCellDef="let purchaseOrderLine"> {{purchaseOrderLine.productVariant.product.designation}} </td>
+        <td mat-cell *matCellDef="let purchaseOrderLine"> {{purchaseOrderLine.productVariant.product?.designation}} </td>
     </ng-container>
     
     <ng-container matColumnDef="Product_variant_code">
         <th mat-header-cell *matHeaderCellDef><div class="header-title"> Product_Variant_code </div> </th>
-        <td mat-cell *matCellDef="let purchaseOrderLine"> {{purchaseOrderLine.productVariant.code}} </td>
+        <td mat-cell *matCellDef="let purchaseOrderLine"> {{purchaseOrderLine.productVariant?.code}} </td>
     </ng-container>
   
     <ng-container matColumnDef="Product_reference">
       <th mat-header-cell *matHeaderCellDef> 
         <div class="header-title"> Product_reference </div> </th>
       <td mat-cell *matCellDef="let purchaseOrderLine"> 
-        {{purchaseOrderLine.productVariant.product.reference}}
+        {{purchaseOrderLine.productVariant.product?.reference}}
       </td>
     </ng-container>
   
@@ -32,14 +32,14 @@
     <ng-container matColumnDef="Product_Unit">
         <th mat-header-cell *matHeaderCellDef> <div class="header-title"> Unit </div></th>
         <td mat-cell  *matCellDef="let purchaseOrderLine">
-            {{purchaseOrderLine.unit.name}}
+            {{purchaseOrderLine.unit?.name}}
         </td>
     </ng-container>
   
     <ng-container matColumnDef="discount">
         <th mat-header-cell *matHeaderCellDef> <div class="header-title"> Discount </div></th>
         <td mat-cell  *matCellDef="let purchaseOrderLine">
-            {{purchaseOrderLine.discount}}
+            {{purchaseOrderLine?.discount}}
         </td>
     </ng-container>
 

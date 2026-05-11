@@ -8,4 +8,5 @@ export class CharacteristicValue{
     productVariant!:ProductVariant;
     value!:string; 
     
+    
 }

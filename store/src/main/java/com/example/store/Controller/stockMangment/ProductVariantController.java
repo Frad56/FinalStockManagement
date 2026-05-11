@@ -3,6 +3,7 @@ package com.example.store.Controller.stockMangment;
 
 import com.example.store.DTO.stockManagment.ProductVariantDTO;
 import com.example.store.DTO.stockManagment.request.CategoryRequest;
+import com.example.store.DTO.stockManagment.request.CodeRequest;
 import com.example.store.DTO.stockManagment.request.DesignationRequest;
 import com.example.store.DTO.stockManagment.request.ReferenceRequest;
 import com.example.store.Model.StockMangement.Product;
@@ -44,7 +45,7 @@ public class ProductVariantController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ProductVariant> updateProductVariant(@RequestBody ProductVariantDTO productVariantDTO, @PathVariable("id") Long productVariantId) {
-        return ResponseEntity.ok(productVariantService.updateProductVariant(productVariantDTO, productVariantId));
+        return ResponseEntity.ok(productVariantService.updateProductVariantDTO(productVariantDTO, productVariantId));
     }
 
     @GetMapping("/{productId}/has-variants")
@@ -106,6 +107,12 @@ public class ProductVariantController {
     @PostMapping("/searchProductByCategoryName")
     public  ResponseEntity<List<Product>>findProductByCategoryName(@RequestBody CategoryRequest keyword){
         return ResponseEntity.ok(productVariantService.findProductByCategoryNameStartingWithIgnoreCase(keyword));
+    }
+    //findByCodeStartingWithIgnoreCase
+
+    @PostMapping("/searchProductVariantByCode")
+    public  ResponseEntity<List<ProductVariant>>findByCategoryName(@RequestBody CodeRequest keyword){
+        return ResponseEntity.ok(productVariantService.findByCodeStartingWithIgnoreCase(keyword));
     }
 
 

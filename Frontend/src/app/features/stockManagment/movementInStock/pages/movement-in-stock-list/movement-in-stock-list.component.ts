@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { MovementInStockService } from '../../../../../core/services/stockManagment/movementInStockService/movement-in-stock.service';
+import { MovementInStockService } from '../../../../../core/services/stockManagement/movementInStockService/movement-in-stock.service';
 import { MovementInStock } from '../../../../../shared/models/StockManagment/MovementInStock.model';
 @Component({
   selector: 'app-movement-in-stock-list',

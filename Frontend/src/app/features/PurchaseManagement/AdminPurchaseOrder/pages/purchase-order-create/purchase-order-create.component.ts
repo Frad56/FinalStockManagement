@@ -2,26 +2,26 @@ import { Component, inject } from '@angular/core';
 import { PurchaseOrderService } from '../../../../../core/services/PurchaseManagement/PurchaseOrder/purchase-order.service';
 import { CommonModule, Location } from '@angular/common';
 import { AbstractControl, FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SupplierService } from '../../../../../core/services/supplierManagment/supplier.service';
 import { Observable} from 'rxjs';
-import { Supplier } from '../../../../../shared/models/SupplierManagement/Suplier.model';
+import { Supplier } from '../../../../../shared/models/BusinessPartner/SupplierManagement/Suplier.model';
 import { PurchaseOrderDTORequest } from '../../../../../shared/models/dto/PurchaseManagementDTO/PurchaseOrderDTORequest.dto';
 import { MatSelectModule } from '@angular/material/select';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { DesignationRequest } from '../../../../../shared/models/Request/DesignationRequest';
 import { ReferenceRequest } from '../../../../../shared/models/Request/ReferenceRequest';
 import { CategoryRequest } from '../../../../../shared/models/Request/CategoryRequest';
 import { Router } from '@angular/router';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { PurchaseOrderLineService } from '../../../../../core/services/PurchaseManagement/PurchaseOrderLine/purchase-order-line.service';
-import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
+import { UnitService } from '../../../../../core/services/stockManagement/unitService/unit.service';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { FormStateService } from '../../../../../core/services/form-state.service';
+import { SupplierService } from '../../../../../core/services/BusinessPartnerManagement/supplierManagement/supplier.service';
 
 @Component({
   selector: 'app-purchase-order-create',
@@ -192,7 +192,6 @@ export class PurchaseOrderCreateComponent {
   getPlaceholder(): string {
     switch (this.selectedSearchType) {
       case 'Product_designation':
-
         return 'Search by designation';
       case 'Product_category':
         return 'Search by category';

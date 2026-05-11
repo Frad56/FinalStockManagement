@@ -1,0 +1,21 @@
+package com.example.store.DTO.BusinessPartner;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class BusinessPartnerDTO {
+    private String companyName;
+    private String contactName;
+    private String phoneNumber ;
+    private String fax;
+    private String email;
+    private String address;
+    private String city;
+    private String postalCode;
+    private String country;
+}

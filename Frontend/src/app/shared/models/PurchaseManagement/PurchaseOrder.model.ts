@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { Supplier } from "../SupplierManagement/Suplier.model";
+import { Supplier } from "../BusinessPartner/SupplierManagement/Suplier.model";
 import { Status } from "../enum/status";
 
 

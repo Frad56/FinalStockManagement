@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Location } from '@angular/common';
-import { AisleService } from '../../../../../core/services/stockManagment/aisleService/aisle.service';
+import { AisleService } from '../../../../../core/services/stockManagement/aisleService/aisle.service';
 import { AisleDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Aisle.dto';
 
 

@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SizeType } from '../../../../../shared/models/enum/SizeType';
-import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
+import { UnitService } from '../../../../../core/services/stockManagement/unitService/unit.service';
 import { UnitDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Unit.dto';
 import { ActivatedRoute } from '@angular/router';
 import { UnitName } from '../../../../../shared/models/enum/UnitName';

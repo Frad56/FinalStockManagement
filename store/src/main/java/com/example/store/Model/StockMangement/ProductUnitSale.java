@@ -1,7 +1,6 @@
 package com.example.store.Model.StockMangement;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

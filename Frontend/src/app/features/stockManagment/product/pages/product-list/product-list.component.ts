@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { Location } from '@angular/common';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import Swal from 'sweetalert2';
 
 

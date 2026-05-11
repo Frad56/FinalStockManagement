@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.ToOne;
 
 import java.math.BigDecimal;
 
@@ -60,8 +59,6 @@ public class PurchaseOrderLine {
 
     @Column(name="total",precision = 10, scale = 2)
     private BigDecimal total;
-
-
 
 
 }

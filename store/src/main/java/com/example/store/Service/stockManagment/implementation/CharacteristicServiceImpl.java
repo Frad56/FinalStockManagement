@@ -9,7 +9,6 @@ import com.example.store.Model.StockMangement.Characteristic;
 import com.example.store.Repository.StockManagment.CharacteristicRepository;
 import com.example.store.Repository.StockManagment.CharacteristicValueRepository;
 import com.example.store.Service.stockManagment.interfaces.CharacteristicService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

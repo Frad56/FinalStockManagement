@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
-import { UnitService } from '../../../../../core/services/stockManagment/unitService/unit.service';
+import { UnitService } from '../../../../../core/services/stockManagement/unitService/unit.service';
 import Swal from 'sweetalert2';
 
 @Component({

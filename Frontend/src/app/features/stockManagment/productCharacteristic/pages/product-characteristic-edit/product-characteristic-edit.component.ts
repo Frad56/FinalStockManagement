@@ -8,13 +8,13 @@ import { MatCardModule } from '@angular/material/card';
 import { Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import { ProductCharacteristicDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductCharacteristic.dto';
 import { Observable } from 'rxjs';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { Characteristic } from '../../../../../shared/models/StockManagment/Characteristic.model';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 
 @Component({
   selector: 'app-product-characteristic-edit',

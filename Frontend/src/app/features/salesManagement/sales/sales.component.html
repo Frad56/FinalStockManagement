@@ -1,0 +1,30 @@
+<div class="sales-page">
+
+  <!-- SEARCH -->
+  <app-product-variant-search-by-code
+    (productSelected)="addProduct($event)">
+  </app-product-variant-search-by-code>
+  <hr>
+
+
+
+  <!-- CART -->
+  <app-cart
+    [items]="cartItems"
+    (cartUpdated)="updateCart($event)">
+  </app-cart>
+
+  <hr>
+
+  <!-- CHECKOUT -->
+  <div class="top-bar">
+    <button mat-raised-button color="primary" (click)="goBack()">
+      Back
+    </button>
+  
+    <app-checkout mat-raised-button 
+      [items]="cartItems"
+      (orderConfirmed)="confirmOrder($event)">
+    </app-checkout>
+  </div>
+</div>

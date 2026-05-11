@@ -2,14 +2,14 @@ import { Component, inject } from '@angular/core';
 import { PurchaseOrderService } from '../../../../../core/services/PurchaseManagement/PurchaseOrder/purchase-order.service';
 import { CommonModule, Location } from '@angular/common';
 import { FormArray, FormBuilder, FormsModule, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
-import { SupplierService } from '../../../../../core/services/supplierManagment/supplier.service';
 import { PurchaseOrderDTO } from '../../../../../shared/models/dto/PurchaseManagementDTO/PurchaseOrder.dto';
 import { Observable, from } from 'rxjs';
 import { Status } from '../../../../../shared/models/enum/status';
 import Decimal from 'decimal.js';
-import { Supplier } from '../../../../../shared/models/SupplierManagement/Suplier.model';
+import { Supplier } from '../../../../../shared/models/BusinessPartner/SupplierManagement/Suplier.model';
 import { PurchaseOrderDTORequest } from '../../../../../shared/models/dto/PurchaseManagementDTO/PurchaseOrderDTORequest.dto';
 import { MatSelectModule } from '@angular/material/select';
+import { SupplierService } from '../../../../../core/services/BusinessPartnerManagement/supplierManagement/supplier.service';
 
 @Component({
   selector: 'app-purchase-order-create',

@@ -2,12 +2,10 @@ package com.example.store.Service.stockManagment.interfaces;
 
 
 import com.example.store.DTO.stockManagment.ProductDTO;
-import com.example.store.DTO.stockManagment.ProductVariantDTO;
 import com.example.store.DTO.stockManagment.request.CategoryRequest;
 import com.example.store.DTO.stockManagment.request.DesignationRequest;
 import com.example.store.DTO.stockManagment.request.ReferenceRequest;
 import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.StockMangement.ProductVariant;
 
 import java.util.List;
 

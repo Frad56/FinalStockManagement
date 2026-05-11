@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
-import { ProductVariantService } from '../../../../../core/services/stockManagment/productVariantService/product-variant.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { ActivatedRoute } from '@angular/router';
 import { ProductVariantDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductVariant.dto';
 import { Location } from '@angular/common';
 import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
-import { CharacteristicValueService } from '../../../../../core/services/stockManagment/CharacteristicValueService/characteristic-value.service';
+import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
 
 @Component({
   selector: 'app-product-variant-edit',

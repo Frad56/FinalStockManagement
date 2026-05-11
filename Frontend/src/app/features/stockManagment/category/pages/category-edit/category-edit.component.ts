@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { CategoryService } from '../../../../../core/services/stockManagment/categoryService/category.service';
+import { CategoryService } from '../../../../../core/services/stockManagement/categoryService/category.service';
 import { Category } from '../../../../../shared/models/StockManagment/Category.model';
 import { CategoryDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Category.dto';
 import { ActivatedRoute } from '@angular/router';

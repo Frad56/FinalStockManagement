@@ -25,11 +25,13 @@ export class AdminComponent {
   showCategoryManagment =false;
   showAisleManagment =false;
   showSupplierManagment = false;
+  showClientManagment = false;
   showcharacteristicManagment=false;
   showUnitManagment= false;
   showProductUnitsaleManagment = false;
   showProductVariantManagment =false;
   showMovmentInStockManagment= false;
+  showSaleManagment= false;
   showMenu = false;
   router = inject(Router);
 
@@ -98,6 +100,14 @@ signUp(){
  }
  allSuppliers(){
   this.router.navigate(['/admin/suppliers/suppliers']);
+ }
+
+ ////////////ClientManagment
+ addClient(){
+  this.router.navigate(['/admin/client/add-client']);
+ }
+ allClients(){
+  this.router.navigate(['/admin/client/client-all']);
  }
   ////////////////////////// Aisle managment /////////////////////////////
   addAisle(){
@@ -171,6 +181,16 @@ signUp(){
       NotDeliveredPurchaseOrders(){
         this.router.navigate(['/admin/purchase-order/not-delivered-purchase-orders']);
       }
+
+      addSale(){
+        this.router.navigate(['/admin/sale/sales']);
+      }
+
+      salesOrderList(){
+        this.router.navigate(['/admin/sale/sales-list']);
+
+      }
+  
       addPurchaseOrder(){
         this.router.navigate(['/admin/purchase-order/add-purchase-order']);
 

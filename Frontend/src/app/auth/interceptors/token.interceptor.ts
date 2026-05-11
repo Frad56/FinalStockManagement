@@ -23,8 +23,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
         if(error.status === 401){
           
-          const msg = error.error?.message ;
-          if ( msg == "TOKEN_EXPIRED") {
+          const msg = error.error?.error;
+          if ( msg === "TOKEN_EXPIRED") {
           
             localStorage.removeItem('token');
             localStorage.removeItem('role');

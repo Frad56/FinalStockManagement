@@ -7,13 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from '@angular/common';
-import { ProductService } from '../../../../../core/services/stockManagment/productService/product.service';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 import { Observable } from 'rxjs';
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { Characteristic } from '../../../../../shared/models/StockManagment/Characteristic.model';
 import { ProductCharacteristicDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductCharacteristic.dto';
-import { ProductCharacteristicService } from '../../../../../core/services/stockManagment/productCharacteristicService/product-characteristic.service';
+import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 @Component({
   selector: 'app-product-characteristic-create',
   standalone: true,

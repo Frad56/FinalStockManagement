@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CharacteristicService } from '../../../../../core/services/stockManagment/characteristicService/characteristic.service';
+import { CharacteristicService } from '../../../../../core/services/stockManagement/characteristicService/characteristic.service';
 import { ActivatedRoute } from '@angular/router';
 import { CharacteristicTypeValue } from '../../../../../shared/models/enum/Characteristic-type-value';
 import { CharacteristicDTO } from '../../../../../shared/models/dto/stockManagmentDTO/Characteristic.dto';

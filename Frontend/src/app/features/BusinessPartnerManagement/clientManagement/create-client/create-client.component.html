@@ -1,0 +1,58 @@
+
+<h2 class="title">Create Client</h2>
+<div class="form-container">
+
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="supplier-form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Fax</mat-label>
+      <input matInput formControlName="fax">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Postal Code</mat-label>
+      <input matInput formControlName="postalCode">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Country</mat-label>
+      <input matInput formControlName="country">
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-raised-button color="primary" type="submit">
+          Create client
+        </button>
+        <button type="button" class="back-button" mat-raised-button  color="primary"
+                  (click)="goBack()">
+          Back
+        </button>
+    </div>
+
+  </form>
+</div>

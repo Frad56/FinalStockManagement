@@ -29,14 +29,7 @@ export class AuthService {
           localStorage.setItem('role', response.role);
           this.codeSubject.next(response.isEmailChanged.toString());
           alert("value :"+this.codeSubject.value)
-         // alert(this.getIsEmailChanged());
-          //this.code$ = this.codeSubject.asObservable(); 
-          //alert("value"+this.codeSubject.value)
-         // this.codeSubject.subscribe(val => {
-           // console.log('isEmailChanged:', val)
-           // alert('isEmailChanged: ' + val);
-          
-         // });
+    
           
           
       

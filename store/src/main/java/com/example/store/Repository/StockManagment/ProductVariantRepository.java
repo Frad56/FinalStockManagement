@@ -29,6 +29,10 @@ public interface ProductVariantRepository extends JpaRepository<ProductVariant, 
 
     List<ProductVariant> findByProduct_designation(String designation);
 
+
+    List<ProductVariant> findByCodeStartingWithIgnoreCase(String keyword);
+
+
     @Query("""
     SELECT pv 
     FROM ProductVariant pv 

@@ -1,16 +1,15 @@
 package com.example.store.Service.stockManagment.interfaces;
 
 
-import com.example.store.DTO.stockManagment.ProductDTO;
 import com.example.store.DTO.stockManagment.ProductVariantDTO;
 import com.example.store.DTO.stockManagment.request.CategoryRequest;
+import com.example.store.DTO.stockManagment.request.CodeRequest;
 import com.example.store.DTO.stockManagment.request.DesignationRequest;
 import com.example.store.DTO.stockManagment.request.ReferenceRequest;
 import com.example.store.Model.StockMangement.Product;
 import com.example.store.Model.StockMangement.ProductVariant;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductVariantService {
 
@@ -20,7 +19,8 @@ public interface ProductVariantService {
 
     ProductVariant findProductVariantById(Long idProductVariant);
 
-    ProductVariant updateProductVariant(ProductVariantDTO productVariantDTO, Long ProductVariantId);
+    ProductVariant updateProductVariantDTO(ProductVariantDTO productVariantDTO, Long productVariantId);
+    ProductVariant updateProductVariant(ProductVariant productVariant, Long productVariantId);
 
     void deleteProductVariantById(Long ProductVariantId);
 
@@ -44,4 +44,5 @@ public interface ProductVariantService {
 
     List<Product> findProductByCategoryNameStartingWithIgnoreCase(CategoryRequest keyword);
 
+    List<ProductVariant> findByCodeStartingWithIgnoreCase(CodeRequest keyword);
 }

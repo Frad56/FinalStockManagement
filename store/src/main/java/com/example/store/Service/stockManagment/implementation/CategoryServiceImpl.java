@@ -7,12 +7,10 @@ import com.example.store.Model.StockMangement.Category;
 import com.example.store.Model.StockMangement.CharacteristicTypeValue;
 import com.example.store.Repository.StockManagment.CategoryRepository;
 import com.example.store.Service.stockManagment.interfaces.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -1,7 +1,6 @@
 package com.example.store.Service.stockManagment.implementation;
 
 
-import com.example.store.DTO.stockManagment.CharacteristicDTO;
 import com.example.store.DTO.stockManagment.ProductCharacteristicDTO;
 import com.example.store.Exception.ElementAlreadyExistException;
 import com.example.store.Model.StockMangement.Characteristic;
@@ -12,7 +11,6 @@ import com.example.store.Service.stockManagment.interfaces.ProductCharacteristic
 import com.example.store.Service.stockManagment.interfaces.ProductService;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLNonTransientException;
 import java.util.ArrayList;
 import java.util.List;
 
