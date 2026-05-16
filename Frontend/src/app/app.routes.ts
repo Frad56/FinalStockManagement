@@ -10,6 +10,7 @@ export const routes: Routes = [
 
 
 {path:'admin',component:AdminComponent,canActivate: [AuthGuard], data: { role: 'ADMIN' },children:[
+    { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
     {path:'adminChangePassword',component: AdminChangePasswordComponent},
     {path:'', loadChildren:() =>import('./features/stockManagment/product/product.routes').then(m => m.PRODUCT_ROUTES)},
 

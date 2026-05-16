@@ -1,11 +1,13 @@
 
-<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></head>
-
- 
 <mat-drawer-container class="container">
 
 
   <mat-drawer #drawer mode="side" opened class="sidenav">
+
+    <button mat-button class="dashboard-btn" (click)="router.navigate(['/admin/dashboard']);">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
 
     <h3 class="menu-title">Menu</h3>
 

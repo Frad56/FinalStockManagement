@@ -17,7 +17,7 @@ import { CategoryMenuComponent } from "../../../stockManagment/category/category
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [MatSidenavModule, MatButtonModule, CommonModule, RouterOutlet, CategoryMenuComponent],
+  imports: [MatSidenavModule, MatButtonModule, CommonModule, RouterOutlet, CategoryMenuComponent, MatIconModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })

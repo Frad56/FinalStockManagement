@@ -1,0 +1,13 @@
+/* Simple responsive grid for dashboard cards */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  padding: 12px;
+}
+.mat-toolbar {
+  display: flex;
+  align-items: center;
+}
