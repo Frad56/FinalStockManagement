@@ -48,12 +48,20 @@ public class ProductVariantServiceImpl implements ProductVariantService {
         variant.setProduct(productService.findProductById(dto.getProductId()));
 
     }
+    public String generateVariantCode(Product product, String color, String size) {
+
+        String base = product.getReference();
+
+        return base + "-"
+                + color.substring(0, 3).toUpperCase()
+                + "-" + size;
+    }
     @Override
     public ProductVariant saveProductVariant(ProductVariantDTO productVariantDTO) {
         String newProductReference = productVariantDTO.getCode().trim().toLowerCase();
 
         Product product =productService.findProductById(productVariantDTO.getProductId());
-
+        //generateVariantCode(product,)
         if(productVariantRepository.findByCode(newProductReference).isPresent()){
             throw new ElementAlreadyExistException("the Product Code ",productVariantDTO.getCode());
         }

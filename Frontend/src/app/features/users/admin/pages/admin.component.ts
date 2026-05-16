@@ -2,17 +2,22 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { AdminResetEmailService } from '../../../../auth/service/adminResetEmail/admin-reset-email.service';
 import { AuthService } from '../../../../auth/service/auth.service';
+import { CategoryMenuComponent } from "../../../stockManagment/category/category-menu/category-menu.component";
+
+
+
+
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [MatSidenavModule, MatButtonModule,CommonModule,RouterOutlet],
+  imports: [MatSidenavModule, MatButtonModule, CommonModule, RouterOutlet, CategoryMenuComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
@@ -33,14 +38,22 @@ export class AdminComponent {
   showMovmentInStockManagment= false;
   showSaleManagment= false;
   showMenu = false;
+  showCategoryMenu = false;
   router = inject(Router);
 
   private dialog = inject(MatDialog);
   private adminResetEmailService = inject(AdminResetEmailService);
   private authService = inject(AuthService);
 
-  
+  hideCategoryMenu() {
+    this.showCategoryMenu = false;
+  }
   ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showCategoryMenu = false;
+      }
+    });
     const isEmailChanged = this.authService.getIsEmailChanged();
     console.log('isEmailChanged:', isEmailChanged);
     if (isEmailChanged  === 'false') {
@@ -71,6 +84,11 @@ signUp(){
  getProducts(){
     this.router.navigate(['/admin/products']);
  }
+ 
+ getCategory(){
+  this.router.navigate(['/admin/category/menu']);
+}
+//
 
  addProduct(){
   this.router.navigate(['/admin/add-product']);

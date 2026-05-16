@@ -97,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     public Product updateProduct(ProductDTO product, Long productId){
         Product productDB = findProductById(productId);
        String newProductReference = productDB.getReference().trim().toLowerCase();
-       if(productRepository.findByReference(newProductReference).isPresent()){
+       if(productRepository.existsByReferenceAndProductIdNot(newProductReference,productId)){
            throw new ElementAlreadyExistException("the Product Reference ",product.getReference());
 
        }

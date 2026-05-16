@@ -6,6 +6,7 @@ import com.example.store.DTO.authentification.LoginResponse;
 import com.example.store.DTO.authentification.UserDTO;
 import com.example.store.Model.Authentification.Role;
 import com.example.store.Model.Authentification.User;
+import com.example.store.Security.jwt.CustomUserDetails;
 import com.example.store.Security.jwt.JwtUtil;
 import com.example.store.Security.details.CustomUserDetailsService;
 import com.example.store.Service.AuthService.UserService;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,12 +54,14 @@ public class AuthController {
         );
             User get_user = userService.findByUsername(user.getUsername());
 
-            final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            CustomUserDetails userDetails  = (CustomUserDetails) authentication.getPrincipal();
             String token =jwtUtil.generateToken(userDetails.getUsername());
 
-            Role user_Role = get_user.getRole();
+            Role user_Role = userDetails.getRole();
+            Boolean isEmailChanged =userDetails.getIsEmailChanged();
 
-        return new LoginResponse(token,user_Role,get_user.isEmailChanged());
+
+        return new LoginResponse(token,user_Role,isEmailChanged);
 
     }
 

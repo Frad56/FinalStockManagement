@@ -42,11 +42,24 @@
     cursor: pointer;
   }
   
-  /* menu isolé */
+  :host {
+    --sidenav-width: 250px;
+  }
+  
+  .cog-square {
+    position: fixed;
+    left: calc(var(--sidenav-width) + 15px); /* à droite du menu gauche */
+    bottom: 30px;
+    font-size: 34px;
+    cursor: pointer;
+    z-index: 1200;
+    color: #222;
+  }
+  
   .floating-menu {
-    position: fixed; /* indépendant */
+    position: fixed;
+    left: calc(var(--sidenav-width) + 70px); /* fenêtre à droite du bouton */
     bottom: 20px;
-    right: 60px; /*  espace entre bouton et menu */
     background: white;
     padding: 12px;
     border-radius: 10px;
@@ -54,7 +67,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 1000;
+    z-index: 1200;
+    min-width: 220px;
   }
   .enf-btn {
     background: linear-gradient(135deg, #4174cd, #1b6ee2);

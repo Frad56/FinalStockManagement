@@ -2,6 +2,7 @@ package com.example.store.Controller.stockMangment;
 
 
 import com.example.store.DTO.stockManagment.CategoryDTO;
+import com.example.store.DTO.stockManagment.CategoryDTOTest;
 import com.example.store.Model.StockMangement.Category;
 import com.example.store.Service.stockManagment.interfaces.CategoryService;
 import jakarta.validation.Valid;
@@ -64,11 +65,13 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findCategoriesWithoutProducts());
     }
 
-    @GetMapping("/findAllWithChildren")
-    public ResponseEntity<List<Category>> findSubcategories()
+    @GetMapping("/tree")
+    public ResponseEntity<List<CategoryDTOTest>> findSubcategories()
     {
         return ResponseEntity.ok(categoryService.findAllWithChildren());
     }
+
+
 
 
 }

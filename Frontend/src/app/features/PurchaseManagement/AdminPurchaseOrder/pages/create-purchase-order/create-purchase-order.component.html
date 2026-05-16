@@ -1,13 +1,14 @@
-<p>admin-purchase-order-list works!</p>
 
-<mat-card-title>Product Variant List</mat-card-title>
 
-<div class="Add-button">
+<div class="header">
+  <mat-card-title>Product Variant List</mat-card-title>
+
   <button mat-raised-button color="primary" (click)="goBack()">
     Back
   </button>
+  
 </div>
-<mat-checkbox
+<mat-checkbox accent
   [checked]="isAllSelected()"
   [indeterminate]="isIndeterminate()"
   (change)="toggleAll($event.checked)">
@@ -55,20 +56,21 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
       </table>
-      <button mat-raised-button color="accent" (click)="saveSelection()">
+      <button mat-raised-button color="primary" (click)="saveSelection()">
         Save Selected
         
       </button>
       <div *ngIf="productVariantSelectedList.length > 0">
         <h3>Selected Variants:</h3>
       
-        <ul>
+      <!--   <ul>
           <li *ngFor="let variant of productVariantSelectedList">
             {{ variant.productVariantId }} - {{ variant.code }}
           </li>
         </ul>
+        -->
       </div>
-      <div *ngIf="productVariantSelectedList.length == 0">
-        empty List 
-    </div>
+      <!-- <div *ngIf="productVariantSelectedList.length == 0">      </div>-->
+      
+
       

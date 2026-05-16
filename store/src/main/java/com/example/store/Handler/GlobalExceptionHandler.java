@@ -92,4 +92,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.CONFLICT);
     }
 
+    //BusinessException
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handlerBusinessException(BusinessException ex){
+
+        Map<String,Object> error = new HashMap<>();
+        error.put("message",ex.getMessage());
+        return new ResponseEntity<>(error,HttpStatus.CONFLICT);
+    }
+
 }

@@ -66,6 +66,9 @@ export class PurchaseOrderCreateComponent {
 
   VariantsSelected$ = this.productVariantService.variantsSelected$;
   formStateService = inject(FormStateService);
+
+
+
   ngOnInit(){
     this.suppliers$ = this.supplierService.getSuppliers();
     this.unitList$ = this.unitService.getUnits();
@@ -405,7 +408,10 @@ export class PurchaseOrderCreateComponent {
 
 
 
- 
+ addSupplier(){
+  this.router.navigate(['/admin/suppliers/add-supplier']);
+
+ }
   goBack() {
     this.location.back();
   }

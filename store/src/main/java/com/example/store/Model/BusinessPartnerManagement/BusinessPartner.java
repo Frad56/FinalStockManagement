@@ -37,3 +37,4 @@ public abstract class BusinessPartner {
 
     @Column(name = "country")
     protected String country;}
+//tax identification number

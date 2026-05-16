@@ -2,16 +2,19 @@ package com.example.store.Service.stockManagment.implementation;
 
 
 import com.example.store.DTO.stockManagment.CategoryDTO;
+import com.example.store.DTO.stockManagment.CategoryDTOTest;
 import com.example.store.Exception.ElementNotFoundException;
 import com.example.store.Model.StockMangement.Category;
 import com.example.store.Model.StockMangement.CharacteristicTypeValue;
 import com.example.store.Repository.StockManagment.CategoryRepository;
 import com.example.store.Service.stockManagment.interfaces.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -135,9 +138,76 @@ public class CategoryServiceImpl implements CategoryService {
         return  categoryRepository.findCategoriesWithoutProducts();
     }
 
+
+    private CategoryDTOTest toTreeDTO(Category category) {
+        CategoryDTOTest dto = new CategoryDTOTest();
+        dto.setCategoryId(category.getCategoryId());
+        dto.setName(category.getName());
+        dto.setDescription(category.getDescription());
+        dto.setParentId(category.getParent() != null ? category.getParent().getCategoryId() : null);
+        dto.setChildren(new ArrayList<>());
+        return dto;
+    }
     @Override
-    public List<Category> findAllWithChildren(){
-        return categoryRepository.findAllWithChildren();
+    @Transactional
+    public List<CategoryDTOTest> findAllWithChildren() {
+        List<Category> categories = categoryRepository.findAll();
+
+        Map<Long, CategoryDTOTest> map = new LinkedHashMap<>();
+        for (Category category : categories) {
+            map.put(category.getCategoryId(), toTreeDTO(category));
+        }
+
+        List<CategoryDTOTest> roots = new ArrayList<>();
+
+        for (Category category : categories) {
+            CategoryDTOTest current = map.get(category.getCategoryId());
+
+            if (category.getParent() == null) {
+                roots.add(current);
+            } else {
+                CategoryDTOTest parent = map.get(category.getParent().getCategoryId());
+                if (parent != null) {
+                    parent.getChildren().add(current);
+                }
+            }
+        }
+
+        sortTree(roots);
+        return roots;
+    }
+
+
+
+
+
+    private CategoryDTO toDTO(Category category) {
+        CategoryDTO dto = new CategoryDTO();
+        dto.setCategoryId(category.getCategoryId());
+        dto.setName(category.getName());
+        dto.setDescription(category.getDescription());
+        dto.setParentId(
+                category.getParent() != null ? category.getParent().getCategoryId() : null
+        );
+        dto.setChildrenIds(                          // ← childrenIds
+                category.getChildren() == null ? new ArrayList<>() :
+                        category.getChildren().stream()
+                                .map(Category::getCategoryId)    // ← juste l'ID
+                                .collect(Collectors.toList())
+        );
+        return dto;
+    }
+    public void sortTree(List<CategoryDTOTest> nodes) {
+        nodes.sort(Comparator.comparing(
+                CategoryDTOTest::getName,
+                Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
+        ));
+
+        for (CategoryDTOTest node : nodes) {
+            if (node.getChildren() != null) {
+                sortTree(node.getChildren());
+            }
+        }
     }
 }
 

@@ -5,6 +5,8 @@ import com.example.store.Exception.ElementNotFoundException;
 import com.example.store.Model.StockMangement.Characteristic;
 import com.example.store.Model.StockMangement.CharacteristicValue;
 
+import com.example.store.Model.StockMangement.Product;
+import com.example.store.Model.StockMangement.ProductVariant;
 import com.example.store.Repository.StockManagment.CharacteristicRepository;
 import com.example.store.Repository.StockManagment.CharacteristicValueRepository;
 import com.example.store.Service.stockManagment.interfaces.CharacteristicValueService;
@@ -55,10 +57,23 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
     }
 
 
+
+    public String generateVariantCode(Product product, String color, String size) {
+
+        String base = product.getReference();
+
+        return base + "-"
+                + color.substring(0, 3).toUpperCase()
+                + "-" + size;
+    }
     @Override
     public CharacteristicValue saveCharacteristicValue(CharacteristicValueDTO characteristicValue){
             CharacteristicValue characteristicValueDB = new CharacteristicValue();
+
             mapDTOToCharacteristicValue(characteristicValue,characteristicValueDB);
+            ProductVariant pv = characteristicValueDB.getProductVariant();
+            //characteristicValueDB
+
             return characteristicValueRepository.save(characteristicValueDB);
     }
 

@@ -63,7 +63,7 @@ export class SalesComponent {
   confirmOrder(data: any) {
 
     const order: SalesOrderDTO = {
-      clientId: 3,
+      //clientId: 3,
       paymentType: data.paymentType,
       salesOrderLineListDTO: this.mapToSalesOrderLines()
     };

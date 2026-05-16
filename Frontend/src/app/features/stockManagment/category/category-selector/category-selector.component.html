@@ -1,0 +1,10 @@
+<ul class="tree" *ngIf="categories.length">
+    <li *ngFor="let cat of categories">
+      <span class="item">› {{ cat.name }}</span>
+  
+      <app-category-selector
+        *ngIf="cat.children.length"
+        [categories]="cat.children">
+      </app-category-selector>
+    </li>
+  </ul>

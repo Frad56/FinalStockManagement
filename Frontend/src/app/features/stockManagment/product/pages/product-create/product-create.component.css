@@ -173,4 +173,36 @@
 }
 
 
+.category-tree-container {
+  margin-top: 16px;
+}
 
+.category-title {
+  margin: 20px 0 12px 0;
+  color: #374151;
+  font-size: 1.1rem;
+}
+
+.subcategory-level1 {
+  padding-left: 16px;
+}
+
+.nested-panel {
+  box-shadow: none !important;
+  margin: 4px 0;
+}
+
+.leaf-radio {
+  display: block;
+  margin: 8px 0;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.leaf-radio:hover {
+  background-color: #f3f4f6;
+}
+
+.level1 {
+  padding-left: 8px;
+}

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Category } from '../../../../shared/models/StockManagment/Category.model';
 import{ Observable } from 'rxjs';
 import { CategoryDTO } from '../../../../shared/models/dto/stockManagmentDTO/Category.dto';
+import { CategoryTest } from '../../../../shared/models/StockManagment/CategoryTest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,11 @@ export class CategoryService {
   }
 
   findAllWithChildren():Observable<Category[]>{
-    return this.http.get<Category[]>(`${this.apiUrl}findAllWithChildren`);
+    return this.http.get<Category[]>(`${this.apiUrl}tree`);
+  }
+
+  getCategoryTree(): Observable<CategoryTest[]> {
+    return this.http.get<CategoryTest[]>(`${this.apiUrl}tree`);
   }
   
   

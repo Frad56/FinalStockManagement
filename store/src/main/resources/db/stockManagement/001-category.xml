@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="cat-1" author="dev">
+    <!--Quincaillerie -->
+        <insert tableName="category">
+            <column name="name" value="Quincaillerie"/>
+            <column name="description" value="Matériel général"/>
+            <column name="parent_id" valueComputed="NULL"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Outillage manuel"/>
+            <column name="description" value="Outils manuel"/>
+            <column name="parent_id" value="1"/>
+        </insert>
+                <!--les enfants de Outillage manuel-->
+                <insert tableName="category">
+                    <column name="name" value="Outil de mesure"/>
+                    <column name="description" value="Outil de mesure"/>
+                    <column name="parent_id" value="2"/>
+                </insert>
+
+                <insert tableName="category">
+                    <column name="name" value="Outil de coupe"/>
+                    <column name="description" value="Outil de coupe"/>
+                    <column name="parent_id" value="2"/>
+                </insert>
+
+                <insert tableName="category">
+                    <column name="name" value="Outil de Serrage"/>
+                    <column name="description" value="Outil de Serrage"/>
+                    <column name="parent_id" value="2"/>
+                </insert>
+                    <!--  Outil de serrage enfants  -->
+                                <insert tableName="category">
+                                    <column name="name" value="Tournevis"/>
+                                    <column name="description" value="Tournevis"/>
+                                    <column name="parent_id" value="5"/>
+                                </insert>
+                                <insert tableName="category">
+                                    <column name="name" value="Clés"/>
+                                    <column name="description" value="Clés"/>
+                                    <column name="parent_id" value="5"/>
+                                </insert>
+                                <insert tableName="category">
+                                    <column name="name" value="Peince"/>
+                                    <column name="description" value="Peince"/>
+                                    <column name="parent_id" value="5"/>
+                                </insert>
+                                <insert tableName="category">
+                                    <column name="name" value="autre outils de serrage"/>
+                                    <column name="description" value="autre outils de serrage"/>
+                                    <column name="parent_id" value="5"/>
+                                </insert>
+
+                <insert tableName="category">
+                    <column name="name" value="Outils d'impact"/>
+                    <column name="description" value="Outils d'impact"/>
+                    <column name="parent_id" value="2"/>
+                </insert>
+
+            <insert tableName="category">
+                <column name="name" value="Outil pour la peinture"/>
+                <column name="description" value="Outil pour la peinture"/>
+                <column name="parent_id" value="2"/>
+            </insert>
+
+            <insert tableName="category">
+                <column name="name" value="Outillae spécifique mécanique"/>
+                <column name="description" value="Outillae spécifique mécanique"/>
+                <column name="parent_id" value="2"/>
+            </insert>
+
+            <insert tableName="category">
+                <column name="name" value="Autres outillages manuels"/>
+                <column name="description" value="Autres outillages manuels"/>
+                <column name="parent_id" value="2"/>
+            </insert>
+
+
+
+                <!-- -->
+        <insert tableName="category">
+            <column name="name" value="Electroportatifs"/>
+            <column name="description" value="Electroportatifs"/>
+            <column name="parent_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="name" value="Droguerie"/>
+            <column name="description" value="Droguerie"/>
+            <column name="parent_id" value="1"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Accessoires"/>
+            <column name="description" value="Accessoires"/>
+            <column name="parent_id" value="1"/>
+        </insert>
+    <!--Maison  -->
+        <insert tableName="category">
+            <column name="name" value="Maison"/>
+            <column name="description" value="Maison"/>
+            <column name="parent_id" valueComputed="NULL"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Jardin"/>
+            <column name="description" value="Jardin"/>
+            <column name="parent_id" value="13"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Electricié et luminaires"/>
+            <column name="description" value="Electricié et luminaires"/>
+            <column name="parent_id" value="13"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Sécurité"/>
+            <column name="description" value="Electricié et luminaires"/>
+            <column name="parent_id" value="13"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Sanitaire"/>
+            <column name="description" value="Sanitaire"/>
+            <column name="parent_id" value="13"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Déco"/>
+            <column name="description" value="Déco"/>
+            <column name="parent_id" value="13"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Cuisine"/>
+            <column name="description" value="cuisine"/>
+            <column name="parent_id" value="13"/>
+        </insert>
+
+
+
+    </changeSet>
+
+</databaseChangeLog>

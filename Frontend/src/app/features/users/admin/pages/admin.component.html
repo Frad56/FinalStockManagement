@@ -1,6 +1,9 @@
 
 <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></head>
+
+ 
 <mat-drawer-container class="container">
+
 
   <mat-drawer #drawer mode="side" opened class="sidenav">
 
@@ -12,6 +15,7 @@
       Stock Management
     </button>
 
+
     <div *ngIf="showStockManagment" class="submenu">
 
         <button class="par-enf-btn"  color="primary"
@@ -19,7 +23,7 @@
         Product Management
         </button>
             <div *ngIf="showProductManagment" class="submenu">
-                <button class="enf-btn"  (click)="getProducts()">
+                <button class="enf-btn"  (click)="getProducts(); hideCategoryMenu()">
                 Products List
                 </button>
             </div>
@@ -29,30 +33,18 @@
             Category Management
             </button>
             <div *ngIf="showCategoryManagment" class="submenu">
-                <button class="enf-btn" (click)="getProducts()">
+                <button class="enf-btn" (click)="getCategory(); hideCategoryMenu()">
                   Category List
                 </button>
           
             </div>
-          <button class="par-enf-btn" color="primary"
-            (click)="showUnitManagment = !showUnitManagment">
-            Unit Management
-            </button>
-            <div *ngIf="showUnitManagment" class="submenu">
-                <button class="enf-btn" (click)="allUnits()">
-                 Unit List
-                </button>
-                <button class="enf-btn" (click)="addUnit()">
-                  add Unit 
-                 </button>
-          
-            </div>    
+            
       
 
 
       
         <!-- Add Product supplier  -->
-        <button mat-button (click)="addProductSupplier()">
+        <button mat-button (click)="addProductSupplier(); hideCategoryMenu()">
           Add Product Supplier
         </button>
         <!-- Characteristic MANAGEMENT -->
@@ -63,10 +55,10 @@
 
               <div *ngIf="showcharacteristicManagment" class="submenu">
 
-                  <button class="enf-btn" (click)="addCharacteristic()">
+                  <button class="enf-btn" (click)="addCharacteristic(); hideCategoryMenu()">
                     Add Characteristic
                   </button>
-                  <button class="enf-btn" (click)="allCharacteristic()" >
+                  <button class="enf-btn" (click)="allCharacteristic(); hideCategoryMenu()" >
                     Characteristic List
                   </button>
 
@@ -80,10 +72,10 @@
 
           <div *ngIf="showAisleManagment" class="submenu">
 
-              <button class="enf-btn"(click)="addAisle()">
+              <button class="enf-btn"(click)="addAisle(); hideCategoryMenu()">
                 Add Aisle
               </button>
-              <button class="enf-btn"(click)="allAisle()">
+              <button class="enf-btn"(click)="allAisle(); hideCategoryMenu()">
                   Aisle List
               </button>
           </div>
@@ -96,11 +88,11 @@
  
          <div *ngIf="showProductUnitsaleManagment" class="submenu">
  
-         <button class="enf-btn" (click)="addProductUnitsale()">
+         <button class="enf-btn" (click)="addProductUnitsale(); hideCategoryMenu()">
          Add Product Unit sale
          </button>
  
-         <button class="enf-btn" (click)="allProductUnitsale()">
+         <button class="enf-btn" (click)="allProductUnitsale(); hideCategoryMenu()">
          All Product Unit sale
          </button>
  
@@ -115,11 +107,11 @@
    
            <div *ngIf="showProductVariantManagment" class="submenu">
    
-           <button class="enf-btn" (click)="addProductVariant()">
+           <button class="enf-btn" (click)="addProductVariant(); hideCategoryMenu()">
            Add Product Variant
            </button>
    
-           <button class="enf-btn" (click)="allProductVariant()">
+           <button class="enf-btn" (click)="allProductVariant(); hideCategoryMenu()">
            All Product Variant
           </button>
    
@@ -132,11 +124,11 @@
 
         <div *ngIf="showUnitManagment" class="submenu">
 
-          <button class="enf-btn"(click)="addUnit()">
+          <button class="enf-btn"(click)="addUnit(); hideCategoryMenu()">
           Add Unit
           </button>
 
-          <button class="enf-btn" (click)="allUnits()">
+          <button class="enf-btn" (click)="allUnits(); hideCategoryMenu()">
           All Units
           </button>
 
@@ -154,7 +146,7 @@
 
     <div *ngIf="showUserManagment" class="submenu">
 
-      <button class="enf-btn" (click)="signUp()">
+      <button class="enf-btn" (click)="signUp(); hideCategoryMenu()">
         Add User
       </button>
 
@@ -170,11 +162,11 @@
 
     <div *ngIf="showSupplierManagment" class="submenu">
 
-      <button class="enf-btn" (click)="addSupplier()">
+      <button class="enf-btn" (click)="addSupplier(); hideCategoryMenu()">
         Add Supplier
       </button>
 
-      <button class="enf-btn" (click)="allSuppliers()">
+      <button class="enf-btn" (click)="allSuppliers(); hideCategoryMenu()">
         All Suppliers
       </button>
     </div>
@@ -187,11 +179,11 @@
 
     <div *ngIf="showClientManagment" class="submenu">
 
-      <button class="enf-btn" (click)="addClient()">
+      <button class="enf-btn" (click)="addClient(); hideCategoryMenu()">
         Add Client
       </button>
 
-      <button class="enf-btn" (click)="allClients()">
+      <button class="enf-btn" (click)="allClients(); hideCategoryMenu()">
         All clients
       </button>
     </div>
@@ -206,26 +198,27 @@
         
             <div *ngIf="showMovmentInStockManagment" class="submenu">
         
-                <button class="enf-btn" (click)="addPurchaseOrder()">
+                <button class="enf-btn" (click)="addPurchaseOrder() ;hideCategoryMenu()">
                 Add Purchase Operation
                 </button>
 
-                <button class="enf-btn" (click)="NotDeliveredPurchaseOrders()">
+                <button class="enf-btn" (click)="NotDeliveredPurchaseOrders() ; hideCategoryMenu()">
                  Purchase Operation List
                 </button>
 
 
-                <button class="enf-btn" (click)="addSale()">
+                <button class="enf-btn" (click)="addSale() ;hideCategoryMenu()">
                   Add Sale
                   </button>
-                  <button class="enf-btn" (click)="salesOrderList()">
+                  <button class="enf-btn" (click)="salesOrderList() ;hideCategoryMenu()">
                     Sales List 
                   </button>
 
 
+
                 
           
-              <button class="enf-btn" (click)="allMovmentInStock()">
+              <button class="enf-btn" (click)="allMovmentInStock(); hideCategoryMenu()">
                  Stock Movement
                 </button>
             </div>
@@ -237,7 +230,7 @@
 
 
 <div *ngIf="showMenu" class="floating-menu">
-  <button mat-button (click)="changePassword()">Change Password</button>
+  <button mat-button (click)="changePassword() ; hideCategoryMenu()">Change Password</button>
   <button mat-button (click)="logout()">Logout</button>
 </div>
  
@@ -249,6 +242,9 @@
             (click)="drawer.toggle()">
        Menu
     </button>
+    <app-category-menu *ngIf="!showCategoryMenu"></app-category-menu>
+  
+
 
     <router-outlet></router-outlet>
 

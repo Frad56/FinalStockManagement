@@ -79,7 +79,7 @@
             <span class="th-content">Designation</span>
           </th>
           <td mat-cell *matCellDef="let product">
-            <span class="designation-text">{{ product.designation }}</span>
+            <span class="designation-text">{{ product?.designation }}</span>
           </td>
         </ng-container>
 
@@ -89,7 +89,7 @@
             <span class="th-content">Brand</span>
           </th>
           <td mat-cell *matCellDef="let product">
-            <span class="brand-tag">{{ product.brand }}</span>
+            <span class="brand-tag">{{ product?.brand }}</span>
           </td>
         </ng-container>
 
@@ -119,7 +119,7 @@
             <span class="th-content">Category</span>
           </th>
           <td mat-cell *matCellDef="let product">
-            <span class="category-chip">{{ product.category.name }}</span>
+            <span class="category-chip">{{ product?.category?.name }}</span>
           </td>
         </ng-container>
 

@@ -5,17 +5,23 @@
     <mat-card-title>Supplier</mat-card-title>
 
     <mat-card-content>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Choose Supplier</mat-label>
-
-        <mat-select formControlName="supplierId">
-          <mat-option 
-            *ngFor="let supplier of suppliers$ | async" 
-            [value]="supplier.supplierId">
-            {{ supplier.companyName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="supplier-row">
+        
+        <mat-form-field appearance="outline" class="supplier-field">
+          <mat-label>Choose Supplier</mat-label>
+    
+          <mat-select formControlName="supplierId">
+            <mat-option 
+              *ngFor="let supplier of suppliers$ | async" 
+              [value]="supplier.supplierId">
+              {{ supplier.companyName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+       
+    
+      </div>
     </mat-card-content>
   </mat-card>
 

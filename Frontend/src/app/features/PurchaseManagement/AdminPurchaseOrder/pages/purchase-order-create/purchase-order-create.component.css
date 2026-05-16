@@ -96,3 +96,12 @@ button:hover {
   align-items: center;
   gap: 4px;
 }
+.supplier-row {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* espace entre select et bouton */
+}
+
+.supplier-field {
+  flex: 1; /* prend toute la largeur */
+}

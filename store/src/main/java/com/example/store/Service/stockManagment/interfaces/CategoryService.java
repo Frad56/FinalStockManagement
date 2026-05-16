@@ -2,6 +2,7 @@ package com.example.store.Service.stockManagment.interfaces;
 
 
 import com.example.store.DTO.stockManagment.CategoryDTO;
+import com.example.store.DTO.stockManagment.CategoryDTOTest;
 import com.example.store.Model.StockMangement.Category;
 import com.example.store.Model.StockMangement.CharacteristicTypeValue;
 
@@ -28,5 +29,8 @@ public interface CategoryService {
     List<Category> findCategoriesWithoutProducts();
 
 
-    List<Category> findAllWithChildren();
+    List<CategoryDTOTest> findAllWithChildren();
+
+
+    void sortTree(List<CategoryDTOTest> nodes);
 }

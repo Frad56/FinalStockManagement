@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminComponent } from './features/users/admin/pages/admin.component';
 import { AdminChangePasswordComponent } from './features/users/admin/pages/admin-change-password/admin-change-password.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
 
@@ -8,11 +9,11 @@ export const routes: Routes = [
 {path:'', loadChildren:() =>import('./auth/auth.routes').then(m => m.authRoutes)},
 
 
-{path:'admin',component:AdminComponent,children:[
+{path:'admin',component:AdminComponent,canActivate: [AuthGuard], data: { role: 'ADMIN' },children:[
     {path:'adminChangePassword',component: AdminChangePasswordComponent},
     {path:'', loadChildren:() =>import('./features/stockManagment/product/product.routes').then(m => m.PRODUCT_ROUTES)},
 
-    {path:'categorys', loadChildren:() => import('./features/stockManagment/category/category.routes').then(m => m.CATEGORY_ROUTES)},
+    {path:'category', loadChildren:() => import('./features/stockManagment/category/category.routes').then(m => m.CATEGORY_ROUTES)},
 
 
     {path:'suppliers', loadChildren:() =>import('./features/BusinessPartnerManagement/supplierManagement/supplier/supplier.routes').then(m => m.SUPPLIER_ROUTES)},
@@ -33,8 +34,6 @@ export const routes: Routes = [
     {path:'productUnitSale',loadChildren:()=>import('./features/stockManagment/productUnitSale/productUnitSale.routes').then(m => m.PRODUCT_UNIT_SALE_ROUTES)},
 
     {path:'productVariant',loadChildren:()=>import('./features/stockManagment/productVariant/productVariant.routes').then(m => m.PRODUCT_VARIANT_ROUTES)},
-
-
 
 
     {path:'unit',loadChildren:()=>import('./features/stockManagment/unit/unit.routes').then(m => m.Unit_ROUTES)},
