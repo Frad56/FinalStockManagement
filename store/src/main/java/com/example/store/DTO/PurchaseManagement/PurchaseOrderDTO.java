@@ -1,6 +1,6 @@
-package com.example.store.DTO.PurchaseManagement;
+package com.example.store.dto.PurchaseManagement;
 
-import com.example.store.Model.PurchaseManagement.Status;
+import com.example.store.model.purchaseManagement.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

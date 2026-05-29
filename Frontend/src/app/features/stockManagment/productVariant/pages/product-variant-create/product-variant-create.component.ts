@@ -18,6 +18,7 @@ import { ProductCharacteristic } from '../../../../../shared/models/StockManagme
 import { MatTableModule } from '@angular/material/table';
 import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
 import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-variant-create',
@@ -50,7 +51,7 @@ export class ProductVariantCreateComponent implements OnInit {
   displayedColumns: string[] = ['characteristic','value'];
 
   productVariantForm = this.fb.group({
-    code: [''],
+   
     specificPrice: [],
     quantityInStock: [],
     productId: [null as number | null, Validators.required],
@@ -93,7 +94,7 @@ export class ProductVariantCreateComponent implements OnInit {
 
   private mapFormToProductVariant(): ProductVariantDTO {
     return {
-      code: this.productVariantForm.value.code!,
+      //code: this.productVariantForm.value.code!,
       specificPrice: this.productVariantForm.value.specificPrice!,
       quantityInStock: this.productVariantForm.value.quantityInStock!,
       productId: this.productVariantForm.value.productId!
@@ -117,7 +118,12 @@ export class ProductVariantCreateComponent implements OnInit {
 
         this.characteristicValueService.saveAllCharacteristicValue(valuesDTO).subscribe({
           next: () => {
-            alert('saved successfully');
+            Swal.fire({
+              icon: 'success',
+              title: 'Saved Successfully',
+              text: 'Your changes have been saved.',
+              confirmButtonColor: '#16a34a'
+            });
             this.productVariantForm.reset({
                   productId: this.product.productId
                 });

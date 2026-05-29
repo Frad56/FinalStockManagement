@@ -1,7 +1,7 @@
-package com.example.store.Model.Authentification;
+package com.example.store.model.authentification;
 
 public enum Role {
     ADMIN,
     WORKER,
-    MAGASINER
+    STOCK_KEEPER
 }

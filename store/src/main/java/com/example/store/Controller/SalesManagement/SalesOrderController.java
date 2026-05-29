@@ -1,11 +1,12 @@
-package com.example.store.Controller.SalesManagement;
+package com.example.store.controller.SalesManagement;
 
 
-import com.example.store.DTO.salesManagement.SalesOrderDTO;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Service.salesManagement.interfaces.SalesOrderService;
+import com.example.store.dto.salesManagement.SalesOrderDTO;
+import com.example.store.model.salesManagement.SalesOrder;
+import com.example.store.service.salesManagement.interfaces.SalesOrderService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public class SalesOrderController {
     public SalesOrderController(SalesOrderService salesOrderService){
         this.salesOrderService=salesOrderService;
     }
+
+
 
 
     @PostMapping("/addSalesOrder")

@@ -1,20 +1,19 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
 
-import com.example.store.DTO.stockManagment.ProductVariantDTO;
-import com.example.store.DTO.stockManagment.request.CategoryRequest;
-import com.example.store.DTO.stockManagment.request.CodeRequest;
-import com.example.store.DTO.stockManagment.request.DesignationRequest;
-import com.example.store.DTO.stockManagment.request.ReferenceRequest;
-import com.example.store.Exception.ElementAlreadyExistException;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Exception.ProductHasNoVariantsException;
-import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Repository.StockManagment.CharacteristicValueRepository;
-import com.example.store.Repository.StockManagment.ProductVariantRepository;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.dto.stockManagment.ProductVariantDTO;
+import com.example.store.dto.stockManagment.request.CategoryRequest;
+import com.example.store.dto.stockManagment.request.CodeRequest;
+import com.example.store.dto.stockManagment.request.DesignationRequest;
+import com.example.store.dto.stockManagment.request.ReferenceRequest;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.exception.ProductHasNoVariantsException;
+import com.example.store.model.stockManagement.Product;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.repository.stockManagement.CharacteristicValueRepository;
+import com.example.store.repository.stockManagement.ProductVariantRepository;
+import com.example.store.service.stockManagment.interfaces.ProductService;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
 
 import org.springframework.stereotype.Service;
 
@@ -58,13 +57,13 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     }
     @Override
     public ProductVariant saveProductVariant(ProductVariantDTO productVariantDTO) {
-        String newProductReference = productVariantDTO.getCode().trim().toLowerCase();
 
         Product product =productService.findProductById(productVariantDTO.getProductId());
-        //generateVariantCode(product,)
-        if(productVariantRepository.findByCode(newProductReference).isPresent()){
-            throw new ElementAlreadyExistException("the Product Code ",productVariantDTO.getCode());
-        }
+
+
+
+
+
         if((productVariantDTO.getSpecificPrice() == null)){
             productVariantDTO.setSpecificPrice(product.getBasePrice());
         }

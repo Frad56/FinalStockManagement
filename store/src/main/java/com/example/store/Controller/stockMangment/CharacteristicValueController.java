@@ -1,9 +1,9 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
-import com.example.store.DTO.stockManagment.CharacteristicValueDTO;
-import com.example.store.Model.StockMangement.CharacteristicValue;
-import com.example.store.Service.stockManagment.interfaces.CharacteristicValueService;
+import com.example.store.dto.stockManagment.CharacteristicValueDTO;
+import com.example.store.model.stockManagement.CharacteristicValue;
+import com.example.store.service.stockManagment.interfaces.CharacteristicValueService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

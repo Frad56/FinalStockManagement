@@ -1,19 +1,19 @@
-package com.example.store.Service.PurchaseManagement.implementation;
+package com.example.store.service.PurchaseManagement.implementation;
 
 
-import com.example.store.DTO.PurchaseManagement.PurchaseOrderDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.PurchaseManagement.PurchaseOrder;
-import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Supplier;
-import com.example.store.Repository.PurchaseManagement.PurchaseOrderRepository;
-import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderService;
-import com.example.store.Service.BusinessPartnerManagement.supplierManagement.SupplierService;
+import com.example.store.dto.PurchaseManagement.PurchaseOrderDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.purchaseManagement.PurchaseOrder;
+import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
+import com.example.store.repository.purchaseManagement.PurchaseOrderRepository;
+import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderService;
+import com.example.store.service.BusinessPartnerManagement.supplierManagement.SupplierService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.example.store.Model.PurchaseManagement.Status.PENDING;
+import static com.example.store.model.purchaseManagement.Status.PENDING;
 
 
 @Service

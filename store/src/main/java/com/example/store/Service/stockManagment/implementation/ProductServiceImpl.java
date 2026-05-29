@@ -1,22 +1,22 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
 
-import com.example.store.DTO.stockManagment.ProductDTO;
-import com.example.store.DTO.stockManagment.request.CategoryRequest;
-import com.example.store.DTO.stockManagment.request.DesignationRequest;
-import com.example.store.DTO.stockManagment.request.ReferenceRequest;
-import com.example.store.Exception.ElementAlreadyExistException;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Exception.ResourceInUseException;
-import com.example.store.Model.StockMangement.Aisle;
-import com.example.store.Model.StockMangement.Category;
-import com.example.store.Model.StockMangement.Product;
-import com.example.store.Repository.StockManagment.ProductCharacteristicRepository;
-import com.example.store.Repository.StockManagment.ProductRepository;
-import com.example.store.Repository.StockManagment.ProductUnitSaleRepository;
-import com.example.store.Service.stockManagment.interfaces.AisleService;
-import com.example.store.Service.stockManagment.interfaces.CategoryService;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
+import com.example.store.dto.stockManagment.ProductDTO;
+import com.example.store.dto.stockManagment.request.CategoryRequest;
+import com.example.store.dto.stockManagment.request.DesignationRequest;
+import com.example.store.dto.stockManagment.request.ReferenceRequest;
+import com.example.store.exception.ElementAlreadyExistException;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.exception.ResourceInUseException;
+import com.example.store.model.stockManagement.Aisle;
+import com.example.store.model.stockManagement.Category;
+import com.example.store.model.stockManagement.Product;
+import com.example.store.repository.stockManagement.ProductCharacteristicRepository;
+import com.example.store.repository.stockManagement.ProductRepository;
+import com.example.store.repository.stockManagement.ProductUnitSaleRepository;
+import com.example.store.service.stockManagment.interfaces.AisleService;
+import com.example.store.service.stockManagment.interfaces.CategoryService;
+import com.example.store.service.stockManagment.interfaces.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

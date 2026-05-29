@@ -1,9 +1,9 @@
 package com.example.store.config;
 
 
-import com.example.store.Model.Authentification.Role;
-import com.example.store.Model.Authentification.User;
-import com.example.store.Repository.AuthRepository.UserRepository;
+import com.example.store.model.authentification.Role;
+import com.example.store.model.authentification.User;
+import com.example.store.repository.authRepository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

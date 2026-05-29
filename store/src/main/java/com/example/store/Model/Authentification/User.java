@@ -1,4 +1,4 @@
-package com.example.store.Model.Authentification;
+package com.example.store.model.authentification;
 
 
 import jakarta.persistence.Entity;

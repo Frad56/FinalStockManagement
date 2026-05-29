@@ -1,9 +1,9 @@
-package com.example.store.Controller.PurchaseManagement;
+package com.example.store.controller.PurchaseManagement;
 
 
-import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderLineService;
+import com.example.store.dto.PurchaseManagement.PurchaseOrderLineDTO;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderLineService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

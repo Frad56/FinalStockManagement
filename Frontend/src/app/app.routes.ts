@@ -2,21 +2,34 @@ import { Routes } from '@angular/router';
 import { AdminComponent } from './features/users/admin/pages/admin.component';
 import { AdminChangePasswordComponent } from './features/users/admin/pages/admin-change-password/admin-change-password.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { ForgotPasswordComponent } from './auth/forgotPasswordManagement/forgot-password/forgot-password.component';
+import { LoginComponent } from './auth/login/login.component';
+import { WorkerComponent } from './features/users/worker/pages/worker.component';
+import { MagasinerDashboardComponent } from './features/users/magasiner/pages/magasiner-dashboard/magasiner-dashboard.component';
+import { SigupComponent } from './auth/sigup/sigup.component';
 
 export const routes: Routes = [
 
-{path:'',redirectTo: 'login', pathMatch:'full'},
-{path:'', loadChildren:() =>import('./auth/auth.routes').then(m => m.authRoutes)},
+
+{path:'', component:LoginComponent},
+
+{path:'login', component:LoginComponent},
+
+{ path: 'forgot-password', component: ForgotPasswordComponent },
+
+{path:'admin-dashboard', component:AdminComponent ,canActivate: [AuthGuard],data: { role: 'ADMIN' }},
+{path:'worker-dashboard', component:WorkerComponent ,canActivate: [AuthGuard],data: { role: 'WORKER' }},
+{path:'magasiner-dashboard', component:MagasinerDashboardComponent ,canActivate: [AuthGuard],data: { role: 'MAGASINER' }},
 
 
 {path:'admin',component:AdminComponent,canActivate: [AuthGuard], data: { role: 'ADMIN' },children:[
-    { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
     {path:'adminChangePassword',component: AdminChangePasswordComponent},
     {path:'', loadChildren:() =>import('./features/stockManagment/product/product.routes').then(m => m.PRODUCT_ROUTES)},
-
     {path:'category', loadChildren:() => import('./features/stockManagment/category/category.routes').then(m => m.CATEGORY_ROUTES)},
 
+    {path:'add-user', component:SigupComponent},
 
+    
     {path:'suppliers', loadChildren:() =>import('./features/BusinessPartnerManagement/supplierManagement/supplier/supplier.routes').then(m => m.SUPPLIER_ROUTES)},
     {path:'client', loadChildren:() =>import('./features/BusinessPartnerManagement/clientManagement/client.routes').then(m => m.CLIENT_ROUTES)},
 

@@ -54,6 +54,7 @@ onSubmit(){
       
       Swal.fire('Unit Created successfully');   
       this.unitForm.reset();
+      this.location.back();
 
     },
     error:(err)=>{

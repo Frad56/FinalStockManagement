@@ -1,8 +1,9 @@
-package com.example.store.Controller.AuthController;
+package com.example.store.controller.AuthController;
 
 
-import com.example.store.DTO.authentification.EmailRequestDTO;
-import com.example.store.Service.AuthService.EmailService;
+import com.example.store.dto.authentification.EmailRequestDTO;
+import com.example.store.model.authentification.VerificationCode;
+import com.example.store.service.AuthService.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,26 +39,21 @@ public class SendCodeController {
     }
 
 
+    @PostMapping("/verify-code")
+    public ResponseEntity<Map<String, String>> verifyCode(@RequestBody VerificationCode request) {
 
+        String storedCode = emailService.getCode(request.getEmail());
 
+        if (storedCode == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Code expired or not found"));
+        }
 
-
-//    @PostMapping("/verify-code")
-//    public ResponseEntity<Map<String, String>> verifyCode(@RequestBody VerificationCode request) {
-//        String storedCode = emailService.getCode(request.getEmail());
-//
-//        if(storedCode == null) {
-//            return ResponseEntity.badRequest().body(Map.of("message", "No code found for this email"));
-//        }
-//
-//        if(!storedCode.equals(request.getCode())) {
-//            return ResponseEntity.badRequest().body(Map.of("message", "Invalid code"));
-//        }
-//
-//        emailService.deleteCode(request.getEmail());
-//
-//        return ResponseEntity.ok(Map.of("message", "Code verified successfully"));
-//
-//    }
+        if (!storedCode.equals(request.getCode())) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Invalid verification code"));
+        }
+        return ResponseEntity.ok(Map.of("message", "Code verified successfully"));
+    }
 
 }

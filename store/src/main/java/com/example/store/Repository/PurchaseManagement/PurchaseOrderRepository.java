@@ -1,7 +1,7 @@
-package com.example.store.Repository.PurchaseManagement;
+package com.example.store.repository.purchaseManagement;
 
 
-import com.example.store.Model.PurchaseManagement.PurchaseOrder;
+import com.example.store.model.purchaseManagement.PurchaseOrder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

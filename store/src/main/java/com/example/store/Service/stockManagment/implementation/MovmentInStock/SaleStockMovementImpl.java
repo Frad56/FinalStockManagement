@@ -1,13 +1,12 @@
-package com.example.store.Service.stockManagment.implementation.MovmentInStock;
+package com.example.store.service.stockManagment.implementation.MovmentInStock;
 
 
-import com.example.store.Model.StockMangement.MovementInStock.SaleStockMovement;
-import com.example.store.Model.StockMangement.MovementInStockType;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Model.salesManagement.SalesOrderLine;
-import com.example.store.Repository.StockManagment.MovmentInStock.SaleStockMovementRepository;
-import com.example.store.Service.stockManagment.interfaces.movmentInStock.SaleStockMovementService;
+import com.example.store.model.stockManagement.MovementInStock.SaleStockMovement;
+import com.example.store.model.stockManagement.MovementInStockType;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.model.salesManagement.SalesOrderLine;
+import com.example.store.repository.stockManagement.MovmentInStock.SaleStockMovementRepository;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.SaleStockMovementService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

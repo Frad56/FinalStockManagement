@@ -6,10 +6,13 @@ import { tokenInterceptor } from './auth/interceptors/token.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 
+
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
-    provideHttpClient(withInterceptors([tokenInterceptor]))
-  ,provideAnimations()
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([tokenInterceptor]) 
+    ),
+    provideAnimations()
   ]
-  
 };

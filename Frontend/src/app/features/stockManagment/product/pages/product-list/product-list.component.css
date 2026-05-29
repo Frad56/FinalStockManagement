@@ -551,3 +551,162 @@
 
     
   }
+
+  /* ── Search Card ── */
+.search-card {
+  background: #fff;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Type buttons */
+.search-type-group {
+  display: flex;
+  gap: 4px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.type-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.type-btn:hover {
+  color: #374151;
+  background: #e9eaec;
+}
+
+.type-btn.active {
+  background: #fff;
+  color: #1a56db;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+.type-btn svg {
+  flex-shrink: 0;
+}
+
+/* Input */
+.search-input-wrap {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-ico {
+  position: absolute;
+  left: 11px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  height: 38px;
+  background: #f9fafb;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 36px 0 34px;
+  font-size: 13.5px;
+  color: #111827;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.1);
+  background: #fff;
+}
+
+.search-input::placeholder {
+  color: #d1d5db;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 9px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 4px;
+  transition: color .15s;
+}
+
+.clear-btn:hover {
+  color: #374151;
+}
+
+/* Search button */
+.search-btn {
+  height: 38px;
+  padding: 0 18px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Active filter pill */
+.active-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: #6b7280;
+  padding: 6px 12px;
+  background: #eff6ff;
+  border-radius: 6px;
+  border: 0.5px solid #bfdbfe;
+}
+
+.active-filter strong {
+  color: #1a56db;
+}
+
+.filter-clear {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #3b82f6;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0 4px;
+  font-family: inherit;
+}
+
+.filter-clear:hover {
+  color: #1a56db;
+}

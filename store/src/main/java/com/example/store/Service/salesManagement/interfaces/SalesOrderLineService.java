@@ -1,9 +1,7 @@
-package com.example.store.Service.salesManagement.interfaces;
+package com.example.store.service.salesManagement.interfaces;
 
-import com.example.store.DTO.salesManagement.SalesOrderDTO;
-import com.example.store.DTO.salesManagement.SalesOrderLineDTO;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Model.salesManagement.SalesOrderLine;
+import com.example.store.dto.salesManagement.SalesOrderLineDTO;
+import com.example.store.model.salesManagement.SalesOrderLine;
 
 import java.util.List;
 

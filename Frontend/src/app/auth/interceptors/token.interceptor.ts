@@ -5,6 +5,8 @@ import { catchError, throwError } from 'rxjs';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
+  console.log(' INTERCEPTOR CALLED FOR:', req.url);  // ← AJOUTE CETTE LIGNE
+
   const token = localStorage.getItem('token');
 
   const router = inject(Router);
@@ -15,8 +17,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     clonedReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
+        
       }
     });
+    console.log(' Header ajouté:', clonedReq.headers.get('Authorization'));
+
   }
     return next(clonedReq).pipe(
       catchError((error) =>{

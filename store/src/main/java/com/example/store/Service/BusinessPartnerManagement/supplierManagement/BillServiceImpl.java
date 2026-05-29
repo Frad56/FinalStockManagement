@@ -1,4 +1,4 @@
-package com.example.store.Service.BusinessPartnerManagement.supplierManagement;
+package com.example.store.service.BusinessPartnerManagement.supplierManagement;
 
 
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package com.example.store.Security.jwt;
+package com.example.store.security.jwt;
 
-import com.example.store.Model.Authentification.Role;
+import com.example.store.model.authentification.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

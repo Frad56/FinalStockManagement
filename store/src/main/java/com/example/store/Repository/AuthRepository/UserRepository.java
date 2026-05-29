@@ -1,6 +1,7 @@
-package com.example.store.Repository.AuthRepository;
+package com.example.store.repository.authRepository;
 
-import com.example.store.Model.Authentification.User;
+import com.example.store.model.authentification.Role;
+import com.example.store.model.authentification.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,11 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("SELECT u.email FROM User u WHERE u.username = :username")
     Optional<String> findEmailByName(String username);
+
+    boolean existsByEmail(String email);
+
+
+    boolean existsByEmailAndRole(String email, Role role);
 
 
 

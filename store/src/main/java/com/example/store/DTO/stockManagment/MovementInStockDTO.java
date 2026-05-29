@@ -1,7 +1,7 @@
-package com.example.store.DTO.stockManagment;
+package com.example.store.dto.stockManagment;
 
 
-import com.example.store.Model.StockMangement.MovementInStockType;
+import com.example.store.model.stockManagement.MovementInStockType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

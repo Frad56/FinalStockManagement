@@ -1,7 +1,6 @@
-package com.example.store.Repository.salesManagement;
+package com.example.store.repository.salesManagement;
 
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Model.salesManagement.SalesOrderLine;
+import com.example.store.model.salesManagement.SalesOrderLine;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

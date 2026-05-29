@@ -1,7 +1,7 @@
-package com.example.store.DTO.authentification;
+package com.example.store.dto.authentification;
 
 
-import com.example.store.Model.Authentification.Role;
+import com.example.store.model.authentification.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

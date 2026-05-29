@@ -1,10 +1,10 @@
-package com.example.store.Service.stockManagment.interfaces;
+package com.example.store.service.stockManagment.interfaces;
 
 
-import com.example.store.DTO.stockManagment.CategoryDTO;
-import com.example.store.DTO.stockManagment.CategoryDTOTest;
-import com.example.store.Model.StockMangement.Category;
-import com.example.store.Model.StockMangement.CharacteristicTypeValue;
+import com.example.store.dto.stockManagment.CategoryDTO;
+import com.example.store.dto.stockManagment.CategoryDTOTest;
+import com.example.store.model.stockManagement.Category;
+import com.example.store.model.stockManagement.CharacteristicTypeValue;
 
 import java.util.List;
 

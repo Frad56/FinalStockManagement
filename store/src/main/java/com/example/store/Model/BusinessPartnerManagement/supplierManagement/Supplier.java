@@ -1,16 +1,9 @@
-package com.example.store.Model.BusinessPartnerManagement.supplierManagement;
+package com.example.store.model.businessPartnerManagement.supplierManagement;
 
 
-import com.example.store.Model.BusinessPartnerManagement.BusinessPartner;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.example.store.model.businessPartnerManagement.BusinessPartner;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Data
@@ -22,12 +15,15 @@ public class Supplier extends BusinessPartner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long supplierId;
 
+
     @Column(name = "company_name")
     protected String companyName;
 
     @Column(name = "contact_name")
     protected String contactName;
 
+    @Column(name = "tax_identification_number")
+    protected String taxIdentificationNumber;
 
 //    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonManagedReference

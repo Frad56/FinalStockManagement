@@ -1,6 +1,6 @@
 export interface ProductVariantDTO{
 
-        code:string;
+        code?:string;
         specificPrice:number;
         quantityInStock:number;
         productId:number;

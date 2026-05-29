@@ -1,17 +1,17 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
-import com.example.store.DTO.stockManagment.CharacteristicValueDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.StockMangement.Characteristic;
-import com.example.store.Model.StockMangement.CharacteristicValue;
+import com.example.store.dto.stockManagment.CharacteristicValueDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.stockManagement.Characteristic;
+import com.example.store.model.stockManagement.CharacteristicValue;
 
-import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Repository.StockManagment.CharacteristicRepository;
-import com.example.store.Repository.StockManagment.CharacteristicValueRepository;
-import com.example.store.Service.stockManagment.interfaces.CharacteristicValueService;
-import com.example.store.Service.stockManagment.interfaces.ProductCharacteristicService;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.model.stockManagement.Product;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.repository.stockManagement.CharacteristicRepository;
+import com.example.store.repository.stockManagement.CharacteristicValueRepository;
+import com.example.store.service.stockManagment.interfaces.CharacteristicValueService;
+import com.example.store.service.stockManagment.interfaces.ProductCharacteristicService;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
 
 import org.springframework.stereotype.Service;
 
@@ -58,13 +58,13 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
 
 
 
-    public String generateVariantCode(Product product, String color, String size) {
+    public String generateVariantCode(Product product, String characteristic, String characteristicValue) {
 
         String base = product.getReference();
 
         return base + "-"
-                + color.substring(0, 3).toUpperCase()
-                + "-" + size;
+                + characteristic.substring(0, 3).toUpperCase()
+                + "-" + characteristicValue.substring(0, 3).toUpperCase();
     }
     @Override
     public CharacteristicValue saveCharacteristicValue(CharacteristicValueDTO characteristicValue){
@@ -73,6 +73,9 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
             mapDTOToCharacteristicValue(characteristicValue,characteristicValueDB);
             ProductVariant pv = characteristicValueDB.getProductVariant();
             //characteristicValueDB
+            String code =generateVariantCode(pv.getProduct(),characteristicValueDB.getCharacteristic().getName(),characteristicValueDB.getValue());
+            pv.setCode(code);
+            productVariantService.updateProductVariant(pv,pv.getProductVariantId());
 
             return characteristicValueRepository.save(characteristicValueDB);
     }

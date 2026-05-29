@@ -1,6 +1,6 @@
-package com.example.store.Model.BusinessPartnerManagement.clientManagment;
+package com.example.store.model.businessPartnerManagement.clientManagment;
 
-import com.example.store.Model.BusinessPartnerManagement.BusinessPartner;
+import com.example.store.model.businessPartnerManagement.BusinessPartner;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

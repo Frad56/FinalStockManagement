@@ -1,11 +1,6 @@
-package com.example.store.Controller.AuthController;
+package com.example.store.controller.AuthController;
 
 
-import com.example.store.DTO.authentification.UserResponse;
-import com.example.store.Security.details.CustomUserDetailsService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

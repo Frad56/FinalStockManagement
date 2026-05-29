@@ -1,9 +1,9 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
 
-import com.example.store.Model.StockMangement.MovementInStock.MovementInStock;
-import com.example.store.Repository.StockManagment.MovmentInStock.MovementInStockRepository;
-import com.example.store.Service.stockManagment.interfaces.movmentInStock.MovementInStockService;
+import com.example.store.model.stockManagement.MovementInStock.MovementInStock;
+import com.example.store.repository.stockManagement.MovmentInStock.MovementInStockRepository;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.MovementInStockService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

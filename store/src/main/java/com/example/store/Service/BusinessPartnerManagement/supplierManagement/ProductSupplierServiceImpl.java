@@ -1,13 +1,13 @@
-package com.example.store.Service.BusinessPartnerManagement.supplierManagement;
+package com.example.store.service.BusinessPartnerManagement.supplierManagement;
 
 
-import com.example.store.DTO.BusinessPartner.supplierManagement.ProductSupplierDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.BusinessPartnerManagement.supplierManagement.ProductSupplier;
-import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Supplier;
-import com.example.store.Repository.BusinessPartner.supplierManagement.ProductSupplierRepository;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
+import com.example.store.dto.BusinessPartner.supplierManagement.ProductSupplierDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.stockManagement.Product;
+import com.example.store.model.businessPartnerManagement.supplierManagement.ProductSupplier;
+import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
+import com.example.store.repository.businessPartner.supplierManagement.ProductSupplierRepository;
+import com.example.store.service.stockManagment.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

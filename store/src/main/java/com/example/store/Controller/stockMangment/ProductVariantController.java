@@ -1,14 +1,14 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
-import com.example.store.DTO.stockManagment.ProductVariantDTO;
-import com.example.store.DTO.stockManagment.request.CategoryRequest;
-import com.example.store.DTO.stockManagment.request.CodeRequest;
-import com.example.store.DTO.stockManagment.request.DesignationRequest;
-import com.example.store.DTO.stockManagment.request.ReferenceRequest;
-import com.example.store.Model.StockMangement.Product;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.dto.stockManagment.ProductVariantDTO;
+import com.example.store.dto.stockManagment.request.CategoryRequest;
+import com.example.store.dto.stockManagment.request.CodeRequest;
+import com.example.store.dto.stockManagment.request.DesignationRequest;
+import com.example.store.dto.stockManagment.request.ReferenceRequest;
+import com.example.store.model.stockManagement.Product;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

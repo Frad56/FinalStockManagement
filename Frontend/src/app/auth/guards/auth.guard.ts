@@ -17,11 +17,15 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     }
+    console.log('****** INTERCEPTOR EXÉCUTÉ ******');
 
+    console.log("TOKEN:", this.auth.getToken());
+    console.log("ROLE:", localStorage.getItem('role'));
     const expectedRole = route.data['role'];
     const userRole = localStorage.getItem('role');
+    
 
-    if (expectedRole && userRole !== expectedRole) {
+    if (expectedRole && !expectedRole.includes(userRole)) {
       this.router.navigate(['/login']);
       return false;
     }

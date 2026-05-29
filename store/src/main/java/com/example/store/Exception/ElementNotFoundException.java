@@ -1,4 +1,4 @@
-package com.example.store.Exception;
+package com.example.store.exception;
 
 public class ElementNotFoundException extends RuntimeException{
     public ElementNotFoundException(Long id ){

@@ -1,6 +1,6 @@
-package com.example.store.Model.salesManagement;
+package com.example.store.model.salesManagement;
 
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
+import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 

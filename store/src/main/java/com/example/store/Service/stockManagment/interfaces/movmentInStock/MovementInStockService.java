@@ -1,7 +1,7 @@
-package com.example.store.Service.stockManagment.interfaces.movmentInStock;
+package com.example.store.service.stockManagment.interfaces.movmentInStock;
 
 
-import com.example.store.Model.StockMangement.MovementInStock.MovementInStock;
+import com.example.store.model.stockManagement.MovementInStock.MovementInStock;
 
 import java.util.List;
 

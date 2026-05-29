@@ -1,12 +1,12 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
-import com.example.store.DTO.stockManagment.AisleDTO;
-import com.example.store.Exception.ElementAlreadyExistException;
-import com.example.store.Model.StockMangement.Aisle;
-import com.example.store.Model.StockMangement.Product;
-import com.example.store.Repository.StockManagment.AisleRepository;
-import com.example.store.Repository.StockManagment.ProductRepository;
-import com.example.store.Service.stockManagment.interfaces.AisleService;
+import com.example.store.dto.stockManagment.AisleDTO;
+import com.example.store.exception.ElementAlreadyExistException;
+import com.example.store.model.stockManagement.Aisle;
+import com.example.store.model.stockManagement.Product;
+import com.example.store.repository.stockManagement.AisleRepository;
+import com.example.store.repository.stockManagement.ProductRepository;
+import com.example.store.service.stockManagment.interfaces.AisleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

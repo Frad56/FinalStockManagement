@@ -1,14 +1,12 @@
-package com.example.store.Service.salesManagement.implementation;
+package com.example.store.service.salesManagement.implementation;
 
-import com.example.store.DTO.salesManagement.InstallmentDTO;
-import com.example.store.DTO.stockManagment.AisleDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.StockMangement.Aisle;
-import com.example.store.Model.salesManagement.Installment;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Repository.salesManagement.InstallmentRepository;
-import com.example.store.Service.salesManagement.interfaces.InstallmentService;
-import com.example.store.Service.salesManagement.interfaces.SalesOrderService;
+import com.example.store.dto.salesManagement.InstallmentDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.salesManagement.Installment;
+import com.example.store.model.salesManagement.SalesOrder;
+import com.example.store.repository.salesManagement.InstallmentRepository;
+import com.example.store.service.salesManagement.interfaces.InstallmentService;
+import com.example.store.service.salesManagement.interfaces.SalesOrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

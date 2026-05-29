@@ -1,9 +1,9 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
-import com.example.store.DTO.stockManagment.AisleDTO;
-import com.example.store.Model.StockMangement.Aisle;
-import com.example.store.Service.stockManagment.interfaces.AisleService;
+import com.example.store.dto.stockManagment.AisleDTO;
+import com.example.store.model.stockManagement.Aisle;
+import com.example.store.service.stockManagment.interfaces.AisleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

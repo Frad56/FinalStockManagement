@@ -1,9 +1,7 @@
-package com.example.store.Repository.BusinessPartner.ClientManagement;
+package com.example.store.repository.businessPartner.ClientManagement;
 
 
-import com.example.store.DTO.stockManagment.request.CodeRequest;
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
-import com.example.store.Model.StockMangement.ProductVariant;
+import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

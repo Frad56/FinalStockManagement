@@ -1,4 +1,4 @@
-package com.example.store.DTO.Response;
+package com.example.store.dto.Response;
 
 
 import lombok.AllArgsConstructor;

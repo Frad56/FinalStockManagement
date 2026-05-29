@@ -1,8 +1,8 @@
-package com.example.store.Model.PurchaseManagement;
+package com.example.store.model.purchaseManagement;
 
 
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Model.StockMangement.Unit;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.model.stockManagement.Unit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,9 +1,7 @@
-package com.example.store.Service.BusinessPartnerManagement.clientManagement;
+package com.example.store.service.BusinessPartnerManagement.clientManagement;
 
-import com.example.store.DTO.BusinessPartner.ClientManagement.ClientDTO;
-import com.example.store.DTO.stockManagment.request.CodeRequest;
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
-import com.example.store.Model.StockMangement.ProductVariant;
+import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;
+import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 
 import java.util.List;
 

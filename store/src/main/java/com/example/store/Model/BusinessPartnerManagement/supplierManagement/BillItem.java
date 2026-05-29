@@ -1,4 +1,4 @@
-package com.example.store.Model.BusinessPartnerManagement.supplierManagement;
+package com.example.store.model.businessPartnerManagement.supplierManagement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

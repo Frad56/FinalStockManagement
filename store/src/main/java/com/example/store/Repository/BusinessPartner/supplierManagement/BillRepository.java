@@ -1,7 +1,7 @@
-package com.example.store.Repository.BusinessPartner.supplierManagement;
+package com.example.store.repository.businessPartner.supplierManagement;
 
 
-import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Bill;
+import com.example.store.model.businessPartnerManagement.supplierManagement.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

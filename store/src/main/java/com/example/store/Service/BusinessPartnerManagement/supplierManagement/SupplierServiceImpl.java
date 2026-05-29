@@ -1,10 +1,10 @@
-package com.example.store.Service.BusinessPartnerManagement.supplierManagement;
+package com.example.store.service.BusinessPartnerManagement.supplierManagement;
 
-import com.example.store.DTO.BusinessPartner.supplierManagement.SupplierDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Supplier;
-import com.example.store.Repository.BusinessPartner.supplierManagement.SupplierRepository;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
+import com.example.store.dto.BusinessPartner.supplierManagement.SupplierDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
+import com.example.store.repository.businessPartner.supplierManagement.SupplierRepository;
+import com.example.store.service.stockManagment.interfaces.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +33,7 @@ public class SupplierServiceImpl  implements SupplierService{
         supplier.setCity(supplierDTO.getCity());
         supplier.setPostalCode(supplierDTO.getPostalCode());
         supplier.setCountry(supplierDTO.getCountry());
+        supplier.setTaxIdentificationNumber(supplierDTO.getTaxIdentificationNumber());
     }
 
     @Override

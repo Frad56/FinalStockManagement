@@ -1,7 +1,6 @@
-package com.example.store.DTO.BusinessPartner.ClientManagement;
+package com.example.store.dto.BusinessPartner.ClientManagement;
 
-import com.example.store.DTO.BusinessPartner.BusinessPartnerDTO;
-import jakarta.persistence.Column;
+import com.example.store.dto.BusinessPartner.BusinessPartnerDTO;
 import lombok.Data;
 
 

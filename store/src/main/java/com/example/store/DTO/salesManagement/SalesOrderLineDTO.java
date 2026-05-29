@@ -1,7 +1,4 @@
-package com.example.store.DTO.salesManagement;
-
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
-import com.example.store.Model.salesManagement.PaymentType;
+package com.example.store.dto.salesManagement;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;

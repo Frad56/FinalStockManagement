@@ -1,8 +1,8 @@
-package com.example.store.Service.PurchaseManagement.interfaces;
+package com.example.store.service.PurchaseManagement.interfaces;
 
 
-import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
+import com.example.store.dto.PurchaseManagement.PurchaseOrderLineDTO;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
 
 import java.util.List;
 

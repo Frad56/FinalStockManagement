@@ -1,8 +1,8 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
-import com.example.store.Model.StockMangement.MovementInStock.MovementInStock;
-import com.example.store.Service.stockManagment.interfaces.movmentInStock.MovementInStockService;
+import com.example.store.model.stockManagement.MovementInStock.MovementInStock;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.MovementInStockService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

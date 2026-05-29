@@ -1,7 +1,7 @@
-package com.example.store.Model.salesManagement;
+package com.example.store.model.salesManagement;
 
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Model.StockMangement.Unit;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.model.stockManagement.Unit;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

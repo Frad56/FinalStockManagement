@@ -1,4 +1,4 @@
-package com.example.store.DTO.authentification.resetEmail;
+package com.example.store.dto.authentification.resetEmail;
 
 
 import lombok.AllArgsConstructor;

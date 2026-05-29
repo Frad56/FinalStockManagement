@@ -1,9 +1,9 @@
-package com.example.store.Service.AuthService;
+package com.example.store.service.AuthService;
 
-import com.example.store.DTO.authentification.UserDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.Authentification.User;
-import com.example.store.Repository.AuthRepository.UserRepository;
+import com.example.store.dto.authentification.UserDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.authentification.User;
+import com.example.store.repository.authRepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,16 +1,16 @@
-package com.example.store.Service.salesManagement.implementation;
+package com.example.store.service.salesManagement.implementation;
 
-import com.example.store.DTO.salesManagement.SalesOrderDTO;
-import com.example.store.DTO.salesManagement.SalesOrderLineDTO;
-import com.example.store.Exception.ArgumentNotValidException;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Model.salesManagement.SalesOrderLine;
-import com.example.store.Repository.salesManagement.SalesOrderLineRepository;
-import com.example.store.Service.salesManagement.interfaces.SalesOrderLineService;
-import com.example.store.Service.salesManagement.interfaces.SalesOrderService;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.dto.salesManagement.SalesOrderLineDTO;
+import com.example.store.exception.ArgumentNotValidException;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.model.salesManagement.SalesOrder;
+import com.example.store.model.salesManagement.SalesOrderLine;
+import com.example.store.repository.salesManagement.SalesOrderLineRepository;
+import com.example.store.service.salesManagement.interfaces.SalesOrderLineService;
+import com.example.store.service.salesManagement.interfaces.SalesOrderService;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -90,6 +90,7 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
                 new ElementNotFoundException(salesOrderLineId));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public SalesOrderLine updateSalesOrderLine(SalesOrderLineDTO salesOrderLineDTO, Long salesOrderLineId){
         SalesOrderLine salesOrderLine =findSalesOrderLineById(salesOrderLineId);
@@ -115,6 +116,9 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
         return salesOrderLineRepository.save(salesOrderLine);
     }
 
+
+
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void deleteSalesOrderLineById(Long salesOrderLineId){
         SalesOrderLine salesOrderLine =findSalesOrderLineById(salesOrderLineId);

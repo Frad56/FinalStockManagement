@@ -1,11 +1,11 @@
-package com.example.store.Service.stockManagment.interfaces;
+package com.example.store.service.stockManagment.interfaces;
 
 
-import com.example.store.DTO.stockManagment.ProductDTO;
-import com.example.store.DTO.stockManagment.request.CategoryRequest;
-import com.example.store.DTO.stockManagment.request.DesignationRequest;
-import com.example.store.DTO.stockManagment.request.ReferenceRequest;
-import com.example.store.Model.StockMangement.Product;
+import com.example.store.dto.stockManagment.ProductDTO;
+import com.example.store.dto.stockManagment.request.CategoryRequest;
+import com.example.store.dto.stockManagment.request.DesignationRequest;
+import com.example.store.dto.stockManagment.request.ReferenceRequest;
+import com.example.store.model.stockManagement.Product;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.store.DTO.authentification;
+package com.example.store.dto.authentification;
 
 
 import lombok.AllArgsConstructor;
@@ -14,5 +14,4 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
     private String username;
     private String password;
-
 }

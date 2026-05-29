@@ -1,10 +1,10 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
-import com.example.store.DTO.stockManagment.CategoryDTO;
-import com.example.store.DTO.stockManagment.CategoryDTOTest;
-import com.example.store.Model.StockMangement.Category;
-import com.example.store.Service.stockManagment.interfaces.CategoryService;
+import com.example.store.dto.stockManagment.CategoryDTO;
+import com.example.store.dto.stockManagment.CategoryDTOTest;
+import com.example.store.model.stockManagement.Category;
+import com.example.store.service.stockManagment.interfaces.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

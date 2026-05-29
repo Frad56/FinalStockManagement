@@ -1,4 +1,4 @@
-package com.example.store.Model.salesManagement;
+package com.example.store.model.salesManagement;
 
 import jakarta.persistence.*;
 import lombok.Data;

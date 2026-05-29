@@ -1,4 +1,4 @@
-package com.example.store.DTO.stockManagment.request;
+package com.example.store.dto.stockManagment.request;
 
 import lombok.Getter;
 

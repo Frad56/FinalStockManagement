@@ -1,12 +1,10 @@
-package com.example.store.DTO.salesManagement;
+package com.example.store.dto.salesManagement;
 
-import com.example.store.Model.salesManagement.PaymentType;
+import com.example.store.model.salesManagement.PaymentType;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 
-import com.example.store.Model.salesManagement.SalesOrderLine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

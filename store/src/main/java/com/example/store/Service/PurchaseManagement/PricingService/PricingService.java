@@ -1,4 +1,4 @@
-package com.example.store.Service.PurchaseManagement.PricingService;
+package com.example.store.service.PurchaseManagement.PricingService;
 
 public interface PricingService {
 }

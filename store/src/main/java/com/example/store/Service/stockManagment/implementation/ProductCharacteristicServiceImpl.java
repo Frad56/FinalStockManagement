@@ -1,14 +1,14 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
 
-import com.example.store.DTO.stockManagment.ProductCharacteristicDTO;
-import com.example.store.Exception.ElementAlreadyExistException;
-import com.example.store.Model.StockMangement.Characteristic;
-import com.example.store.Model.StockMangement.ProductCharacteristic;
-import com.example.store.Repository.StockManagment.ProductCharacteristicRepository;
-import com.example.store.Service.stockManagment.interfaces.CharacteristicService;
-import com.example.store.Service.stockManagment.interfaces.ProductCharacteristicService;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
+import com.example.store.dto.stockManagment.ProductCharacteristicDTO;
+import com.example.store.exception.ElementAlreadyExistException;
+import com.example.store.model.stockManagement.Characteristic;
+import com.example.store.model.stockManagement.ProductCharacteristic;
+import com.example.store.repository.stockManagement.ProductCharacteristicRepository;
+import com.example.store.service.stockManagment.interfaces.CharacteristicService;
+import com.example.store.service.stockManagment.interfaces.ProductCharacteristicService;
+import com.example.store.service.stockManagment.interfaces.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

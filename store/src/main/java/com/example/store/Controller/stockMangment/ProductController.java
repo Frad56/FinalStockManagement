@@ -1,15 +1,15 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
-import com.example.store.DTO.stockManagment.ProductDTO;
+import com.example.store.dto.stockManagment.ProductDTO;
 
-import com.example.store.DTO.stockManagment.request.CategoryRequest;
-import com.example.store.DTO.stockManagment.request.DesignationRequest;
-import com.example.store.DTO.stockManagment.request.ReferenceRequest;
-import com.example.store.Model.StockMangement.Product;
+import com.example.store.dto.stockManagment.request.CategoryRequest;
+import com.example.store.dto.stockManagment.request.DesignationRequest;
+import com.example.store.dto.stockManagment.request.ReferenceRequest;
+import com.example.store.model.stockManagement.Product;
 
-import com.example.store.Service.stockManagment.interfaces.CategoryService;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
+import com.example.store.service.stockManagment.interfaces.CategoryService;
+import com.example.store.service.stockManagment.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +43,7 @@ public class ProductController {
 
     @GetMapping("/ListProducts")
     public ResponseEntity< List<Product> >fetchProductList(){
+
         List<Product> products =productService.fetchProductList();;
         return ResponseEntity.ok(products);
     }

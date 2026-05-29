@@ -1,7 +1,7 @@
-package com.example.store.Service.stockManagment.interfaces;
+package com.example.store.service.stockManagment.interfaces;
 
-import com.example.store.DTO.stockManagment.AisleDTO;
-import com.example.store.Model.StockMangement.Aisle;
+import com.example.store.dto.stockManagment.AisleDTO;
+import com.example.store.model.stockManagement.Aisle;
 
 import java.util.List;
 

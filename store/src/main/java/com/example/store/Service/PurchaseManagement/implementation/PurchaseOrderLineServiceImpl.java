@@ -1,20 +1,20 @@
-package com.example.store.Service.PurchaseManagement.implementation;
+package com.example.store.service.PurchaseManagement.implementation;
 
 
-import com.example.store.DTO.PurchaseManagement.PurchaseOrderLineDTO;
+import com.example.store.dto.PurchaseManagement.PurchaseOrderLineDTO;
 
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.PurchaseManagement.PurchaseOrder;
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Model.StockMangement.ProductVariant;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.purchaseManagement.PurchaseOrder;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.model.stockManagement.ProductVariant;
 
-import com.example.store.Model.StockMangement.Unit;
-import com.example.store.Repository.PurchaseManagement.PurchaseOrderLineRepository;
-import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderLineService;
-import com.example.store.Service.PurchaseManagement.interfaces.PurchaseOrderService;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
-import com.example.store.Service.stockManagment.interfaces.UnitService;
-import com.example.store.Service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
+import com.example.store.model.stockManagement.Unit;
+import com.example.store.repository.purchaseManagement.PurchaseOrderLineRepository;
+import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderLineService;
+import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderService;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.service.stockManagment.interfaces.UnitService;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

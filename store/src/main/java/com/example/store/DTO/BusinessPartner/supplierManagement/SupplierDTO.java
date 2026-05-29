@@ -1,13 +1,8 @@
-package com.example.store.DTO.BusinessPartner.supplierManagement;
+package com.example.store.dto.BusinessPartner.supplierManagement;
 
 
-import com.example.store.DTO.BusinessPartner.BusinessPartnerDTO;
-import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
+import com.example.store.dto.BusinessPartner.BusinessPartnerDTO;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 
 @Data
@@ -16,4 +11,6 @@ public class SupplierDTO extends BusinessPartnerDTO {
     protected String companyName;
 
     protected String contactName;
+
+    protected  String taxIdentificationNumber;
 }

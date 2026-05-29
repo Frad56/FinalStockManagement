@@ -29,6 +29,7 @@ export class AuthService {
           localStorage.setItem('role', response.role);
           this.codeSubject.next(response.isEmailChanged.toString());
           alert("value :"+this.codeSubject.value)
+          alert("token :"+response.token)
     
           
           
@@ -40,7 +41,7 @@ export class AuthService {
   getIsEmailChanged(){
    return this.codeSubject.value
   }
-
+  
   signup(data: UserDTO): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${this.API}/signup`, data);
   }

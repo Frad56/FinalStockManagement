@@ -1,10 +1,10 @@
-package com.example.store.Service.PurchaseManagement.PricingService;
+package com.example.store.service.PurchaseManagement.PricingService;
 
 
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Repository.PurchaseManagement.PurchaseOrderLineRepository;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.repository.purchaseManagement.PurchaseOrderLineRepository;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

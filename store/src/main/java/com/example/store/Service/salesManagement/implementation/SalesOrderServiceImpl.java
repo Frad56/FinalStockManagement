@@ -1,19 +1,18 @@
-package com.example.store.Service.salesManagement.implementation;
+package com.example.store.service.salesManagement.implementation;
 
 
-import com.example.store.DTO.salesManagement.SalesOrderDTO;
-import com.example.store.DTO.salesManagement.SalesOrderLineDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
-import com.example.store.Model.StockMangement.MovementInStock.SaleStockMovement;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Model.salesManagement.SalesOrderLine;
-import com.example.store.Repository.salesManagement.SalesOrderRepository;
-import com.example.store.Service.BusinessPartnerManagement.clientManagement.ClientService;
-import com.example.store.Service.salesManagement.interfaces.SalesOrderService;
-import com.example.store.Service.stockManagment.interfaces.ProductVariantService;
-import com.example.store.Service.stockManagment.interfaces.movmentInStock.SaleStockMovementService;
+import com.example.store.dto.salesManagement.SalesOrderDTO;
+import com.example.store.dto.salesManagement.SalesOrderLineDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.businessPartnerManagement.clientManagment.Client;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.model.salesManagement.SalesOrder;
+import com.example.store.model.salesManagement.SalesOrderLine;
+import com.example.store.repository.salesManagement.SalesOrderRepository;
+import com.example.store.service.BusinessPartnerManagement.clientManagement.ClientService;
+import com.example.store.service.salesManagement.interfaces.SalesOrderService;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.SaleStockMovementService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

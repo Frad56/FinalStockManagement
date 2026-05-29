@@ -4,10 +4,7 @@
 
   <mat-drawer #drawer mode="side" opened class="sidenav">
 
-    <button mat-button class="dashboard-btn" (click)="router.navigate(['/admin/dashboard']);">
-      <mat-icon>dashboard</mat-icon>
-      Dashboard
-    </button>
+
 
     <h3 class="menu-title">Menu</h3>
 
@@ -20,6 +17,8 @@
 
     <div *ngIf="showStockManagment" class="submenu">
 
+      
+      
         <button class="par-enf-btn"  color="primary"
               (click)="showProductManagment = !showProductManagment">
         Product Management
@@ -29,6 +28,11 @@
                 Products List
                 </button>
             </div>
+            <div *ngIf="showProductManagment" class="submenu">
+              <button class="enf-btn"  (click)="changePassword(); hideCategoryMenu()">
+                changePassword
+              </button>
+          </div>
 
         <button class="par-enf-btn" color="primary"
             (click)="showCategoryManagment = !showCategoryManagment">
@@ -244,7 +248,7 @@
             (click)="drawer.toggle()">
        Menu
     </button>
-    <app-category-menu *ngIf="!showCategoryMenu"></app-category-menu>
+    <app-category-menu *ngIf="showCategoryMenu"></app-category-menu>
   
 
 

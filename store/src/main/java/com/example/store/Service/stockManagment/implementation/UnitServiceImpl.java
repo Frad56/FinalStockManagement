@@ -1,12 +1,12 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
-import com.example.store.DTO.stockManagment.UnitDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Exception.ResourceInUseException;
-import com.example.store.Model.StockMangement.Unit;
-import com.example.store.Repository.StockManagment.ProductUnitSaleRepository;
-import com.example.store.Repository.StockManagment.UnitRepository;
-import com.example.store.Service.stockManagment.interfaces.UnitService;
+import com.example.store.dto.stockManagment.UnitDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.exception.ResourceInUseException;
+import com.example.store.model.stockManagement.Unit;
+import com.example.store.repository.stockManagement.ProductUnitSaleRepository;
+import com.example.store.repository.stockManagement.UnitRepository;
+import com.example.store.service.stockManagment.interfaces.UnitService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

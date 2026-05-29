@@ -1,16 +1,16 @@
-package com.example.store.Controller.AuthController;
+package com.example.store.controller.AuthController;
 
-import com.example.store.DTO.Response.ApiResponse;
-import com.example.store.DTO.authentification.LoginRequest;
-import com.example.store.DTO.authentification.LoginResponse;
-import com.example.store.DTO.authentification.UserDTO;
-import com.example.store.Model.Authentification.Role;
-import com.example.store.Model.Authentification.User;
-import com.example.store.Security.jwt.CustomUserDetails;
-import com.example.store.Security.jwt.JwtUtil;
-import com.example.store.Security.details.CustomUserDetailsService;
-import com.example.store.Service.AuthService.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.store.dto.Response.ApiResponse;
+import com.example.store.dto.authentification.LoginRequest;
+import com.example.store.dto.authentification.LoginResponse;
+import com.example.store.dto.authentification.UserDTO;
+import com.example.store.model.authentification.Role;
+import com.example.store.model.authentification.User;
+import com.example.store.security.jwt.CustomUserDetails;
+import com.example.store.security.jwt.JwtUtil;
+import com.example.store.security.details.CustomUserDetailsService;
+import com.example.store.service.AuthService.AuthService;
+import com.example.store.service.AuthService.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -23,55 +23,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final CustomUserDetailsService customUserDetailsService;
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
 
-    public AuthController(AuthenticationManager authenticationManager
-            ,CustomUserDetailsService customUserDetailsService,
-                          PasswordEncoder passwordEncoder,
-                          UserService userService,
-                          JwtUtil jwtUtil){
-        this.authenticationManager =authenticationManager;
-        this.customUserDetailsService =customUserDetailsService;
-        this.passwordEncoder =passwordEncoder;
-        this.userService=userService;
-        this.jwtUtil=jwtUtil;
+    private final AuthService authService;
+    public AuthController(AuthService authService){
+        this.authService = authService;
+
     }
 
 
 
     @PostMapping("/signin")
     public LoginResponse authenticateUser(@RequestBody LoginRequest user) {
-        Authentication authentication = authenticationManager.authenticate(
-                new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
-                        user.getUsername(),
-                        user.getPassword()
-                )
-        );
-            User get_user = userService.findByUsername(user.getUsername());
-
-            CustomUserDetails userDetails  = (CustomUserDetails) authentication.getPrincipal();
-            String token =jwtUtil.generateToken(userDetails.getUsername());
-
-            Role user_Role = userDetails.getRole();
-            Boolean isEmailChanged =userDetails.getIsEmailChanged();
-
-
-        return new LoginResponse(token,user_Role,isEmailChanged);
-
+        return authService.authenticateUser(user);
     }
 
 
     @PostMapping("/signup")
     public ResponseEntity<ApiResponse> register(@RequestBody UserDTO user){
-        if (userService.verifyUserExisting(user.getUsername())){
-            return ResponseEntity.badRequest().body(new ApiResponse(false,"user Already Exist"));
-        }
-        userService.register(user);
-        return ResponseEntity.ok(new ApiResponse(true,"user created successfully"));
+        authService.register(user);
+        return ResponseEntity.ok(new ApiResponse(true, "User registered successfully"));
     }
 }

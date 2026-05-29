@@ -1,4 +1,4 @@
-package com.example.store.Security.jwt;
+package com.example.store.security.jwt;
 
 
 import io.jsonwebtoken.Jwts;

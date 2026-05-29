@@ -1,9 +1,10 @@
-package com.example.store.Service.BusinessPartnerManagement.clientManagement;
+package com.example.store.service.BusinessPartnerManagement.clientManagement;
 
-import com.example.store.DTO.BusinessPartner.ClientManagement.ClientDTO;
-import com.example.store.Exception.ElementNotFoundException;
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
-import com.example.store.Repository.BusinessPartner.ClientManagement.ClientRepository;
+import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;
+import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.businessPartnerManagement.clientManagment.Client;
+import com.example.store.repository.businessPartner.ClientManagement.ClientRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,10 +52,14 @@ public class ClientServiceImpl implements  ClientService{
     public List<Client> fetchClientList() {
         return clientRepository.findAll();
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void deleteClientById(Long clientId) {
         clientRepository.deleteById(clientId);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public Client updateClient(ClientDTO clientDTO, Long clientId) {
         Client existingClient = findClientById(clientId);

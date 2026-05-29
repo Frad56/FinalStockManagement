@@ -187,13 +187,17 @@ export class ProductCreateComponent implements OnInit{
   }
   addCategory(){
   this.formStateService.setProductForm(this.productForm.value);
-  this.router.navigate(['/admin/categorys/add-category']);
+  this.router.navigate(['/admin/category/add-category']);
   }
   
  addAisle(){
    this.formStateService.setProductForm(this.productForm.value);
   this.router.navigate(['/admin/aisle/add-aisle']);
  }
+
+ selectedCount(): number {
+  return this.characteristicsState().items.filter(i => i.completed).length;
+}
 goBack(){
   this.location.back();
 }

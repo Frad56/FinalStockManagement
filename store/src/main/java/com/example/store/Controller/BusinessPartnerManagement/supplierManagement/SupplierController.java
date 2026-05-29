@@ -1,9 +1,9 @@
-package com.example.store.Controller.BusinessPartnerManagement.supplierManagement;
+package com.example.store.controller.BusinessPartnerManagement.supplierManagement;
 
 
-import com.example.store.DTO.BusinessPartner.supplierManagement.SupplierDTO;
-import com.example.store.Model.BusinessPartnerManagement.supplierManagement.Supplier;
-import com.example.store.Service.BusinessPartnerManagement.supplierManagement.SupplierService;
+import com.example.store.dto.BusinessPartner.supplierManagement.SupplierDTO;
+import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
+import com.example.store.service.BusinessPartnerManagement.supplierManagement.SupplierService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

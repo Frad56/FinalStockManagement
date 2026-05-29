@@ -1,11 +1,9 @@
-package com.example.store.Controller.SalesManagement;
+package com.example.store.controller.SalesManagement;
 
 
-import com.example.store.DTO.salesManagement.SalesOrderDTO;
-import com.example.store.DTO.salesManagement.SalesOrderLineDTO;
-import com.example.store.Model.salesManagement.SalesOrder;
-import com.example.store.Model.salesManagement.SalesOrderLine;
-import com.example.store.Service.salesManagement.interfaces.SalesOrderLineService;
+import com.example.store.dto.salesManagement.SalesOrderLineDTO;
+import com.example.store.model.salesManagement.SalesOrderLine;
+import com.example.store.service.salesManagement.interfaces.SalesOrderLineService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

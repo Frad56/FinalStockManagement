@@ -1,9 +1,8 @@
-package com.example.store.DTO.PurchaseManagement.request;
+package com.example.store.dto.PurchaseManagement.request;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 public class PurchaseOrderLineRequest {

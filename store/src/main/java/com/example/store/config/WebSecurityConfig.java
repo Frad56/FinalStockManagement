@@ -1,9 +1,9 @@
 package com.example.store.config;
 
 
-import com.example.store.Security.jwt.AuthEntryPointJwt;
-import com.example.store.Security.jwt.AuthTokenFilter;
-import com.example.store.Security.details.CustomUserDetailsService;
+import com.example.store.security.jwt.AuthEntryPointJwt;
+import com.example.store.security.jwt.AuthTokenFilter;
+import com.example.store.security.details.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -60,7 +60,7 @@ public class WebSecurityConfig {
                                 org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(a ->
-                        a.requestMatchers("/api/v1/auth/**","/api/email/**","/api/characteristicValue/**","/api/characteristic/**","/api/productCharacteristic/**","/api/v1/auth/**","/api/email/**","/api/v1/auth/admin/**","/api/productVariant/**","/api/purchaseOrder/**","/api/product/**","/api/purchaseOrderLine/**","/api/category/**","/api/client/**","/api/supplier/**","/api/salesOrder/**","/api/salesOrderLine/**").permitAll()
+                        a.requestMatchers("/api/v1/auth/**","/api/email/**","/api/v1/auth/**","/api/email/**","/api/auth/**","/api/purchaseOrderLine/**","/api/category/**","api/v1/auth/admin/**").permitAll()
                                 //.requestMatchers().hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 );

@@ -1,8 +1,7 @@
-package com.example.store.Model.BusinessPartnerManagement;
+package com.example.store.model.businessPartnerManagement;
 
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Data;

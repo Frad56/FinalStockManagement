@@ -1,6 +1,6 @@
-package com.example.store.Model.BusinessPartnerManagement.supplierManagement;
+package com.example.store.model.businessPartnerManagement.supplierManagement;
 
-import com.example.store.Model.StockMangement.Product;
+import com.example.store.model.stockManagement.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

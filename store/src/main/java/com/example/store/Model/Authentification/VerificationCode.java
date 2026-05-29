@@ -1,10 +1,8 @@
-package com.example.store.Model.Authentification;
+package com.example.store.model.authentification;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 
 @AllArgsConstructor

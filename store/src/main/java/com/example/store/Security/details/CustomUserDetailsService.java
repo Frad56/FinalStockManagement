@@ -1,7 +1,7 @@
-package com.example.store.Security.details;
+package com.example.store.security.details;
 
-import com.example.store.Repository.AuthRepository.UserRepository;
-import com.example.store.Security.jwt.CustomUserDetails;
+import com.example.store.repository.authRepository.UserRepository;
+import com.example.store.security.jwt.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        com.example.store.Model.Authentification.User user = userRepository.findByUsername(username)
+        com.example.store.model.authentification.User user = userRepository.findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User Not found with username: " + username)
                 );

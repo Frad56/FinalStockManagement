@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminResetPasswordService {
 
-  private readonly API = 'http://localhost:8080/api/v1/auth/admin';
+  private readonly API = 'http://localhost:8080/api/auth';
   private http = inject(HttpClient);
 
 

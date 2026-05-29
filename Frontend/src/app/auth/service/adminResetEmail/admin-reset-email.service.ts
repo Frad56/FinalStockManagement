@@ -9,7 +9,7 @@ import { OldPasswordVerification } from '../../auth/OldPasswordVerification';
 })
 export class AdminResetEmailService {
 
-  private readonly API = 'http://localhost:8080/api/v1/auth';
+  private readonly API = 'http://localhost:8080/api/auth';
   private http = inject(HttpClient);
 
   getMyEmail() {
@@ -20,7 +20,7 @@ export class AdminResetEmailService {
     return this.http.put<{message:string}>(`${this.API}/admin/reset`,resetEmailRequest);
   }
 
- 
+
 
   ///verify-password
 }

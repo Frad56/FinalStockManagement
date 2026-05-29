@@ -1,8 +1,8 @@
-package com.example.store.Service.stockManagment.interfaces;
+package com.example.store.service.stockManagment.interfaces;
 
 
-import com.example.store.DTO.stockManagment.ProductCharacteristicDTO;
-import com.example.store.Model.StockMangement.ProductCharacteristic;
+import com.example.store.dto.stockManagment.ProductCharacteristicDTO;
+import com.example.store.model.stockManagement.ProductCharacteristic;
 
 import java.util.List;
 

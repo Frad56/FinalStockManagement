@@ -1,4 +1,4 @@
-package com.example.store.DTO.authentification;
+package com.example.store.dto.authentification;
 
 
 import lombok.AllArgsConstructor;

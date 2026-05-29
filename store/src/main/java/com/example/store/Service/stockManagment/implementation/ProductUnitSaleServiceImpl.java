@@ -1,11 +1,11 @@
-package com.example.store.Service.stockManagment.implementation;
+package com.example.store.service.stockManagment.implementation;
 
-import com.example.store.DTO.stockManagment.ProductUnitSaleDTO;
-import com.example.store.Model.StockMangement.ProductUnitSale;
-import com.example.store.Repository.StockManagment.ProductUnitSaleRepository;
-import com.example.store.Service.stockManagment.interfaces.ProductService;
-import com.example.store.Service.stockManagment.interfaces.ProductUnitSaleService;
-import com.example.store.Service.stockManagment.interfaces.UnitService;
+import com.example.store.dto.stockManagment.ProductUnitSaleDTO;
+import com.example.store.model.stockManagement.ProductUnitSale;
+import com.example.store.repository.stockManagement.ProductUnitSaleRepository;
+import com.example.store.service.stockManagment.interfaces.ProductService;
+import com.example.store.service.stockManagment.interfaces.ProductUnitSaleService;
+import com.example.store.service.stockManagment.interfaces.UnitService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

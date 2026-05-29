@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ import { CategoryMenuComponent } from "../../../stockManagment/category/category
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [MatSidenavModule, MatButtonModule, CommonModule, RouterOutlet, CategoryMenuComponent, MatIconModule],
+  imports: [MatSidenavModule, MatButtonModule, CommonModule, RouterOutlet, CategoryMenuComponent, MatIconModule,RouterLink],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
@@ -38,7 +38,7 @@ export class AdminComponent {
   showMovmentInStockManagment= false;
   showSaleManagment= false;
   showMenu = false;
-  showCategoryMenu = false;
+  showCategoryMenu = true;
   router = inject(Router);
 
   private dialog = inject(MatDialog);
@@ -56,7 +56,7 @@ export class AdminComponent {
     });
     const isEmailChanged = this.authService.getIsEmailChanged();
     console.log('isEmailChanged:', isEmailChanged);
-    if (isEmailChanged  === 'false') {
+    if (isEmailChanged  === 'false' && localStorage.getItem('role') === 'ADMIN') {
       alert(isEmailChanged)
       this.openChangeEmailDialog();
     }
@@ -75,7 +75,7 @@ export class AdminComponent {
 
 //* ****************   SignUP    ************************** */
 signUp(){
-  this.router.navigate(['/SignUp']);
+  this.router.navigate(['/admin/add-user']);
 }
 
 

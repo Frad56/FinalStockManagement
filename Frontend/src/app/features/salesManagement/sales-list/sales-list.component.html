@@ -29,7 +29,7 @@
 
       <ng-container matColumnDef="clientName">
         <th mat-header-cell *matHeaderCellDef> contactName </th>
-        <td mat-cell *matCellDef="let salesOrder"> {{salesOrder.client.contactName}} </td>
+        <td mat-cell *matCellDef="let salesOrder"> {{salesOrder?.client?.contactName}} </td>
       </ng-container>
       
   

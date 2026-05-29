@@ -74,7 +74,7 @@ export class AdminChangePasswordComponent {
     this.adminResetPasswordService.verifyPassword(oldPasswordData).subscribe({
    
       next: () => {
-        alert("il appeler  verifyPassword");
+        alert("old password is correct");
         console.log("old password is correct");
         this.step = 2;
         this.sendCodeRequest(this.email).subscribe({

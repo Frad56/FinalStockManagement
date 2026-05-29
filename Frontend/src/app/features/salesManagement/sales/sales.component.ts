@@ -8,6 +8,7 @@ import { SalesOrderService } from '../../../core/services/salesManagement/salesO
 import { SalesOrderLineDTO } from '../../../shared/models/dto/SalesManegementDTO/SalesOrderLine.dto';
 import { SalesOrderDTO } from '../../../shared/models/dto/SalesManegementDTO/SalesOrder.dto';
 import {  Location } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sales',
@@ -24,15 +25,47 @@ export class SalesComponent {
 
   constructor(private salesOderService: SalesOrderService) {}
 
+  
   addProduct(product: ProductVariant) {
 
     let existing = this.cartItems.find(
       p => p.productVariantId === product.productVariantId
     );
-
+  
+    // produit déjà dans panier
     if (existing) {
-      existing.quantity++;
+  
+      // vérifier stock
+      if (existing.quantity < existing.quantityInStock) {
+  
+        existing.quantity++;
+  
+      } else {
+  
+        Swal.fire({
+          icon: 'warning',
+          title: 'Insufficient Stock',
+          text: 'Maximum stock quantity reached.',
+          confirmButtonColor: '#f59e0b'
+        });
+        return;
+      }
+  
     } else {
+  
+      const stock = product.quantityInStock ?? 0;
+      // vérifier si stock = 0
+      if (stock <= 0) {
+  
+        Swal.fire({
+          icon: 'warning',
+          title: 'Insufficient Stock',
+          text: 'Maximum stock quantity reached.',
+          confirmButtonColor: '#f59e0b'
+        });
+        return;
+      }
+  
       this.cartItems.push({
         productVariantId: product.productVariantId!,
         code: product.code!,

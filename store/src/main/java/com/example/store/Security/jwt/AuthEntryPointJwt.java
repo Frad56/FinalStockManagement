@@ -1,4 +1,4 @@
-package com.example.store.Security.jwt;
+package com.example.store.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

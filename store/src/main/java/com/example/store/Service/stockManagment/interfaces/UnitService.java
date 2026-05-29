@@ -1,7 +1,7 @@
-package com.example.store.Service.stockManagment.interfaces;
+package com.example.store.service.stockManagment.interfaces;
 
-import com.example.store.DTO.stockManagment.UnitDTO;
-import com.example.store.Model.StockMangement.Unit;
+import com.example.store.dto.stockManagment.UnitDTO;
+import com.example.store.model.stockManagement.Unit;
 
 import java.util.List;
 

@@ -1,16 +1,16 @@
-package com.example.store.Service.stockManagment.implementation.MovmentInStock;
+package com.example.store.service.stockManagment.implementation.MovmentInStock;
 
 
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Model.StockMangement.MovementInStock.PurchaseStockMovement;
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Repository.StockManagment.MovmentInStock.PurchaseStockMovementRepository;
-import com.example.store.Service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.model.stockManagement.MovementInStock.PurchaseStockMovement;
+import com.example.store.model.stockManagement.ProductVariant;
+import com.example.store.repository.stockManagement.MovmentInStock.PurchaseStockMovementRepository;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-import static com.example.store.Model.StockMangement.MovementInStockType.ENTRY;
+import static com.example.store.model.stockManagement.MovementInStockType.ENTRY;
 
 @Service
 public class PurchaseStockMovementImpl implements PurchaseStockMovementService {

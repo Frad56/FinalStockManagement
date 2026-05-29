@@ -15,6 +15,7 @@ import { ProductVariantDTO } from '../../../../../shared/models/dto/stockManagme
 import { Location } from '@angular/common';
 import { CharacteristicValue } from '../../../../../shared/models/StockManagment/CharacteristicValue.model';
 import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-variant-edit',
@@ -113,7 +114,13 @@ export class ProductVariantEditComponent  implements OnInit{
     const productVariantDTO = this.mapFormToProductVaraint();
     this.productVariantService.editProductVariant(productVariantDTO,this.id).subscribe({
       next: (response) => {
-        alert('Product variant edtied successfully');
+        Swal.fire({
+          icon: 'success',
+          title: 'Edit Product',
+          text: 'Product variant edtied successfully.',
+          confirmButtonColor: '#16a34a'
+        });
+
         this.location.back();
        
       },

@@ -1,7 +1,7 @@
-package com.example.store.Service.AuthService;
+package com.example.store.service.AuthService;
 
 
-import com.example.store.Exception.SendEmailException;
+import com.example.store.exception.SendEmailException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

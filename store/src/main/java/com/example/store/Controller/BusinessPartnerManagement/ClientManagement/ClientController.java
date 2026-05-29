@@ -1,13 +1,11 @@
-package com.example.store.Controller.BusinessPartnerManagement.ClientManagement;
+package com.example.store.controller.BusinessPartnerManagement.ClientManagement;
 
 
-import com.example.store.DTO.BusinessPartner.ClientManagement.ClientDTO;
+import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;
 
-import com.example.store.DTO.stockManagment.request.CodeRequest;
-import com.example.store.Model.BusinessPartnerManagement.clientManagment.Client;
+import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 
-import com.example.store.Model.StockMangement.ProductVariant;
-import com.example.store.Service.BusinessPartnerManagement.clientManagement.ClientService;
+import com.example.store.service.BusinessPartnerManagement.clientManagement.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

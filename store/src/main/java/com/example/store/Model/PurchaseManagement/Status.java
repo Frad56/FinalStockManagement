@@ -1,4 +1,4 @@
-package com.example.store.Model.PurchaseManagement;
+package com.example.store.model.purchaseManagement;
 
 public enum Status {
     PENDING,

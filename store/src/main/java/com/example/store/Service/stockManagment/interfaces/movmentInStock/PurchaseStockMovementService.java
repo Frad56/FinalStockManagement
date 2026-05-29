@@ -1,8 +1,8 @@
-package com.example.store.Service.stockManagment.interfaces.movmentInStock;
+package com.example.store.service.stockManagment.interfaces.movmentInStock;
 
 
-import com.example.store.Model.PurchaseManagement.PurchaseOrderLine;
-import com.example.store.Model.StockMangement.MovementInStock.PurchaseStockMovement;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.model.stockManagement.MovementInStock.PurchaseStockMovement;
 
 public interface PurchaseStockMovementService {
 

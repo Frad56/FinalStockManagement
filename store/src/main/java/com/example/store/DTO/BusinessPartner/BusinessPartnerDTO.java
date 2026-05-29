@@ -1,4 +1,4 @@
-package com.example.store.DTO.BusinessPartner;
+package com.example.store.dto.BusinessPartner;
 
 
 import lombok.AllArgsConstructor;

@@ -1,10 +1,10 @@
-package com.example.store.Controller.stockMangment;
+package com.example.store.controller.stockMangment;
 
 
 
-import com.example.store.DTO.stockManagment.UnitDTO;
-import com.example.store.Model.StockMangement.Unit;
-import com.example.store.Service.stockManagment.interfaces.UnitService;
+import com.example.store.dto.stockManagment.UnitDTO;
+import com.example.store.model.stockManagement.Unit;
+import com.example.store.service.stockManagment.interfaces.UnitService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
