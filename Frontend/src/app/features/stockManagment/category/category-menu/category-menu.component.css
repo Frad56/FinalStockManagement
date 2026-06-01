@@ -11,7 +11,7 @@
   }
   
   .nav-item {
-    background: #3d3f9f;
+    background: #053074;
     color: white;
     padding: 16px 28px;
     text-transform: uppercase;
@@ -35,10 +35,31 @@
   }
   
   .column h3 {
-    color: #283593;
+    color: #053074;
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 12px;
     display: inline-block;
     border-bottom: 4px solid #ffe600;
+  }
+  .blue-button {
+    background: linear-gradient(45deg, #2196f3, #053074);
+    color: white;
+    font-size: 16px;       /* taille du texte */
+    padding: 12px 20px;    /* taille du bouton */
+    min-width: 150px;      /* largeur minimale */
+    border-radius: 10px;
+    font-weight: 600;
+  
+    transition: 0.3s ease;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .blue-button:hover {
+    transform: translateY(-2px);
+  
   }

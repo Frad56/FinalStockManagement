@@ -1,32 +1,62 @@
-.example-container {
-    width: 400px;
-    height: 200px;
-    margin: 12px;
-    border: 1px solid #555;
-  }
-  
-  mat-drawer-content {
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .signUp-card {
-    width: 500px;
-    height: 500px;
-    border: 2px solid rgba(18, 51, 117, 0.9);
-    background-color: rgb(242, 248, 250);
-    align-items: center;
-  }
-  .signUp-container{
-    display: flex;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
-    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-.button-group{
-    display: flex;
-    justify-content: space-between; /* Espace entre les boutons */
-    width: 100%; /* Prend toute la largeur du conteneur */
-    margin-top: 20px; /* Espace au-dessus des boutons */
+
+/* CARD */
+.form-card {
+  width: 600px;
+  padding: 20px;
+  border: 2px solid rgba(18, 51, 117, 0.9);
+  background-color: rgb(242, 248, 250);
+  border-radius: 10px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  color: #123375;
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: gray;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* BUTTONS */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* BUTTON STYLE */
+.btn-blue {
+  background-color: #123375;
+  color: white;
+}
+
+.btn-outline {
+  border: 1px solid #123375;
+  color: #123375;
 }

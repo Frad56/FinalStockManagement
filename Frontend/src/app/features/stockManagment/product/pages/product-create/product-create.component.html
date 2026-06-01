@@ -50,24 +50,12 @@
           <div class="field-row">
             <select formControlName="categoryId" class="flex-1">
               <option value="" disabled>Select a category</option>
-              <ng-container *ngFor="let parent of categorys | async">
-                <option disabled class="opt-parent">
-                  &#128193; {{ parent.name }}
-                </option>
-                <ng-container *ngFor="let child of parent.children">
-                  <option
-                    [value]="child.categoryId"
-                    [disabled]="(child.children?.length ?? 0) > 0"
-                    class="opt-group">
-                    &nbsp;&nbsp;&nbsp;&#128194; {{ child.name }}
-                  </option>
-                  <ng-container *ngFor="let sub of child.children">
-                    <option [value]="sub.categoryId" class="opt-leaf">
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#127991; {{ sub.name }}
-                    </option>
-                  </ng-container>
-                </ng-container>
-              </ng-container>
+              <option
+                *ngFor="let cat of flatCategories"
+                [value]="cat.categoryId"
+                [disabled]="!cat.isLeaf">
+                {{ cat.label }}
+              </option>
             </select>
             <button type="button" class="add-btn" (click)="addCategory()">
               <span class="plus-icon">+</span> Add

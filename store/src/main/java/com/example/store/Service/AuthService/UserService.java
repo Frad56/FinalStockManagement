@@ -62,6 +62,10 @@ public class UserService {
                 -> new ElementNotFoundException("Email for user with name " + name + " not found"));
     }
 
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
+
 
 
 //    public void markUserAsLoggedIn(User user){

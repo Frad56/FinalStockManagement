@@ -1,4 +1,4 @@
-package com.example.store.controller.PurchaseManagement;
+package com.example.store.controller.purchaseManagement;
 
 import com.example.store.dto.PurchaseManagement.PurchaseOrderDTO;
 import com.example.store.model.purchaseManagement.PurchaseOrder;

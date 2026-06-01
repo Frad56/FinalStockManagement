@@ -1,4 +1,4 @@
-package com.example.store.controller.AuthController;
+package com.example.store.controller.authController;
 
 
 
@@ -9,7 +9,6 @@ import com.example.store.dto.authentification.ResetPasswordRequest;
 import com.example.store.service.AuthService.settings.resetPasswordService.interfaces.ResetPasswordService;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;

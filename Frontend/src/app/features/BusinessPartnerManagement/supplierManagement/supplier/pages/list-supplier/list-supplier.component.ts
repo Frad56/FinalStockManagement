@@ -25,7 +25,7 @@ export class ListSupplierComponent  implements OnInit {
 
   private supplierService = inject(SupplierService);
   private location = inject(Location);
-  displayedColumns: string[] = ['supplierId', 'companyName', 'contactName', 'phoneNumber', 'fax', 'email','address','city','postalCode','country','actions'];
+  displayedColumns: string[] = ['companyName', 'contactName', 'phoneNumber', 'fax', 'email','address','city','postalCode','country','actions'];
 
   suppliers$!  : Observable<Supplier[]>;
   private router = inject(Router);

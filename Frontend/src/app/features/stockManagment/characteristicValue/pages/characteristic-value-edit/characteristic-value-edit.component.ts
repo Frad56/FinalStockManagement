@@ -10,7 +10,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CharacteristicValueService } from '../../../../../core/services/stockManagement/CharacteristicValueService/characteristic-value.service';
 import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
-import { ProductCharacteristic } from '../../../../../shared/models/StockManagment/ProductCharacteristic.model';
 import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
 import { ActivatedRoute } from '@angular/router';

@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../core/services/stockManagement/productService/product.service';
 import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
@@ -106,35 +106,41 @@ export class ProductVariantEditComponent  implements OnInit{
       productId: form.productId!,
     } ;
   }
-
-
-
-  onSubmit(){
-    if(this.productVariantForm.invalid)return;
+  onSubmit() {
+    if (this.productVariantForm.invalid) return;
+  
     const productVariantDTO = this.mapFormToProductVaraint();
-    this.productVariantService.editProductVariant(productVariantDTO,this.id).subscribe({
-      next: (response) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Edit Product',
-          text: 'Product variant edtied successfully.',
-          confirmButtonColor: '#16a34a'
+    const characteristics = this.productVariantForm.get('characteristic')?.value || {};  
+    this.productVariantService.editProductVariant(productVariantDTO, this.id).subscribe({
+      next: () => {
+  
+        // 🔥 appel API characteristics
+        this.characteristicsValueService.updateCharacteristics(this.id, characteristics).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Edit Product',
+              text: 'Product variant updated successfully.',
+              confirmButtonColor: '#16a34a'
+            });
+  
+            this.location.back();
+          },
+          error: (err) => {
+            console.error("Error updating characteristics", err);
+          }
         });
-
-        this.location.back();
-       
+  
       },
       error: (err) => {
-        console.error('Error edting product', err);
-      
+        console.error('Error editing product', err);
+  
         if (err.error?.message) {
-          alert(err.error.message); 
+          alert(err.error.message);
         } else {
-          alert('Erreur serveur lors de  editing du productVariant');
+          alert('Erreur serveur lors de editing du productVariant');
         }
-        console.log("la response ",productVariantDTO);
       }
-      
     });
   }
   goBack(){

@@ -24,30 +24,14 @@ import { CategoryMenuComponent } from "../../../stockManagment/category/category
 
 
 export class AdminComponent {
-  showStockManagment = false;
-  showProductManagment = false;
-  showUserManagment =false;
-  showCategoryManagment =false;
-  showAisleManagment =false;
-  showSupplierManagment = false;
-  showClientManagment = false;
-  showcharacteristicManagment=false;
-  showUnitManagment= false;
-  showProductUnitsaleManagment = false;
-  showProductVariantManagment =false;
-  showMovmentInStockManagment= false;
-  showSaleManagment= false;
-  showMenu = false;
-  showCategoryMenu = true;
-  router = inject(Router);
+
 
   private dialog = inject(MatDialog);
   private adminResetEmailService = inject(AdminResetEmailService);
   private authService = inject(AuthService);
+  router = inject(Router);
 
-  hideCategoryMenu() {
-    this.showCategoryMenu = false;
-  }
+
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -73,7 +57,24 @@ export class AdminComponent {
   }
 
 
-//* ****************   SignUP    ************************** */
+
+
+
+  // ── Sidebar visibility ──────────────────────
+  sidebarHidden = false;
+ 
+  toggleSidebar(): void {
+    this.sidebarHidden = !this.sidebarHidden;
+    // SB Admin toggle class on body (optional, pour le CSS responsive)
+    document.body.classList.toggle('sb-sidenav-toggled');
+  }
+ 
+  // ── Logged-in user display ──────────────────
+  currentUser = 'Admin';   // remplacer par votre service d'auth
+ 
+  // ── Category menu (conservé de l'ancien code) ──
+  showCategoryMenu = false;
+ //* ****************   SignUP    ************************** */
 signUp(){
   this.router.navigate(['/admin/add-user']);
 }
@@ -213,7 +214,7 @@ signUp(){
         this.router.navigate(['/admin/purchase-order/add-purchase-order']);
 
       }
-      
+      showMenu = false;
       seeButtons(){
         this.showMenu = !this.showMenu;
       }

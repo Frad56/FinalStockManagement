@@ -1,4 +1,4 @@
-package com.example.store.controller.SalesManagement;
+package com.example.store.controller.salesManagement;
 
 
 import com.example.store.dto.salesManagement.InstallmentDTO;

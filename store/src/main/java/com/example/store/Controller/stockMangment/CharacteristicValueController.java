@@ -57,7 +57,7 @@ public class CharacteristicValueController {
         return ResponseEntity.ok(characteristicValueService.findCharacteristicValueByProductVariantId(productVariantId));
     }
 
-    @PutMapping("/{id}/characteristics")
+    @PutMapping("/{id}/characteristics-update")
     public ResponseEntity<String> updateCharacteristics(
             @PathVariable Long id,
             @RequestBody Map<String, String> values) {

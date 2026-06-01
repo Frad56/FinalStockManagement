@@ -1,4 +1,4 @@
-package com.example.store.controller.AuthController;
+package com.example.store.controller.authController;
 
 
 import com.example.store.dto.authentification.resetEmail.ResetEmailRequest;

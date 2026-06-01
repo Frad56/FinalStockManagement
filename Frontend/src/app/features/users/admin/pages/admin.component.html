@@ -1,259 +1,384 @@
+<!– ============================================================
+    dashboard-layout.component.html
+    Structure SB Admin Bootstrap + menu Angular (mat-drawer supprimé)
+    ============================================================ -->
 
-<mat-drawer-container class="container">
+<div class="sb-nav-fixed">
 
+  <!-- ═══════════════════════════════════════════
+       TOP NAVBAR
+  ════════════════════════════════════════════ -->
+  <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 
-  <mat-drawer #drawer mode="side" opened class="sidenav">
+    <!-- Brand -->
+    <a class="navbar-brand ps-3" routerLink="/dashboard">
+      <img src="assets/logo.png" alt="logo" style="width:160px;" />
+    </a>
 
-
-
-    <h3 class="menu-title">Menu</h3>
-
-    <!-- STOCK MANAGEMENT -->
-    <button mat-raised-button  class="par-btn" color="primary"
-            (click)="showStockManagment = !showStockManagment">
-      Stock Management
+    <!-- Sidebar Toggle -->
+    <button
+      class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+      (click)="toggleSidebar()">
+      <i class="fas fa-bars"></i>
     </button>
 
-
-    <div *ngIf="showStockManagment" class="submenu">
-
-      
-      
-        <button class="par-enf-btn"  color="primary"
-              (click)="showProductManagment = !showProductManagment">
-        Product Management
+    <!-- Search -->
+    <div class="d-none d-md-inline-block ms-auto me-0 me-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Search..." />
+        <button class="btn btn-primary" type="button">
+          <i class="fas fa-search"></i>
         </button>
-            <div *ngIf="showProductManagment" class="submenu">
-                <button class="enf-btn"  (click)="getProducts(); hideCategoryMenu()">
-                Products List
-                </button>
+      </div>
+    </div>
+
+    <!-- User dropdown -->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+           id="navbarDropdown"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+          <i class="fas fa-user fa-fw"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li>
+            <a class="dropdown-item" (click)="changePassword() ">
+              <i class="fas fa-key me-2"></i> Change Password
+            </a>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <a class="dropdown-item" (click)="logout()">
+              <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+  </nav>
+  <!-- END TOP NAVBAR -->
+
+
+  <!-- ═══════════════════════════════════════════
+       BODY : SIDEBAR + CONTENT
+  ════════════════════════════════════════════ -->
+  <div id="layoutSidenav">
+
+    <!-- ─────────────────────────────────────────
+         SIDEBAR
+    ───────────────────────────────────────── -->
+    <div id="layoutSidenav_nav" [class.d-none]="sidebarHidden">
+      <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+          <div class="nav">
+
+
+            <!-- ── STOCK MANAGEMENT ── -->
+            <div class="sb-sidenav-menu-heading">Stock</div>
+
+            <a class="nav-link collapsed" href="#"
+               data-bs-toggle="collapse"
+               data-bs-target="#collapseStock"
+               aria-expanded="false"
+               aria-controls="collapseStock">
+              <div class="sb-nav-link-icon"><i class="fas fa-boxes"></i></div>
+              Stock Management
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseStock" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav accordion" id="accordionStock">
+
+                <!-- Product Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseProduct"
+                   aria-expanded="false">
+                  <i class="fas fa-box me-2"></i> Product Management
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseProduct" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="getProducts() ">
+                      <i class="fas fa-list me-2"></i> Products List
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Category Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseCategory"
+                   aria-expanded="false">
+                  <i class="fas fa-tags me-2"></i> Category Management
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseCategory" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="getCategory() ">
+                      <i class="fas fa-list me-2"></i> Category List
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Add Product Supplier -->
+                <a class="nav-link" (click)="addProductSupplier() ">
+                  <i class="fas fa-truck-loading me-2"></i> Add Product Supplier
+                </a>
+
+                <!-- Characteristic Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseChar"
+                   aria-expanded="false">
+                  <i class="fas fa-sliders-h me-2"></i> Characteristic Management
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseChar" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="addCharacteristic() ">
+                      <i class="fas fa-plus me-2"></i> Add Characteristic
+                    </a>
+                    <a class="nav-link" (click)="allCharacteristic() ">
+                      <i class="fas fa-list me-2"></i> Characteristic List
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Aisle Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseAisle"
+                   aria-expanded="false">
+                  <i class="fas fa-th me-2"></i> Aisle Management
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseAisle" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="addAisle() ">
+                      <i class="fas fa-plus me-2"></i> Add Aisle
+                    </a>
+                    <a class="nav-link" (click)="allAisle() ">
+                      <i class="fas fa-list me-2"></i> Aisle List
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Product Unit Sale Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseUnitSale"
+                   aria-expanded="false">
+                  <i class="fas fa-ruler me-2"></i> Product Unit Sale
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUnitSale" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="addProductUnitsale() ">
+                      <i class="fas fa-plus me-2"></i> Add Product Unit Sale
+                    </a>
+                    <a class="nav-link" (click)="allProductUnitsale() ">
+                      <i class="fas fa-list me-2"></i> All Product Unit Sale
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Product Variant Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseVariant"
+                   aria-expanded="false">
+                  <i class="fas fa-layer-group me-2"></i> Product Variant
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseVariant" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="addProductVariant() ">
+                      <i class="fas fa-plus me-2"></i> Add Product Variant
+                    </a>
+                    <a class="nav-link" (click)="allProductVariant() ">
+                      <i class="fas fa-list me-2"></i> All Product Variants
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Unit Management -->
+                <a class="nav-link collapsed" href="#"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseUnit"
+                   aria-expanded="false">
+                  <i class="fas fa-balance-scale me-2"></i> Unit Management
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUnit" data-bs-parent="#accordionStock">
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" (click)="addUnit() ">
+                      <i class="fas fa-plus me-2"></i> Add Unit
+                    </a>
+                    <a class="nav-link" (click)="allUnits() ">
+                      <i class="fas fa-list me-2"></i> All Units
+                    </a>
+                  </nav>
+                </div>
+
+              </nav>
             </div>
-            <div *ngIf="showProductManagment" class="submenu">
-              <button class="enf-btn"  (click)="changePassword(); hideCategoryMenu()">
-                changePassword
-              </button>
+            <!-- END STOCK MANAGEMENT -->
+
+
+            <!-- ── USER MANAGEMENT ── -->
+            <div class="sb-sidenav-menu-heading">Users</div>
+
+            <a class="nav-link collapsed" href="/admin/add-user"
+               data-bs-toggle="collapse"
+               data-bs-target="#collapseUsers"
+               aria-expanded="false"
+               aria-controls="collapseUsers">
+              <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+              User Management
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseUsers" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" (click)="signUp() ">
+                  <i class="fas fa-user-plus me-2"></i> Add User
+                </a>
+              </nav>
+            </div>
+
+
+            <!-- ── SUPPLIER MANAGEMENT ── -->
+            <div class="sb-sidenav-menu-heading">Suppliers</div>
+
+            <a class="nav-link collapsed" href="/admin/suppliers/suppliers"
+               data-bs-toggle="collapse"
+               data-bs-target="#collapseSuppliers"
+               aria-expanded="false"
+               aria-controls="collapseSuppliers">
+              <div class="sb-nav-link-icon"><i class="fas fa-truck"></i></div>
+              Supplier Management
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseSuppliers" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" (click)="addSupplier() ">
+                  <i class="fas fa-plus me-2"></i> Add Supplier
+                </a>
+                <a class="nav-link" (click)="allSuppliers() ">
+                  <i class="fas fa-list me-2"></i> All Suppliers
+                </a>
+              </nav>
+            </div>
+
+
+            <!-- ── CLIENT MANAGEMENT ── -->
+            <div class="sb-sidenav-menu-heading">Clients</div>
+
+            <a class="nav-link collapsed" href="/admin/client/client-all"
+               data-bs-toggle="collapse"
+               data-bs-target="#collapseClients"
+               aria-expanded="false"
+               aria-controls="collapseClients">
+              <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+              Client Management
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseClients" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" (click)="addClient() ">
+                  <i class="fas fa-user-plus me-2"></i> Add Client
+                </a>
+                <a class="nav-link" (click)="allClients() ">
+                  <i class="fas fa-list me-2"></i> All Clients
+                </a>
+              </nav>
+            </div>
+
+
+            <!-- ── STOCK MOVEMENT ── -->
+            <div class="sb-sidenav-menu-heading">Movements</div>
+
+            <a class="nav-link collapsed" href="#"
+               data-bs-toggle="collapse"
+               data-bs-target="#collapseMovement"
+               aria-expanded="false"
+               aria-controls="collapseMovement">
+              <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
+              Stock Movement
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseMovement" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" (click)="addPurchaseOrder() ">
+                  <i class="fas fa-file-invoice me-2"></i> Add Purchase Operation
+                </a>
+                <a class="nav-link" (click)="NotDeliveredPurchaseOrders() ">
+                  <i class="fas fa-list me-2"></i> Purchase Operation List
+                </a>
+                <a class="nav-link" (click)="addSale() ">
+                  <i class="fas fa-cash-register me-2"></i> Add Sale
+                </a>
+                <a class="nav-link" (click)="salesOrderList() ">
+                  <i class="fas fa-receipt me-2"></i> Sales List
+                </a>
+                <a class="nav-link" (click)="allMovmentInStock() ">
+                  <i class="fas fa-warehouse me-2"></i> Stock Movement
+                </a>
+              </nav>
+            </div>
+
+
           </div>
+        </div>
 
-        <button class="par-enf-btn" color="primary"
-            (click)="showCategoryManagment = !showCategoryManagment">
-            Category Management
-            </button>
-            <div *ngIf="showCategoryManagment" class="submenu">
-                <button class="enf-btn" (click)="getCategory(); hideCategoryMenu()">
-                  Category List
-                </button>
-          
+        <!-- Sidebar footer -->
+        <div class="sb-sidenav-footer">
+          <div class="small">Logged in as:</div>
+          {{ currentUser }}
+        </div>
+
+      </nav>
+    </div>
+    <!-- END SIDEBAR -->
+
+
+    <!-- ─────────────────────────────────────────
+         MAIN CONTENT
+    ───────────────────────────────────────── -->
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+
+          <!-- Page title / breadcrumb injected by child routes -->
+          <router-outlet></router-outlet>
+
+        </div>
+      </main>
+
+      <!-- Footer
+      <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted d-flex align-items-center gap-2">
+              <img src="assets/logo.png" alt="logo" style="width:160px;" />
             </div>
-            
-      
-
-
-      
-        <!-- Add Product supplier  -->
-        <button mat-button (click)="addProductSupplier(); hideCategoryMenu()">
-          Add Product Supplier
-        </button>
-        <!-- Characteristic MANAGEMENT -->
-        <button class="par-enf-btn" color="primary"
-          (click)="showcharacteristicManagment = !showcharacteristicManagment">
-          Characteristic  Managment
-          </button>
-
-              <div *ngIf="showcharacteristicManagment" class="submenu">
-
-                  <button class="enf-btn" (click)="addCharacteristic(); hideCategoryMenu()">
-                    Add Characteristic
-                  </button>
-                  <button class="enf-btn" (click)="allCharacteristic(); hideCategoryMenu()" >
-                    Characteristic List
-                  </button>
-
-              </div>
-
-      <!-- Aisle MANAGEMENT -->
-      <button class="par-enf-btn" color="primary"
-          (click)="showAisleManagment = !showAisleManagment">
-                Aisle Managment
-          </button>
-
-          <div *ngIf="showAisleManagment" class="submenu">
-
-              <button class="enf-btn"(click)="addAisle(); hideCategoryMenu()">
-                Add Aisle
-              </button>
-              <button class="enf-btn"(click)="allAisle(); hideCategoryMenu()">
-                  Aisle List
-              </button>
+            <div>
+              <a href="#">Privacy Policy</a>
+              &middot;
+              <a href="#">Terms &amp; Conditions</a>
+            </div>
           </div>
-
-      <!-- ProductUnitsale MANAGEMENT -->
-     <button class="par-enf-btn" color="primary"
-      (click)="showProductUnitsaleManagment = !showProductUnitsaleManagment">
-        Product Unit sale Management
-        </button>
- 
-         <div *ngIf="showProductUnitsaleManagment" class="submenu">
- 
-         <button class="enf-btn" (click)="addProductUnitsale(); hideCategoryMenu()">
-         Add Product Unit sale
-         </button>
- 
-         <button class="enf-btn" (click)="allProductUnitsale(); hideCategoryMenu()">
-         All Product Unit sale
-         </button>
- 
-     </div>
-
-     
-       <!--   ProductVariant Managment   -->
-      <button class="par-enf-btn" color="primary"
-       (click)="showProductVariantManagment = !showProductVariantManagment">
-       Product Variant Management
-           </button>
-   
-           <div *ngIf="showProductVariantManagment" class="submenu">
-   
-           <button class="enf-btn" (click)="addProductVariant(); hideCategoryMenu()">
-           Add Product Variant
-           </button>
-   
-           <button class="enf-btn" (click)="allProductVariant(); hideCategoryMenu()">
-           All Product Variant
-          </button>
-   
-       </div>
-       <!-- Unit MANAGEMENT -->
-       <button class="par-enf-btn" color="primary"
-        (click)="showUnitManagment = !showUnitManagment">
-        Unit Management
-        </button>
-
-        <div *ngIf="showUnitManagment" class="submenu">
-
-          <button class="enf-btn"(click)="addUnit(); hideCategoryMenu()">
-          Add Unit
-          </button>
-
-          <button class="enf-btn" (click)="allUnits(); hideCategoryMenu()">
-          All Units
-          </button>
-
-         </div>
-
+        </div>
+      </footer>
+ -->
     </div>
-      
-
-
-    <!-- USER MANAGEMENT -->
-    <button mat-raised-button  class="par-btn" color="primary"
-            (click)="showUserManagment = !showUserManagment">
-      User Management
-    </button>
-
-    <div *ngIf="showUserManagment" class="submenu">
-
-      <button class="enf-btn" (click)="signUp(); hideCategoryMenu()">
-        Add User
-      </button>
-
-    </div>       
-      
-
-
-    <!-- SUPPLIER MANAGEMENT -->
-    <button mat-raised-button  class="par-btn" color="primary"
-            (click)="showSupplierManagment = !showSupplierManagment">
-      Supplier Management
-    </button>
-
-    <div *ngIf="showSupplierManagment" class="submenu">
-
-      <button class="enf-btn" (click)="addSupplier(); hideCategoryMenu()">
-        Add Supplier
-      </button>
-
-      <button class="enf-btn" (click)="allSuppliers(); hideCategoryMenu()">
-        All Suppliers
-      </button>
-    </div>
-
-    <!-- CLIENT MANAGEMENT -->
-    <button mat-raised-button  class="par-btn" color="primary"
-            (click)="showClientManagment = !showClientManagment">
-      Client Management
-    </button>
-
-    <div *ngIf="showClientManagment" class="submenu">
-
-      <button class="enf-btn" (click)="addClient(); hideCategoryMenu()">
-        Add Client
-      </button>
-
-      <button class="enf-btn" (click)="allClients(); hideCategoryMenu()">
-        All clients
-      </button>
-    </div>
-      
-    
-  
-        <!--MovmentInStock -->
-            <button mat-raised-button  class="par-btn"color="primary"
-            (click)="showMovmentInStockManagment = !showMovmentInStockManagment">
-            Stock Movement Management
-            </button>
-        
-            <div *ngIf="showMovmentInStockManagment" class="submenu">
-        
-                <button class="enf-btn" (click)="addPurchaseOrder() ;hideCategoryMenu()">
-                Add Purchase Operation
-                </button>
-
-                <button class="enf-btn" (click)="NotDeliveredPurchaseOrders() ; hideCategoryMenu()">
-                 Purchase Operation List
-                </button>
-
-
-                <button class="enf-btn" (click)="addSale() ;hideCategoryMenu()">
-                  Add Sale
-                  </button>
-                  <button class="enf-btn" (click)="salesOrderList() ;hideCategoryMenu()">
-                    Sales List 
-                  </button>
-
-
-
-                
-          
-              <button class="enf-btn" (click)="allMovmentInStock(); hideCategoryMenu()">
-                 Stock Movement
-                </button>
-            </div>
-  </mat-drawer>
-
-<div class="cog-square">
-  <i class="fa-solid fa-gear" (click)="seeButtons()"></i>
-</div>
-
-
-<div *ngIf="showMenu" class="floating-menu">
-  <button mat-button (click)="changePassword() ; hideCategoryMenu()">Change Password</button>
-  <button mat-button (click)="logout()">Logout</button>
-</div>
- 
-
-  <!-- CONTENT -->
-  <div class="content">
-
-    <button class="par-btn" mat-raised-button color="primary"
-            (click)="drawer.toggle()">
-       Menu
-    </button>
-    <app-category-menu *ngIf="showCategoryMenu"></app-category-menu>
-  
-
-
-    <router-outlet></router-outlet>
+    <!-- END MAIN CONTENT -->
 
   </div>
+  <!-- END layoutSidenav -->
 
-</mat-drawer-container>
+</div>
+<!-- END sb-nav-fixed -->

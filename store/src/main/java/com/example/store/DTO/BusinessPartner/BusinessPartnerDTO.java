@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BusinessPartnerDTO {
-    private String companyName;
-    private String contactName;
     private String phoneNumber ;
     private String fax;
     private String email;

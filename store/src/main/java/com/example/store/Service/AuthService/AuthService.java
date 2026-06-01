@@ -66,6 +66,7 @@ public class AuthService {
         if (userService.verifyUserExisting(user.getUsername())){
             return ResponseEntity.badRequest().body(new ApiResponse(false,"user Already Exist"));
         }
+
         userService.register(user);
         return ResponseEntity.ok(new ApiResponse(true,"user created successfully"));
     }

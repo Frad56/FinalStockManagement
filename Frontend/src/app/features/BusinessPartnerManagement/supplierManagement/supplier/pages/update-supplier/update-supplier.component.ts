@@ -36,12 +36,14 @@ export class UpdateSupplierComponent  implements OnInit{
   supplierForm = this.formBuilder.group({
     companyName:(''),
     contactName:(''),
+    phoneNumber:(''),
     fax:(''),
     email:(''),
     address:(''),
     city:(''),
     postalCode:(''),
     country:(''),
+    taxIdentificationNumber:(''),
   });
   private mapFormToSupplier():SupplierDTO{
     return this.supplierForm.getRawValue() as unknown as SupplierDTO;
@@ -56,12 +58,14 @@ export class UpdateSupplierComponent  implements OnInit{
             this.supplierForm.patchValue({
               companyName:supplier.companyName,
               contactName:supplier.contactName,
+              phoneNumber:supplier.phoneNumber,
               fax:supplier.fax,
               email:supplier.email,
               address:supplier.address,
               city:supplier.city,
               postalCode:supplier.postalCode,
-              country:supplier.country
+              country:supplier.country,
+              taxIdentificationNumber:supplier.taxIdentificationNumber
 
             });
           },

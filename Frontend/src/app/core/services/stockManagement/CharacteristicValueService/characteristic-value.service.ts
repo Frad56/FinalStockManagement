@@ -43,7 +43,10 @@ export class CharacteristicValueService {
   return this.http.get<Record<string, string>>(`${this.apiUrl}/allCharacteristicValuesByProductVariantId/${productVariantId}`);
   }
 
-
+  updateCharacteristics(id: number, values: { [key: string]: string }) {
+    return this.http.put(`${this.apiUrl}/${id}/characteristics-update`,values,{ responseType: 'text' } 
+    );
+  }
 /*
   findCharacteristicValueByProductVariantId(productVariantId:number):Observable<{characteristicName:String,characteristicValue:String}[]>{
     return this.http.get<{characteristicName:String,characteristicValue:String}[]>(`${this.apiUrl}/allCharacteristicValuesByProductVariantId/${productVariantId}`);

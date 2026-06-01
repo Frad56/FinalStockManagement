@@ -58,26 +58,35 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
 
 
 
-    public String generateVariantCode(Product product, String characteristic, String characteristicValue) {
-
+    public String generateVariantCodeFromValues(Product product, List<CharacteristicValue> values) {
         String base = product.getReference();
 
-        return base + "-"
-                + characteristic.substring(0, 3).toUpperCase()
-                + "-" + characteristicValue.substring(0, 3).toUpperCase();
+        String suffix = values.stream()
+                .map(cv -> cv.getCharacteristic().getName().substring(0, Math.min(3, cv.getCharacteristic().getName().length())).toUpperCase()
+                        + "-"
+                        + cv.getValue().substring(0, Math.min(3, cv.getValue().length())).toUpperCase())
+                .collect(Collectors.joining("-"));
+
+        return base + "-" + suffix;
     }
+
     @Override
-    public CharacteristicValue saveCharacteristicValue(CharacteristicValueDTO characteristicValue){
-            CharacteristicValue characteristicValueDB = new CharacteristicValue();
+    public CharacteristicValue saveCharacteristicValue(CharacteristicValueDTO characteristicValueDTO) {
+        CharacteristicValue characteristicValueDB = new CharacteristicValue();
+        mapDTOToCharacteristicValue(characteristicValueDTO, characteristicValueDB);
 
-            mapDTOToCharacteristicValue(characteristicValue,characteristicValueDB);
-            ProductVariant pv = characteristicValueDB.getProductVariant();
-            //characteristicValueDB
-            String code =generateVariantCode(pv.getProduct(),characteristicValueDB.getCharacteristic().getName(),characteristicValueDB.getValue());
-            pv.setCode(code);
-            productVariantService.updateProductVariant(pv,pv.getProductVariantId());
+        CharacteristicValue saved = characteristicValueRepository.save(characteristicValueDB);
 
-            return characteristicValueRepository.save(characteristicValueDB);
+        ProductVariant pv = saved.getProductVariant();
+        List<CharacteristicValue> allValues =
+                characteristicValueRepository.findByProductVariant_ProductVariantId(pv.getProductVariantId());
+
+        String code = generateVariantCodeFromValues(pv.getProduct(), allValues);
+
+        pv.setCode(code);
+        productVariantService.updateProductVariant(pv, pv.getProductVariantId());
+
+        return saved;
     }
 
     @Override
@@ -90,13 +99,23 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
     public List<CharacteristicValue> fetchCharacteristicValueList(){
         return characteristicValueRepository.findAll();
     }
-    @Override
-    public CharacteristicValue updateCharacteristicValue(CharacteristicValueDTO characteristicValueDTO,Long characteristicValueId){
-        CharacteristicValue characteristicValueDB = findCharacteristicValueById(characteristicValueId);
-        mapDTOToCharacteristicValue(characteristicValueDTO,characteristicValueDB);
-        return characteristicValueRepository.save(characteristicValueDB);
-    }
 
+
+    @Override
+    public CharacteristicValue updateCharacteristicValue(CharacteristicValueDTO characteristicValueDTO, Long characteristicValueId) {
+        CharacteristicValue characteristicValueDB = findCharacteristicValueById(characteristicValueId);
+        mapDTOToCharacteristicValue(characteristicValueDTO, characteristicValueDB);
+        CharacteristicValue saved = characteristicValueRepository.save(characteristicValueDB);
+
+        ProductVariant pv = saved.getProductVariant();
+        List<CharacteristicValue> allValues =
+                characteristicValueRepository.findByProductVariant_ProductVariantId(pv.getProductVariantId());
+        String code = generateVariantCodeFromValues(pv.getProduct(), allValues);
+        pv.setCode(code);
+        productVariantService.updateProductVariant(pv, pv.getProductVariantId());
+
+        return saved;
+    }
     @Override
     public void deleteCharacteristicValueById(Long characteristicValueId){
        if(!characteristicValueRepository.existsById(characteristicValueId)){
@@ -106,15 +125,26 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
     }
 
     @Override
-    public  List<CharacteristicValue>  saveAll(List<CharacteristicValueDTO> characteristicValues){
-
+    public List<CharacteristicValue> saveAll(List<CharacteristicValueDTO> characteristicValues) {
         List<CharacteristicValue> savedList = new ArrayList<>();
-        for (CharacteristicValueDTO characteristicValueDTO:characteristicValues) {
+
+        for (CharacteristicValueDTO dto : characteristicValues) {
             CharacteristicValue cv = new CharacteristicValue();
-            mapDTOToCharacteristicValue(characteristicValueDTO,cv);
-            CharacteristicValue saved = characteristicValueRepository.save(cv);
-            savedList.add(saved);
+            mapDTOToCharacteristicValue(dto, cv);
+            savedList.add(characteristicValueRepository.save(cv));
         }
+
+        savedList.stream()
+                .collect(Collectors.groupingBy(cv -> cv.getProductVariant().getProductVariantId()))
+                .forEach((pvId, cvList) -> {
+                    ProductVariant pv = cvList.get(0).getProductVariant();
+                    List<CharacteristicValue> allValues =
+                            characteristicValueRepository.findByProductVariant_ProductVariantId(pvId);
+                    String code = generateVariantCodeFromValues(pv.getProduct(), allValues);
+                    pv.setCode(code);
+                    productVariantService.updateProductVariant(pv, pvId);
+                });
+
         return savedList;
     }
 

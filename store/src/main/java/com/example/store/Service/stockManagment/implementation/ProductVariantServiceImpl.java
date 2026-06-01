@@ -98,6 +98,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public ProductVariant updateProductVariant(ProductVariant productVariant, Long productVariantId){
         ProductVariant productVariantToUpdate = findProductVariantById(productVariantId);
+        productVariantToUpdate.setCode(productVariant.getCode());
         return productVariantRepository.save(productVariantToUpdate);
     }
 

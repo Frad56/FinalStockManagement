@@ -3,6 +3,7 @@ import { CategoryService } from '../../../../core/services/stockManagement/categ
 import { CategoryTest } from '../../../../shared/models/StockManagment/CategoryTest.model';
 import { CategorySelectorComponent } from "../category-selector/category-selector.component";
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-menu',
@@ -32,5 +33,10 @@ export class CategoryMenuComponent implements OnInit {
 
   setActive(root: CategoryTest) {
     this.activeRoot = root;
+  }
+
+  private router = inject(Router);
+  addCategory() {
+    this.router.navigate(['/admin/category/add-category'])
   }
 }

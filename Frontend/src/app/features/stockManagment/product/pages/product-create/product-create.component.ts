@@ -25,6 +25,7 @@ import { Product } from '../../../../../shared/models/StockManagment/product.mod
 import { ProductCharacteristicService } from '../../../../../core/services/stockManagement/productCharacteristicService/product-characteristic.service';
 import Swal from 'sweetalert2';
 import { CategoryChildren } from '../../../../../shared/models/dto/stockManagmentDTO/CategoryChildren.dto';
+import { FlatCategoryOption } from '../../../../../shared/models/StockManagment/FlatCategoryOption.model';
 
 
 export interface CharacteristicItem {
@@ -43,7 +44,7 @@ export interface CharacteristicItem {
             MatButtonModule,
             CommonModule,
             MatCardModule,
-          MatIcon,MatCheckboxModule, FormsModule],
+        MatCheckboxModule, FormsModule],
   templateUrl: './product-create.component.html',
   styleUrl: './product-create.component.css'
 })
@@ -67,8 +68,28 @@ export class ProductCreateComponent implements OnInit{
     items: [] as CharacteristicItem[],
   });
 
+  flatCategories: FlatCategoryOption[] = [];
 
-
+  private flattenCategories(
+    nodes: CategoryChildren[],
+    depth: number = 0
+  ): FlatCategoryOption[] {
+    const result: FlatCategoryOption[] = [];
+    for (const node of nodes) {
+      const isLeaf = !node.children || node.children.length === 0;
+      const indent = '\u00A0'.repeat(depth * 4);
+      const icon = isLeaf ? '🏷' : (depth === 0 ? '📁' : '📂');
+      result.push({
+        categoryId: node.categoryId,
+        label: `${indent}${icon} ${node.name}`,
+        isLeaf
+      });
+      if (node.children?.length) {
+        result.push(...this.flattenCategories(node.children, depth + 1));
+      }
+    }
+    return result;
+  }
   private router = inject(Router);
   private aisleService = inject(AisleService);
   fromBuilder= inject(FormBuilder);
@@ -86,7 +107,9 @@ export class ProductCreateComponent implements OnInit{
   });
 
   ngOnInit(){
-    this.categorys=this.categoryService.findAllWithChildren();
+    this.categoryService.findAllWithChildren().subscribe(roots => {
+      this.flatCategories = this.flattenCategories(roots);
+    });
     this.aisles =this.aisleService.getAisles();
     console.log( "###########")
     console.log( this.categorys)

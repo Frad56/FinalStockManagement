@@ -1,4 +1,4 @@
-package com.example.store.controller.AuthController;
+package com.example.store.controller.authController;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

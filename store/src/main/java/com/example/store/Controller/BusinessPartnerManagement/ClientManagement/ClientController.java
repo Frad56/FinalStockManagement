@@ -1,4 +1,4 @@
-package com.example.store.controller.BusinessPartnerManagement.ClientManagement;
+package com.example.store.controller.businessPartnerManagement.ClientManagement;
 
 
 import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;

@@ -26,7 +26,7 @@ export class ListClientComponent {
 
   private clientService = inject(ClientService);
   private location = inject(Location);
-  displayedColumns: string[] = ['supplierId', 'firstName', 'lastName', 'phoneNumber', 'fax', 'email','address','city','postalCode','country','actions'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'phoneNumber', 'fax', 'email','address','city','postalCode','country','actions'];
 
   clients$!  : Observable<Client[]>;
   private router = inject(Router);

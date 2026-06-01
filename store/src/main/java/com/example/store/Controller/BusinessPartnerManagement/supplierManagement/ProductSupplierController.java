@@ -1,4 +1,4 @@
-package com.example.store.controller.BusinessPartnerManagement.supplierManagement;
+package com.example.store.controller.businessPartnerManagement.supplierManagement;
 
 
 import com.example.store.dto.BusinessPartner.supplierManagement.ProductSupplierDTO;

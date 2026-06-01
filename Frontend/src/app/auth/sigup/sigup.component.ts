@@ -33,7 +33,8 @@ export class SigupComponent {
         username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(4)]],
         role: ['', Validators.required],
-        email: ['', Validators.required]
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required]
       });
     }
 

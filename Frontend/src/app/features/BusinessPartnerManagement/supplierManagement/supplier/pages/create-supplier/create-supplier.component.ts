@@ -45,7 +45,8 @@ export class CreateSupplierComponent {
     address:[''],
     city:[''],
     postalCode:[''],
-    country:['']
+    country:[''],
+    taxIdentificationNumber:[''],
 
   });
 

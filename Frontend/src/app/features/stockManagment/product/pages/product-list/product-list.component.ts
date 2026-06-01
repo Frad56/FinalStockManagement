@@ -39,7 +39,7 @@ export class ProductListComponent implements OnInit {
   //productConditions: { [productId: number]: boolean } = {};
   loadProducts(){
     this.products$ = this.productService.getProducts();
-    
+
   }
   ngOnInit() {
     this.loadProducts();

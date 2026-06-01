@@ -1,22 +1,13 @@
-package com.example.store.controller.AuthController;
+package com.example.store.controller.authController;
 
 import com.example.store.dto.Response.ApiResponse;
 import com.example.store.dto.authentification.LoginRequest;
 import com.example.store.dto.authentification.LoginResponse;
 import com.example.store.dto.authentification.UserDTO;
-import com.example.store.model.authentification.Role;
-import com.example.store.model.authentification.User;
-import com.example.store.security.jwt.CustomUserDetails;
-import com.example.store.security.jwt.JwtUtil;
-import com.example.store.security.details.CustomUserDetailsService;
 import com.example.store.service.AuthService.AuthService;
-import com.example.store.service.AuthService.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

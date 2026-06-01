@@ -53,6 +53,16 @@ public class ProductServiceImpl implements ProductService {
         product.setBasePrice(dto.getBasePrice());
 
         Category category =categoryService.findCategoryById(dto.getCategoryId());
+        List<Category> leafCategories = categoryService.leafCategoryList();
+        boolean isLeaf = leafCategories.stream()
+                .anyMatch(leaf -> leaf.getCategoryId().equals(category.getCategoryId()));
+
+        if (!isLeaf) {
+            throw new IllegalArgumentException(
+                    "Cannot assign a product to a parent category '" + category.getName() +
+                            "'. Please select a leaf category."
+            );
+        }
         Aisle aisle = aisleService.findAisleById(dto.getAisleId());
         product.setCategory(category);
         product.setAisle(aisle);
