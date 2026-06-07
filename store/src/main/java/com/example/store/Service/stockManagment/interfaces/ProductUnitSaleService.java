@@ -14,4 +14,6 @@ public interface ProductUnitSaleService {
     void deleteProductUnitSaleById(Long productUnitSaleId);
     List<ProductUnitSale> fetchProductUnitSaleList();
 
+    List<ProductUnitSale> findAllByProductId(Long productId);
+
 }

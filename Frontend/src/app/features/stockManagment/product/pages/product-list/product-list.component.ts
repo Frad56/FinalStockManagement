@@ -27,7 +27,7 @@ import Swal from 'sweetalert2';
 export class ProductListComponent implements OnInit {
 
   products$! : Observable<Product[]>;
-  displayedColumns: string[] = ['product_id', 'reference', 'designation', 'brand', 'description', 'basePrice','category','aisle','actions'];
+  displayedColumns: string[] = ['reference', 'designation', 'brand', 'description', 'basePrice','category','aisle','actions'];
   private productService  = inject(ProductService);
   private router = inject(Router);
   private location = inject(Location);
@@ -126,9 +126,10 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/admin/characteristic/add-characteristic-with-productId',id]);
   }
 
-  addProductUnitSale(id:number){
-    this.router.navigate(['admin/productUnitSale/add-productUnitSale-with-ProductId',id]);
-  }
 
+
+  findProductUnitSale(id: number) {
+    this.router.navigate(['/admin/productUnitSale/productUnitSale-list-with-productId', id]);
+  }
 
 }

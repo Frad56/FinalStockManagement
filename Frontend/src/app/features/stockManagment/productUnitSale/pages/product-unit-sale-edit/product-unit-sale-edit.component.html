@@ -1,58 +1,56 @@
-<h2 class="title">Edit product Unit Price </h2>
+<div class="page">
 
-<div class="form-container">
-  <form [formGroup]="productUnitSaleForm" (ngSubmit)="onSubmit()" class="product-supplier-form">
+  <mat-card class="form-card">
 
-     <!-- Product -->
+    <h2 class="title">Edit Product Unit Price Sale</h2>
+
+    <form [formGroup]="productUnitSaleForm"
+          (ngSubmit)="onSubmit()"
+          class="form">
+
+      <!-- Product -->
+    
+
+      <!-- Unit Price -->
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Product</mat-label>
-        <mat-select formControlName="productId">
-          <mat-option *ngFor="let product of  products | async"
-                      [value]="product.productId" >
-            {{ product.brand }} : {{ product.description}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-     <!-- unit Sale -->
-     <mat-form-field appearance="outline" class="full-width">
         <mat-label>Unit Price</mat-label>
-        <input matInput type="unitPrice" formControlName="unitPrice" placeholder="unitPrice">
+        <input matInput type="number" formControlName="unitPrice">
       </mat-form-field>
-  
 
-    <!-- Qte unit Sale -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>conversion Factor</mat-label>
-      <input matInput type="number" formControlName="conversionFactor" placeholder="conversionFactor">
-    </mat-form-field>
+      <!-- Conversion Factor -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Conversion Factor</mat-label>
+        <input matInput type="number" formControlName="conversionFactor">
+      </mat-form-field>
 
-
-    <!-- Unit -->
-    <mat-form-field appearance="outline" class="full-width">
+      <!-- Unit -->
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Unit</mat-label>
         <mat-select formControlName="unitId">
           <mat-option *ngFor="let unit of units | async"
-                      [value]="unit.unitId" >
+                      [value]="unit.unitId">
             {{ unit.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-    <div class="button-group">
-      <button mat-raised-button class="Create-button" color="primary" type="submit">
-        Create
-      </button>
+      <!-- Buttons -->
+      <div class="button-group">
 
-      <button type="button"
-              class="back-button"
-              mat-raised-button
-              color="primary"
-              (click)="goBack()">
-        Back
-      </button>
-    </div>
+        <button mat-raised-button class="btn-blue" type="submit">
+          Update
+        </button>
 
-  </form>
+        <button mat-stroked-button class="btn-outline"
+                type="button"
+                (click)="goBack()">
+          Back
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card>
+
 </div>
-

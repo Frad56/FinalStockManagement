@@ -1,59 +1,71 @@
-<mat-card class="unit-card">
+<div class="page">
 
-    <mat-card-title>Unit List</mat-card-title>
+    <mat-card class="form-card">
   
-    <div class="Add-button">
-      <button mat-raised-button color="primary" (click)="addUnit()">
-        Add Unit
-      </button>
-      <button mat-raised-button color="primary" (click)="goBack()">
-        Back
-      </button>
-    </div>
-    <table mat-table [dataSource]="(units$ | async) || []" class="mat-elevation-z8">
+      <h2 class="title">Unit List</h2>
   
-
-      <ng-container matColumnDef="unitId">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let unit"> {{unit.unitId}}</td>
-      </ng-container>
+      <!-- Top Actions -->
+      <div class="top-actions">
   
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let unit"> {{unit.name}} </td>
-      </ng-container>
+        <button mat-raised-button class="btn-blue" (click)="addUnit()">
+          Add Unit
+        </button>
   
-
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef> Symbol </th>
-        <td mat-cell *matCellDef="let unit"> {{unit.symbol}} </td>
-      </ng-container>
-
-
+        <button mat-stroked-button class="btn-outline" (click)="goBack()">
+          Back
+        </button>
   
+      </div>
   
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let unit">
-          
-          <!-- Edit -->
-          <button mat-icon-button matTooltip="Edit" class="btn-edit" (click)="editUnit(unit.unitId)">
-            <img src="https://cdn-icons-png.flaticon.com/512/764/764599.png" alt="edit" width="20" height="20">
-          </button>
-      
-          <!-- Delete -->
-          <button mat-icon-button matTooltip="Delete" class="btn-delete" (click)="deleteUnit(unit.unitId)">
-            <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="delete" width="20" height="20">
-          </button>
-      
-        </td>
-      </ng-container>
+      <!-- TABLE -->
+      <table mat-table [dataSource]="(units$ | async) || []"
+             class="custom-table mat-elevation-z2">
   
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- ID -->
+        <ng-container matColumnDef="unitId">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let unit">
+            {{ unit.unitId }}
+          </td>
+        </ng-container>
   
-    </table>
+        <!-- Name -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let unit">
+            {{ unit.name }}
+          </td>
+        </ng-container>
   
-  </mat-card>
+        <!-- Symbol -->
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef>Symbol</th>
+          <td mat-cell *matCellDef="let unit">
+            {{ unit.symbol }}
+          </td>
+        </ng-container>
+  
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let unit">
+  
+            <button mat-icon-button matTooltip="Edit" class="btn-edit" (click)="editUnit(unit.unitId)">
+              <img src="https://cdn-icons-png.flaticon.com/512/764/764599.png" alt="edit" width="20" height="20">
+            </button>
+        
+            <button mat-icon-button matTooltip="Delete" class="btn-delete" (click)="deleteUnit(unit.unitId)">
+              <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="delete" width="20" height="20">
+            </button>
+  
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+  
+    </mat-card>
+  
+  </div>

@@ -15,5 +15,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder,Lon
 
     @Query("SELECT po FROM PurchaseOrder po WHERE po.status <> 'DELIVERED'")
     List<PurchaseOrder> findPurchaseOrderListNotDelivered();
+
+
 }
 

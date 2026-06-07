@@ -1,57 +1,64 @@
-<h2 class="page-title">Create Product Unit Price Sale</h2>
+<div class="page">
 
-<div class="card-container">
+  <mat-card class="form-card">
 
-  <div *ngIf="product" class="product-badge">
-    <span class="badge-label">Product</span>
-    <span class="badge-value">{{ product.reference }}</span>
-  </div>
+    <h2 class="title">Create Product Unit Price Sale</h2>
 
-  <form [formGroup]="productUnitSaleForm"
-        (ngSubmit)="onSubmit()"
-        class="form">
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Unit Price</mat-label>
-      <input matInput type="number"
-             formControlName="unitPrice"
-             placeholder="Enter unit price">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Conversion Factor</mat-label>
-      <input matInput type="number"
-             formControlName="conversionFactor"
-             placeholder="Enter conversion factor">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Unit</mat-label>
-      <mat-select formControlName="unitId">
-        <mat-option *ngFor="let unit of units | async"
-                    [value]="unit.unitId">
-          {{ unit.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-
-    <div class="button-group">
-      <button mat-raised-button
-              color="primary"
-              class="btn primary"
-              type="submit">
-        Create
-      </button>
-
-      <button mat-stroked-button
-              color="primary"
-              class="btn secondary"
-              type="button"
-              (click)="goBack()">
-        Back
-      </button>
+    <div *ngIf="product" class="product-badge">
+      <span class="badge-label">Product</span>
+      <span class="badge-value">{{ product.reference }}</span>
     </div>
 
-  </form>
+    <form [formGroup]="productUnitSaleForm"
+          (ngSubmit)="onSubmit()"
+          class="form">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Unit Price</mat-label>
+        <input matInput type="number" formControlName="unitPrice">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Conversion Factor</mat-label>
+        <input matInput type="number" formControlName="conversionFactor">
+      </mat-form-field>
+
+      <div class="unit-container">
+
+        <mat-form-field appearance="outline" class="unit-field">
+          <mat-label>Unit</mat-label>
+          <mat-select formControlName="unitId">
+            <mat-option *ngFor="let unit of units | async"
+                        [value]="unit.unitId">
+              {{ unit.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button
+                type="button"
+                class="add-unit-btn"
+                (click)="addUnit()">
+          Add Unit
+        </button>
+
+      </div>
+
+      <div class="button-group">
+
+        <button mat-raised-button class="btn-blue" type="submit">
+          Create
+        </button>
+
+        <button mat-stroked-button class="btn-outline" type="button"
+                (click)="goBack()">
+          Back
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card>
+
 </div>

@@ -23,7 +23,7 @@ import Swal from 'sweetalert2';
 })
 export class AisleListComponent implements OnInit {
   aisles$!: Observable<Aisle[]>;
-  displayedColumns: string[] = ['aisleId', 'aisleName','actions'];
+  displayedColumns: string[] = ['aisleName','actions'];
   private location = inject(Location);
   private aisleService = inject(AisleService);
   private router = inject(Router);
@@ -40,11 +40,11 @@ export class AisleListComponent implements OnInit {
   }
     
   addAisle(){
-    this.router.navigate(['aisle/add-aisle']);
+    this.router.navigate(['admin/aisle/add-aisle']);
   }
 
   editAisle(id:number){
-    this.router.navigate(['aisle/edit-aisle',id]);
+    this.router.navigate(['admin/aisle/edit-aisle',id]);
   }
 
 

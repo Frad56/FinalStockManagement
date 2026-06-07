@@ -5,9 +5,7 @@
    
     <div class="Add-button">
       
-      <button mat-raised-button color="primary" (click)="addMovmentInStock()">
-        Add 
-      </button>
+     
       <button mat-raised-button color="primary" (click)="goBack()">
         Back
       </button>
@@ -15,10 +13,6 @@
     <table mat-table [dataSource]="(movmentInStockList$ | async) || []" class="mat-elevation-z8">
   
       <!-- ID -->
-      <ng-container matColumnDef="movementInStockId">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let movementInStock"> {{movementInStock.movementInStockId}} </td>
-      </ng-container>
   
 
       <ng-container matColumnDef="date">

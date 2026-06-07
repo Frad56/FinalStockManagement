@@ -12,11 +12,7 @@
     </div>
     <table mat-table [dataSource]="(saleOrdersList$ | async) || []" class="mat-elevation-z8">
 
-      <ng-container matColumnDef="paymentType">
-        <th mat-header-cell *matHeaderCellDef> Payment Type </th>
-        <td mat-cell *matCellDef="let salesOrder"> {{salesOrder.paymentType}}  </td>
-      </ng-container>
-  
+ 
       <ng-container matColumnDef="salesOrderDate">
         <th mat-header-cell *matHeaderCellDef> sales Order Date </th>
         <td mat-cell *matCellDef="let salesOrder"> {{salesOrder.salesOrderDate}} </td>

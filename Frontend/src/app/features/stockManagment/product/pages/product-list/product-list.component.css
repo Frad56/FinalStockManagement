@@ -41,13 +41,7 @@
      min-height: 100vh;
    }
    
-   /* ── Page wrapper ── */
-   .page-wrapper {
-     padding: 32px 36px;
-     max-width: 1440px;
-     margin: 0 auto;
-     animation: fadeIn .35s ease;
-   }
+
    
    @keyframes fadeIn {
      from { opacity: 0; transform: translateY(12px); }
@@ -500,11 +494,6 @@
      margin: 0 0 20px;
    }
 
-   @media (max-width: 900px) {
-     .page-wrapper { padding: 20px 16px; }
-     .stats-row { grid-template-columns: 1fr; }
-     .action-btn { display: none; }
-   }
    .custom-alert {
     position: fixed;
     top: 20px;
@@ -709,4 +698,82 @@
 
 .filter-clear:hover {
   color: #1a56db;
+}
+/* ── Truncated cells with hover tooltip ── */
+.desc-truncate {
+  display: block;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--c-text-2);
+  position: relative;
+  cursor: default;
+}
+
+/* Tooltip générique pour toutes les cellules tronquées */
+.cell-tooltip {
+  position: relative;
+  display: inline-block;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.cell-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 7px 12px;
+  border-radius: 8px;
+  white-space: normal;
+  max-width: 280px;
+  min-width: 120px;
+  width: max-content;
+  text-align: left;
+  box-shadow: 0 6px 20px rgba(15,23,42,.18);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease, visibility .18s ease, transform .18s ease;
+  z-index: 9999;
+  transform: translateX(-50%) translateY(4px);
+}
+
+/* Arrow */
+.cell-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1e293b;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease, visibility .18s ease;
+  z-index: 9999;
+}
+
+.cell-tooltip:hover::after,
+.cell-tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}.btn-list {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+  font-weight: 600;
 }

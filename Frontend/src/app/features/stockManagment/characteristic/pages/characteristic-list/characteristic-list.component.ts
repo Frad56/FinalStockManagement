@@ -66,10 +66,10 @@ deleteCharacteristic(id:number){
   })     
 }
 addCharacteristic(){
-  this.router.navigate(['characteristic/add-characteristic']);
+  this.router.navigate(['admin/characteristic/add-characteristic']);
  }
 editCharacteristic(id:number){
-  this.router.navigate(['characteristic/edit-characteristic',id]);
+  this.router.navigate(['admin/characteristic/edit-characteristic',id]);
  }
 goBack(){
   this.location.back();

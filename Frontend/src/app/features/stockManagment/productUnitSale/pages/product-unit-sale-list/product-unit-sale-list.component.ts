@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -22,20 +22,32 @@ import { ProductUnitSaleService } from '../../../../../core/services/stockManage
 })
 export class ProductUnitSaleListComponent  implements OnInit{
 private location = inject(Location);
+private route = inject(ActivatedRoute);      
 
 
 productUnitSales$! : Observable<ProductUnitSale[]>;
 displayedColumns: string[] = ['productUnitSaleId', 'productDescription','productReference', 'unit', 'unitPrice', 'conversionFactor','actions'];
 private productUnitSaleService  = inject(ProductUnitSaleService);
 private router = inject(Router);
+productId!: number;
 
 
-loadProductUnitSale(){
-  this.productUnitSales$ = this.productUnitSaleService.getAllProductUnitSale();
-}
-ngOnInit(): void {
-  this.loadProductUnitSale();
-}
+  loadProductUnitSale() {
+    if (this.productId) {
+      this.productUnitSales$ = this.productUnitSaleService.findProductUnitSaleByProductId(this.productId) as any;
+    } else {
+      this.productUnitSales$ = this.productUnitSaleService.getAllProductUnitSale();
+    }
+  }
+
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.productId = +idParam;
+    }
+    this.loadProductUnitSale();
+  }
+
 
 
 
@@ -46,14 +58,19 @@ deleteProductUnitSale(id:number){
   });
  
 }
-addProductUnitSale(){
-  this.router.navigate(['productUnitSale/add-productUnitSale']);
+addProductUnitSale() {
+  if (this.productId) {
+    this.router.navigate(['/admin/productUnitSale/add-productUnitSale-with-ProductId', this.productId]);
+  } else {
+    this.router.navigate(['admin/productUnitSale/add-productUnitSale']);
+  }
+}
+editProductUnitSale(productUnitSaleId:number){
+  this.router.navigate(['admin/productUnitSale/edit-productUnitSale',productUnitSaleId]);
 
 }
-editProductUnitSale(id:number){
-  this.router.navigate(['productUnitSale/edit-productUnitSale',id]);
 
-}
+
 goBack(){
   this.location.back();
 }

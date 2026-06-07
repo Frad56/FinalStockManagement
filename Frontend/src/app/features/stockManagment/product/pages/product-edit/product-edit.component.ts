@@ -106,7 +106,7 @@ onSubmit() {
       console.error('Error edting product', err);
     
       if (err.error?.message) {
-        alert(err.error.message);   // message Spring
+        alert(err.error.message); 
       } else {
         alert('Erreur serveur lors de  editing du produit');
       }

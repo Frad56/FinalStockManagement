@@ -59,6 +59,11 @@ onSubmit(){
     },
     error:(err)=>{
       console.log('error',err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: err.error?.message || 'An error occurred while creation!'
+      });
     }
   })
 }

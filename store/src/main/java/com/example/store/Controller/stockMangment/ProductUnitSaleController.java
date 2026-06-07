@@ -45,4 +45,9 @@ public class ProductUnitSaleController {
         productUnitSaleService.deleteProductUnitSaleById(productUnitSaleId);
         return ResponseEntity.ok(Map.of("message","Deleted Successfully"));
     }
+
+    @GetMapping("/findByProduct/{productId}")
+    public ResponseEntity<List<ProductUnitSale>> findAllByProductId(@PathVariable("productId") Long productId) {
+        return ResponseEntity.ok(productUnitSaleService.findAllByProductId(productId));
+    }
 }

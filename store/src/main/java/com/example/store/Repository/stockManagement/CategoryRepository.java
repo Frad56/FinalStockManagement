@@ -2,6 +2,7 @@ package com.example.store.repository.stockManagement;
 
 
 import com.example.store.model.stockManagement.Category;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("SELECT c FROM Category c WHERE c.parent IS NULL")
     List<Category> findRootCategories();
 
+
+    @Query("SELECT COUNT(p) > 0 FROM Product p WHERE p.category.categoryId = :categoryId")
+    boolean existsProductByCategoryId(@Param("categoryId") Long categoryId);
 
 }

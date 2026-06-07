@@ -27,6 +27,8 @@ public interface PurchaseOrderLineRepository extends JpaRepository<PurchaseOrder
 
     List<PurchaseOrderLine> findByProductVariant_ProductVariantId(Long productVariantId);
 
+    boolean existsByProductVariant_Product_ProductId(Long productId);
+
     Optional<PurchaseOrderLine>
     findTopByProductVariantOrderByPurchaseOrderLineIdDesc(ProductVariant productVariant);
 }

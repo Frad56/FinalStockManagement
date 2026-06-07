@@ -1,37 +1,41 @@
+<div class="page">
 
-<h2 class="title"> create characteristic  </h2>
+  <mat-card class="form-card">
 
-<div class="form-container">
-  <form [formGroup]="characteristicForm" (ngSubmit)="onSubmit()" class="product-supplier-form">
+    <h2 class="title">Create Characteristic</h2>
 
+    <form [formGroup]="characteristicForm" (ngSubmit)="onSubmit()" class="form">
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name" placeholder="characteristic">
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Characteristic">
+      </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>characteristic Type Value</mat-label>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Characteristic Type Value</mat-label>
         <mat-select formControlName="type">
-          <mat-option *ngFor="let characteristicTypeValue of characteristicTypeValues"
-          [value]="characteristicTypeValue">    {{ characteristicTypeValue }}</mat-option>
+          <mat-option *ngFor="let type of characteristicTypeValues"
+                      [value]="type">
+            {{ type }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
-    <div class="button-group">
-      <button mat-raised-button class="Create-button" color="primary" type="submit">
-        Crate
-      </button>
+      <div class="button-group">
+        <button mat-raised-button class="btn-blue" type="submit">
+          Create
+        </button>
 
-      <button type="button"
-              class="back-button"
-              mat-raised-button
-              color="primary"
-              (click)="goBack()">
-        Back
-      </button>
-    </div>
+        <button type="button"
+                mat-stroked-button
+                class="btn-outline"
+                (click)="goBack()">
+          Back
+        </button>
+      </div>
 
-  </form>
+    </form>
+
+  </mat-card>
+
 </div>
-

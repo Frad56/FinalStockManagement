@@ -123,7 +123,9 @@ export class ProductVariantCreateComponent implements OnInit {
               title: 'Saved Successfully',
               text: 'Your changes have been saved.',
               confirmButtonColor: '#16a34a'
+          
             });
+            this.goBack();
             this.productVariantForm.reset({
                   productId: this.product.productId
                 });

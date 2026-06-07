@@ -24,6 +24,8 @@ public class PurchaseOrder{
     @JoinColumn(name = "supplier_id",nullable = false)
     private Supplier supplier;
 
+
+
     @CreationTimestamp
     @Column(updatable = false, name = "order_date")
     private Date orderDate;

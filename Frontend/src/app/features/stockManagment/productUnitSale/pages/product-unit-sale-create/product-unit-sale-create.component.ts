@@ -14,7 +14,8 @@ import { UnitService } from '../../../../../core/services/stockManagement/unitSe
 import { Product } from '../../../../../shared/models/StockManagment/product.model';
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { ProductUnitSaleDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductUnitSale.dto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-product-unit-sale-create',
   standalone: true,
@@ -86,19 +87,29 @@ onSubmit(){
     next :(response) =>{
       alert('product Unit Sale Created successfully');
       this.productUnitSaleForm.reset();
-
+      
     },
     error :(error)=> {
       console.error('Error creating product', error,productUnitSaleDTO);
-
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.error?.message || 'An error occurred while creation!'
+      });
     }
   })
  
+}
+
+private router =inject(Router);
+addUnit(){
+  this.router.navigate(['admin/unit/add-unit']);
 }
 
 goBack(){
   this.location.back();
 }
   
-  
+
+
 }

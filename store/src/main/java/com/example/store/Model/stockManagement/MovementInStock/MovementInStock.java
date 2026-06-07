@@ -36,9 +36,7 @@ public abstract class MovementInStock {
     @JoinColumn(name="product_variant_id")
     private ProductVariant productVariant;
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
+
 
 
 }

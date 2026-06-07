@@ -70,5 +70,9 @@ public class ProductUnitSaleServiceImpl implements ProductUnitSaleService {
         return productUnitSaleRepository.findAll();
     }
 
+    @Override
+    public List<ProductUnitSale> findAllByProductId(Long productId) {
+        return productUnitSaleRepository.findAllByProduct_ProductId(productId);
+    }
 
 }

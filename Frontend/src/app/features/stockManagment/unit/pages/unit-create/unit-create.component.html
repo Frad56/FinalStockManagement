@@ -1,27 +1,42 @@
-<h2 class="title">Create Unit</h2>
+<div class="page">
 
-<div class="form-container">
-  <form [formGroup]="unitForm" (ngSubmit)="onSubmit()" class="form-card">
+  <mat-card class="form-card">
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Unit Name</mat-label>
-      <input matInput formControlName="unitName" placeholder="Enter unit name">
-    </mat-form-field>
+    <h2 class="title">Create Unit</h2>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Unit Symbol</mat-label>
-      <input matInput formControlName="unitSymbol" placeholder="Enter unit symbol">
-    </mat-form-field>
+    <form [formGroup]="unitForm"
+          (ngSubmit)="onSubmit()"
+          class="form">
 
-    <div class="button-group">
-      <button mat-raised-button type="submit">
-        Create
-      </button>
+      <!-- Unit Name -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Unit Name</mat-label>
+        <input matInput formControlName="unitName" placeholder="Enter unit name">
+      </mat-form-field>
 
-      <button mat-raised-button  type="button" (click)="goBack()">
-        Back
-      </button>
-    </div>
+      <!-- Unit Symbol -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Unit Symbol</mat-label>
+        <input matInput formControlName="unitSymbol" placeholder="Enter unit symbol">
+      </mat-form-field>
 
-  </form>
+      <!-- Buttons -->
+      <div class="button-group">
+
+        <button mat-raised-button class="btn-blue" type="submit">
+          Create
+        </button>
+
+        <button mat-stroked-button class="btn-outline"
+                type="button"
+                (click)="goBack()">
+          Back
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card>
+
 </div>

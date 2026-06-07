@@ -1,37 +1,64 @@
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
-  color: #061153;
-}
-
-.form-container {
+.page {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: #f0f4f8;
 }
 
+/* CARD */
 .form-card {
-  width: 400px;
-  padding: 30px;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 650px;
+  padding: 25px;
+  border: 2px solid rgba(18, 51, 117, 0.9);
+  background-color: rgb(242, 248, 250);
+  border-radius: 12px;
 }
 
-.full-width {
-  width: 100%;
+/* TITLE */
+.title {
+  text-align: center;
+  color: #123375;
+  font-size: 28px;
+  font-weight: 600;
   margin-bottom: 20px;
 }
 
+/* FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* INPUT */
+.full-width {
+  width: 100%;
+}
+
+/* BUTTONS */
 .button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-button {
-  min-width: 120px;
-  border-radius: 8px;
-  background-color: #091a77;
+/* PRIMARY */
+.btn-blue {
+  background-color: #123375 !important;
+  color: white !important;
+}
+
+/* OUTLINE */
+.btn-outline {
+  border: 1px solid #123375 !important;
+  color: #123375 !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .form-card {
+    width: 100%;
+  }
 }

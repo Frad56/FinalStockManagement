@@ -1,6 +1,7 @@
 package com.example.store.service.stockManagment.implementation;
 
 import com.example.store.dto.stockManagment.UnitDTO;
+import com.example.store.exception.ElementAlreadyExistException;
 import com.example.store.exception.ElementNotFoundException;
 import com.example.store.exception.ResourceInUseException;
 import com.example.store.model.stockManagement.Unit;
@@ -40,11 +41,10 @@ public class UnitServiceImpl implements UnitService {
         String newUnitName= unitDTO.getUnitName().trim().toLowerCase();
         String newUnitSymbol= unitDTO.getUnitSymbol().trim().toLowerCase();
         if(unitRepository.existsByName(newUnitName)) {
-            throw new RuntimeException("Unit with name '" + unitDTO.getUnitName() + "' already exists.");
+            throw new ElementAlreadyExistException(unitDTO.getUnitName() + "' already exists.", "");
         }
         if(unitRepository.existsBySymbol(newUnitSymbol)) {
-            throw new RuntimeException("Unit with symbol '" + unitDTO.getUnitSymbol() + "' already exists.");
-        }
+            throw new ElementAlreadyExistException(unitDTO.getUnitName() + "' already exists.", "");        }
         Unit unit = new Unit();
         mapUnitDTOToUnit(unitDTO, unit);
         return unitRepository.save(unit);

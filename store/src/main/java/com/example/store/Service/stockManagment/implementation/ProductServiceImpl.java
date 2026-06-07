@@ -11,6 +11,8 @@ import com.example.store.exception.ResourceInUseException;
 import com.example.store.model.stockManagement.Aisle;
 import com.example.store.model.stockManagement.Category;
 import com.example.store.model.stockManagement.Product;
+import com.example.store.repository.purchaseManagement.PurchaseOrderLineRepository;
+import com.example.store.repository.purchaseManagement.PurchaseOrderRepository;
 import com.example.store.repository.stockManagement.ProductCharacteristicRepository;
 import com.example.store.repository.stockManagement.ProductRepository;
 import com.example.store.repository.stockManagement.ProductUnitSaleRepository;
@@ -33,16 +35,18 @@ public class ProductServiceImpl implements ProductService {
     private final ProductUnitSaleRepository productUnitSaleRepository;
     private final ProductCharacteristicRepository productCharacteristicRepository;
 
-
+    private final PurchaseOrderLineRepository purchaseOrderLineRepository;
     public ProductServiceImpl(ProductRepository productRepository,CategoryService categoryService,
                               AisleService aisleService,
                               ProductUnitSaleRepository productUnitSaleRepository,
-                              ProductCharacteristicRepository productCharacteristicRepository){
+                              ProductCharacteristicRepository productCharacteristicRepository,
+                              PurchaseOrderLineRepository purchaseOrderLineRepository){
         this.productRepository=productRepository;
         this.categoryService=categoryService;
         this.aisleService=aisleService;
         this.productUnitSaleRepository = productUnitSaleRepository;
         this.productCharacteristicRepository = productCharacteristicRepository;
+        this.purchaseOrderLineRepository = purchaseOrderLineRepository;
     }
 
     private void mapDTOToProduct(ProductDTO dto, Product product) {
@@ -95,7 +99,9 @@ public class ProductServiceImpl implements ProductService {
             throw new ElementNotFoundException(productId);
         }
         boolean isProductInUnitSale = productUnitSaleRepository.existsByProduct_ProductId(productId);
-        if(isProductInUnitSale){
+        boolean isProductInPurchaseOrder = purchaseOrderLineRepository.existsByProductVariant_Product_ProductId(productId);
+
+        if(isProductInUnitSale || isProductInPurchaseOrder){
             throw new ResourceInUseException("This Product is already used and cannot be deleted");
         }
         productCharacteristicRepository.deleteByProduct_ProductId(productId);

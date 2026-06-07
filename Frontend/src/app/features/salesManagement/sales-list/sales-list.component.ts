@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class SalesListComponent {
 
   private saleService = inject(SalesOrderService);
-  displayedColumns: string[] = [ 'paymentType', 'salesOrderDate', 'salesOrderDate','totalAmount','clientName','actions'];
+  displayedColumns: string[] = [  'salesOrderDate', 'salesOrderDate','totalAmount','clientName','actions'];
   saleOrdersList$!:Observable<SalesOrder[]>;
   private router = inject(Router);
 

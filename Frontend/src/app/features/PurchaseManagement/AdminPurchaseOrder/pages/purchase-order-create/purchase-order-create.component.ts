@@ -22,6 +22,8 @@ import { UnitService } from '../../../../../core/services/stockManagement/unitSe
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { FormStateService } from '../../../../../core/services/form-state.service';
 import { SupplierService } from '../../../../../core/services/BusinessPartnerManagement/supplierManagement/supplier.service';
+import Swal from 'sweetalert2';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-purchase-order-create',
@@ -33,7 +35,8 @@ import { SupplierService } from '../../../../../core/services/BusinessPartnerMan
     MatInputModule,
     MatCardModule,
     ReactiveFormsModule,
-  MatTableModule],
+  MatTableModule,
+MatTabsModule],
   templateUrl: './purchase-order-create.component.html',
   styleUrl: './purchase-order-create.component.css'
 })
@@ -122,6 +125,7 @@ export class PurchaseOrderCreateComponent {
         this.productService.findProductByDesignation({
           productDesignation: value
         }).subscribe(res => { 
+          console.log("RESULT =", res);
           this.filteredProducts = res; });
           break;
   
@@ -129,16 +133,25 @@ export class PurchaseOrderCreateComponent {
         this.productService.findProductByCategoryName({
           productCategoryName: value
         }).subscribe(res => {
+          console.log("RESULT =", res);
           this.filteredProducts = res;
         });
         break;
   
-      case 'Product_reference':
-        this.productVariantService.findProductByReference({
+        case 'Product_reference':
+
+        this.productService.findProductByReference({
           productReference: value
-        }).subscribe(res => {
-          this.filteredProducts = res;
+        }).subscribe({
+          next: (res) => {
+            console.log("RESULT =", res);
+            this.filteredProducts = res;
+          },
+          error: (err) => {
+            console.error("ERROR =", err);
+          }
         });
+      
         break;
     }
   }
@@ -244,8 +257,14 @@ export class PurchaseOrderCreateComponent {
         this.productVariantService.setVariants(variants);
         this.router.navigate(['/admin/purchase-order/select-product-variants']);
       },
-      error:()=>{
-        console.error("Failed operation to find product variants by designation ");
+      error:(error)=>{
+        console.error("Failed operation to find product variants by Designation");
+        
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error?.message ||  'Failed to load product variants',
+        });
       }
     });
   }
@@ -261,17 +280,24 @@ export class PurchaseOrderCreateComponent {
       }
     })
   }
-  findProductVariantListByReference(reference:ReferenceRequest){
+  findProductVariantListByReference(reference: ReferenceRequest) {
     this.productVariantService.findProductVariantByProductReference(reference).subscribe({
-      next:(variants)=>{
-        console.log("Successful operation to find product variants by Reference")
+      next: (variants) => {
+        console.log("Successful operation to find product variants by Reference");
         this.productVariantService.setVariants(variants);
         this.router.navigate(['/admin/purchase-order/select-product-variants']);
       },
-      error:()=>{
-        console.error("Failed operation to find product variants by Reference ");
-        }
-      });
+  
+      error: (error) => {
+        console.error("Failed operation to find product variants by Reference");
+  
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error?.message ||  'Failed to load product variants',
+        });
+      }
+    });
   }
   /////////////////////////////////////////////////////
   searchProductByCategory(categoryName: CategoryRequest) {
@@ -292,9 +318,14 @@ export class PurchaseOrderCreateComponent {
         this.productVariantService.setVariants(variants);
         this.router.navigate(['/admin/purchase-order/select-product-variants']);
       },
-      error:()=>{
+      error:(error)=>{
         console.error("Failed operation to find product variants by category");
         
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error?.message ||  'Failed to load product variants',
+        });
       }
     });
   }

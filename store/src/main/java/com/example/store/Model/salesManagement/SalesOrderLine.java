@@ -1,5 +1,6 @@
 package com.example.store.model.salesManagement;
 
+import com.example.store.model.stockManagement.ProductUnitSale;
 import com.example.store.model.stockManagement.ProductVariant;
 import com.example.store.model.stockManagement.Unit;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -44,8 +45,8 @@ public class SalesOrderLine {
     private ProductVariant productVariant;
 
     @ManyToOne
-    @JoinColumn(name = "unitId",nullable = true)
-    private Unit unit;
+    @JoinColumn(name = "product_unit_sale_id",nullable = true)
+    private ProductUnitSale productUnitSale;
 
     @Column(name = "quantity")
     private BigDecimal quantity;

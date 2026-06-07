@@ -16,7 +16,7 @@ export const routes: Routes = [
 {path:'login', component:LoginComponent},
 
 { path: 'forgot-password', component: ForgotPasswordComponent },
-
+{path:'devis', loadChildren:() => import('./features/devisManagement/devis.routes').then(m => m.Devis_ROUTES)},
 {path:'admin-dashboard', component:AdminComponent ,canActivate: [AuthGuard],data: { role: 'ADMIN' }},
 {path:'worker-dashboard', component:WorkerComponent ,canActivate: [AuthGuard],data: { role: 'WORKER' }},
 {path:'magasiner-dashboard', component:MagasinerDashboardComponent ,canActivate: [AuthGuard],data: { role: 'MAGASINER' }},

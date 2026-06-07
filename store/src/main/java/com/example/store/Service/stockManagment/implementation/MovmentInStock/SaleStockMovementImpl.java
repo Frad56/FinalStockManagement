@@ -36,11 +36,12 @@ public class SaleStockMovementImpl implements SaleStockMovementService {
 
         saleStockMovementDB.setProductVariant(salesOrderLine.getProductVariant());
 
-        if(salesOrderLine.getUnit() != null){
-            saleStockMovementDB.setSalesOrder(salesOrderLine.getSalesOrder());
-            saleStockMovementDB.setSalesOrderLine(salesOrderLine);
-
+        if(salesOrderLine.getProductUnitSale() != null){
+            saleStockMovementDB.setProductUnitSale(salesOrderLine.getProductUnitSale());
         }
+        saleStockMovementDB.setSalesOrder(salesOrderLine.getSalesOrder());
+        saleStockMovementDB.setSalesOrderLine(salesOrderLine);
+
         return saleStockMovementRepository.save(saleStockMovementDB);
 
     }

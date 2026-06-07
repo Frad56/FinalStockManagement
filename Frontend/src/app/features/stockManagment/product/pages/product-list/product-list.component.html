@@ -9,8 +9,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </span>
         <span>Stock Management</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        <span class="breadcrumb-active">Products</span>
+       
       </div>
       <h1 class="page-title">Product Catalog</h1>
       <p class="page-subtitle">Manage your entire product inventory from one place</p>
@@ -53,7 +52,7 @@
     <div class="table-responsive">
       <table mat-table [dataSource]="(products$ | async) || []" class="product-table">
 
-        <!-- ID -->
+        <!-- ID 
         <ng-container matColumnDef="product_id">
           <th mat-header-cell *matHeaderCellDef>
             <span class="th-content">ID</span>
@@ -62,7 +61,7 @@
             <span class="id-pill">#{{ product.productId }}</span>
           </td>
         </ng-container>
-
+              -->
         <!-- Reference -->
         <ng-container matColumnDef="reference">
           <th mat-header-cell *matHeaderCellDef>
@@ -79,7 +78,9 @@
             <span class="th-content">Designation</span>
           </th>
           <td mat-cell *matCellDef="let product">
-            <span class="designation-text">{{ product?.designation }}</span>
+            <span class="truncate-cell" [title]="product?.designation">
+              {{ product?.designation }}
+            </span>
           </td>
         </ng-container>
 
@@ -99,7 +100,9 @@
             <span class="th-content">Description</span>
           </th>
           <td mat-cell *matCellDef="let product">
-            <span class="desc-truncate" [title]="product.description">{{ product.description }}</span>
+            <span class="truncate-cell" [title]="product.description">
+              {{ product.description }}
+            </span>
           </td>
         </ng-container>
 
@@ -144,7 +147,7 @@
           <td mat-cell *matCellDef="let product">
             <div class="actions-group">
               <button class="action-btn action-btn--unit" (click)="addProductUnitsale(product.productId)" matTooltip="Add Unit Sale">
-                Unit Sale
+                add Product Unit Sale
               </button>
               <!-- <button  
                       [disabled]="!productConditions[product.productId]"
@@ -155,14 +158,14 @@
 -->
 
                 <button class="action-btn btn-list" (click)=" hasVariants(product.productId)" matTooltip="Add Variant">
-                  product Variant List
+                  product Article List
                   </button>
-              <button class="action-btn btn-add-variant" (click)="addProductVariant(product.productId)" matTooltip="Add Variant">
-                Variant
+              <button class="action-btn btn-add-variant" (click)="addProductVariant(product.productId)" matTooltip="Add Article">
+                 add Article
               </button>
               
-              <button class="action-btn btn-unit-sale" (click)="addProductUnitSale(product.productId)" matTooltip="Add Variant">
-                add Product Unit Sale
+              <button class="action-btn btn-unit-sale" (click)="findProductUnitSale(product.productId)" matTooltip="see Product Unit Sale List">
+                 Unit Sale List
               </button>
               <div class="icon-actions">
                 <button class="icon-btn icon-btn--edit" (click)="editProduct(product.productId)" matTooltip="Edit product">

@@ -4,6 +4,7 @@ package com.example.store.service.stockManagment.implementation;
 import com.example.store.dto.stockManagment.CategoryDTO;
 import com.example.store.dto.stockManagment.CategoryDTOTest;
 import com.example.store.exception.ElementNotFoundException;
+import com.example.store.exception.ResourceInUseException;
 import com.example.store.model.stockManagement.Category;
 import com.example.store.model.stockManagement.CharacteristicTypeValue;
 import com.example.store.repository.stockManagement.CategoryRepository;
@@ -52,16 +53,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> fetchCategoryList(){
         return categoryRepository.findAll();
-    }
-
-
-
-    @Override
-    public void deleteCategoryById(Long categoryId){
-        if(!categoryRepository.existsById(categoryId)){
-            throw new ElementNotFoundException(categoryId);
-        }
-        categoryRepository.deleteById(categoryId);
     }
 
     @Override
@@ -149,7 +140,7 @@ public class CategoryServiceImpl implements CategoryService {
         return dto;
     }
     @Override
-    @Transactional
+    //@Transactional
     public List<CategoryDTOTest> findAllWithChildren() {
         List<Category> categories = categoryRepository.findAll();
 
@@ -189,10 +180,10 @@ public class CategoryServiceImpl implements CategoryService {
         dto.setParentId(
                 category.getParent() != null ? category.getParent().getCategoryId() : null
         );
-        dto.setChildrenIds(                          // ← childrenIds
+        dto.setChildrenIds(
                 category.getChildren() == null ? new ArrayList<>() :
                         category.getChildren().stream()
-                                .map(Category::getCategoryId)    // ← juste l'ID
+                                .map(Category::getCategoryId)
                                 .collect(Collectors.toList())
         );
         return dto;
@@ -208,6 +199,37 @@ public class CategoryServiceImpl implements CategoryService {
                 sortTree(node.getChildren());
             }
         }
+    }
+
+
+    @Override
+    public boolean hasProductsInSubtree(Category category) {
+        if (categoryRepository.existsProductByCategoryId(category.getCategoryId())) {
+            return true;
+        }
+        if (category.getChildren() != null) {
+            for (Category child : category.getChildren()) {
+                if (hasProductsInSubtree(child)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public void deleteCategoryById(Long categoryId){
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ElementNotFoundException(categoryId));
+
+        if (hasProductsInSubtree(category)) {
+            throw new ResourceInUseException(
+                    "Cannot delete category '" + category.getName() +
+                            "': it or one of its subcategories has linked products."
+            );
+        }
+        categoryRepository.deleteById(categoryId);
     }
 }
 

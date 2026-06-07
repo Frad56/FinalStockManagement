@@ -1,29 +1,58 @@
+<div class="page">
 
-<div class="button-container">
-  <button mat-raised-button class="blue-button" (click)="addCategory()">
-    Add Category
-  </button>
-</div>
-<div class="menu-wrapper" *ngIf="roots.length">
+  <mat-card class="menu-card">
 
-    <!-- barre du haut -->
-    <nav class="top-nav">
-      <a
-        *ngFor="let root of roots"
-        class="nav-item"
-        [class.active]="activeRoot?.categoryId === root.categoryId"
-        (mouseenter)="setActive(root)">
-        {{ root.name }}
-      </a>
-    </nav>
-  
-    <!-- mega menu -->
-    <div class="mega-menu" *ngIf="activeRoot">
-      <div class="column" *ngFor="let child of activeRoot.children">
-        <h3>{{ child.name }}</h3>
-  
-        <app-category-selector [categories]="child.children"></app-category-selector>
-      </div>
+    <div class="header">
+      <h2>Category Management</h2>
+      <p>Manage categories and subcategories</p>
     </div>
-  
-  </div>
+
+    <div class="button-container">
+      <button mat-raised-button class="btn-blue" (click)="addCategory()">
+        Add Category
+      </button>
+    </div>
+
+    <div class="menu-wrapper" *ngIf="roots.length">
+
+      <nav class="top-nav">
+        <a
+          *ngFor="let root of roots"
+          class="nav-item"
+          [class.active]="activeRoot?.categoryId === root.categoryId"
+          (mouseenter)="setActive(root)">
+          {{ root.name }}
+        </a>
+      </nav>
+
+      <div class="mega-menu" *ngIf="activeRoot">
+
+        <div class="column" *ngFor="let child of activeRoot.children">
+
+          <div class="column-header">
+
+            <h3>{{ child.name }}</h3>
+
+            <button mat-icon-button
+                    class="btn-delete"
+                    (click)="deleteCategory(child.categoryId)">
+              <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png"
+                   alt="delete">
+            </button>
+
+          </div>
+
+          <app-category-selector
+            [categories]="child.children"
+            (categoryDeleted)="onCategoryDeleted()">
+          </app-category-selector>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-card>
+
+</div>

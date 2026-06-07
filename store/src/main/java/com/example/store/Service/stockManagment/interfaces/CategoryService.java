@@ -31,6 +31,7 @@ public interface CategoryService {
 
     List<CategoryDTOTest> findAllWithChildren();
 
-
     void sortTree(List<CategoryDTOTest> nodes);
+
+    boolean hasProductsInSubtree(Category category);
 }

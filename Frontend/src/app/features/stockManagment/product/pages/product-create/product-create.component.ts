@@ -107,7 +107,7 @@ export class ProductCreateComponent implements OnInit{
   });
 
   ngOnInit(){
-    this.categoryService.findAllWithChildren().subscribe(roots => {
+    this.categoryService.getCategoryTree().subscribe(roots => {
       this.flatCategories = this.flattenCategories(roots);
     });
     this.aisles =this.aisleService.getAisles();
@@ -224,7 +224,4 @@ export class ProductCreateComponent implements OnInit{
 goBack(){
   this.location.back();
 }
-  
-  
-
 }

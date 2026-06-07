@@ -59,7 +59,7 @@ ngOnInit(): void {
     this.productUnitSaleService.findProductUnitSaleById(this.id).subscribe({
       next:(productUnitSale) =>{
         this.productUnitSaleForm.patchValue({
-          productId: productUnitSale.product.description,
+          productId: String(productUnitSale.product.productId),
           unitPrice:String(productUnitSale.unitPrice),
           conversionFactor:String(productUnitSale.conversionFactor),
           unitId:productUnitSale.unit.unitId,

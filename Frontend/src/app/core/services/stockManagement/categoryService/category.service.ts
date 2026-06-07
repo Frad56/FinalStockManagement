@@ -30,9 +30,10 @@ export class CategoryService {
     return this.http.put<Category>(`${this.apiUrl}/update/${categoryId}`,category);
   }
 
-  deleteCategory(categoryId:number):Observable<string>{
-    return this.http.delete<string>(`${this.apiUrl}/delete/${categoryId}`);
-  }
+
+deleteCategory(categoryId: number): Observable<string> {
+  return this.http.delete(`${this.apiUrl}delete/${categoryId}`, {responseType: 'text'});
+}
 
   leafCategoryList():Observable<Category[]>{
     return this.http.get<Category[]>(`${this.apiUrl}leafCategoryList`);
@@ -42,9 +43,7 @@ export class CategoryService {
     return this.http.get<Category[]>(`${this.apiUrl}findCategoriesWithoutProducts`);
   }
 
-  findAllWithChildren():Observable<Category[]>{
-    return this.http.get<Category[]>(`${this.apiUrl}tree`);
-  }
+
 
   getCategoryTree(): Observable<CategoryTest[]> {
     return this.http.get<CategoryTest[]>(`${this.apiUrl}tree`);

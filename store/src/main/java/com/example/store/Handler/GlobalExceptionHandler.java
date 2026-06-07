@@ -73,23 +73,17 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(ProductHasNoVariantsException.class)
-    public ResponseEntity<?> handlerArgumentNotValidException(ArgumentNotValidException ex){
-
-        Map<String,Object> error = new HashMap<>();
-        error.put("message",ex.getMessage());
-        return new ResponseEntity<>(error,HttpStatus.CONFLICT);
-    }
 
 
     //ArgumentNotValidException
 
-    @ExceptionHandler(ArgumentNotValidException.class)
-    public ResponseEntity<?> handlerProductHasNoVariantsException(ProductHasNoVariantsException ex){
+    @ExceptionHandler(ProductHasNoVariantsException.class)
+    public ResponseEntity<?> handlerProductHasNoVariantsException(ProductHasNoVariantsException ex) {
 
-        Map<String,Object> error = new HashMap<>();
-        error.put("message",ex.getMessage());
-        return new ResponseEntity<>(error,HttpStatus.CONFLICT);
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     //BusinessException
