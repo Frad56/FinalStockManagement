@@ -1,6 +1,6 @@
 package com.example.store.service.PurchaseManagement.interfaces;
 
-import com.example.store.dto.PurchaseManagement.PurchaseOrderDTO;
+import com.example.store.dto.purchaseManagement.PurchaseOrderDTO;
 import com.example.store.model.purchaseManagement.PurchaseOrder;
 
 import java.math.BigDecimal;

@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface ProductUnitSaleRepository extends JpaRepository<ProductUnitSale,Long> {
 
-    boolean existsByProduct_ProductId(Long productId);
+    boolean existsByProductVariant_ProductVariantId(Long productVariantId);
     boolean existsByUnit_UnitId(Long unitId);
 
-    List<ProductUnitSale> findAllByProduct_ProductId(Long productId);
+    List<ProductUnitSale> findAllByProductVariant_ProductVariantId(Long productVariantId);
 
 }

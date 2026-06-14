@@ -1,6 +1,6 @@
 package com.example.store.service.BusinessPartnerManagement.clientManagement;
 
-import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;
+import com.example.store.dto.businessPartner.ClientManagement.ClientDTO;
 import com.example.store.exception.ElementNotFoundException;
 import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 import com.example.store.repository.businessPartner.ClientManagement.ClientRepository;
@@ -45,7 +45,7 @@ public class ClientServiceImpl implements  ClientService{
 
     @Override
     public  List<Client> findByFirstNameStartingWithIgnoreCase(String firstName){
-        return clientRepository.findByFirstNameStartingWithIgnoreCase(firstName);
+        return clientRepository.findByFirstNameContainingIgnoreCase(firstName);
     }
 
     @Override

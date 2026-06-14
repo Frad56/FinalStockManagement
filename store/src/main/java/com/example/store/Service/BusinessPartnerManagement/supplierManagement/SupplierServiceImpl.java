@@ -1,6 +1,6 @@
 package com.example.store.service.BusinessPartnerManagement.supplierManagement;
 
-import com.example.store.dto.BusinessPartner.supplierManagement.SupplierDTO;
+import com.example.store.dto.businessPartner.supplierManagement.SupplierDTO;
 import com.example.store.exception.ElementNotFoundException;
 import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
 import com.example.store.repository.businessPartner.supplierManagement.SupplierRepository;

@@ -25,8 +25,8 @@ export class ProductUnitSaleService {
   findProductUnitSaleById(id:number):Observable<ProductUnitSale>{
     return this.http.get<ProductUnitSale>(`${this.apiUrl}/find/${id}`);
   }
-  findProductUnitSaleByProductId(id:number):Observable<ProductUnitSale>{
-    return this.http.get<ProductUnitSale>(`${this.apiUrl}/findByProduct/${id}`);
+  findProductUnitSaleByProductVariantId(id:number):Observable<ProductUnitSale[]>{
+    return this.http.get<ProductUnitSale[]>(`${this.apiUrl}/findByProductVariant/${id}`);
   }
 
   editProductUnitSale(productUnitSale:ProductUnitSaleDTO , productUnitSaleId:number):Observable<ProductUnitSale>{

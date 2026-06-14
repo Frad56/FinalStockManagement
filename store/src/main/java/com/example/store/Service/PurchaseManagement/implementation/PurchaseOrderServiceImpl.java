@@ -1,13 +1,16 @@
 package com.example.store.service.PurchaseManagement.implementation;
 
 
-import com.example.store.dto.PurchaseManagement.PurchaseOrderDTO;
+import com.example.store.dto.purchaseManagement.PurchaseOrderDTO;
 import com.example.store.exception.ElementNotFoundException;
 import com.example.store.model.purchaseManagement.PurchaseOrder;
 import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
+import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.repository.purchaseManagement.PurchaseOrderLineRepository;
 import com.example.store.repository.purchaseManagement.PurchaseOrderRepository;
 import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderService;
 import com.example.store.service.BusinessPartnerManagement.supplierManagement.SupplierService;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,11 +25,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     private final SupplierService supplierService;
     private final PurchaseOrderRepository purchaseOrderRepository;
+    private final PurchaseOrderLineRepository purchaseOrderLineRepository;
+    private final PurchaseStockMovementService purchaseStockMovementService;
 
     public PurchaseOrderServiceImpl(SupplierService supplierService,
-                                    PurchaseOrderRepository purchaseOrderRepository){
+                                    PurchaseOrderRepository purchaseOrderRepository,
+                                    PurchaseOrderLineRepository purchaseOrderLineRepository,
+                                    PurchaseStockMovementService purchaseStockMovementService){
         this.supplierService=supplierService;
         this.purchaseOrderRepository=purchaseOrderRepository;
+        this.purchaseOrderLineRepository=purchaseOrderLineRepository;
+        this.purchaseStockMovementService=purchaseStockMovementService;
     }
 
     private void mapDTOToPurchaseOrder(PurchaseOrderDTO purchaseOrderDTO,PurchaseOrder purchaseOrder){
@@ -90,6 +99,11 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Override
     public void deletePurchaseOrderById(Long purchaseOrderId){
         findPurchaseOrderById(purchaseOrderId);
+        List<PurchaseOrderLine> orderLines = purchaseOrderLineRepository.findByPurchaseOrder_PurchaseOrderId(purchaseOrderId);
+        for (PurchaseOrderLine line : orderLines) {
+            purchaseStockMovementService.deletePurchaseOrderMovement(line.getPurchaseOrderLineId());
+        }
+        purchaseOrderLineRepository.deleteByPurchaseOrderId(purchaseOrderId);
         purchaseOrderRepository.deleteById(purchaseOrderId);
     }
 }

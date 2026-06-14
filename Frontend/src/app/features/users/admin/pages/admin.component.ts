@@ -28,7 +28,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 export class AdminComponent {
 
-
   private dialog = inject(MatDialog);
   private adminResetEmailService = inject(AdminResetEmailService);
   private authService = inject(AuthService);

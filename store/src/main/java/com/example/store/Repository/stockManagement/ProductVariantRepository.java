@@ -30,7 +30,8 @@ public interface ProductVariantRepository extends JpaRepository<ProductVariant, 
     List<ProductVariant> findByProduct_designation(String designation);
 
 
-    List<ProductVariant> findByCodeStartingWithIgnoreCase(String keyword);
+   // List<ProductVariant> findByCodeStartingWithIgnoreCase(String keyword);
+    List<ProductVariant> findByCodeContainingIgnoreCase(String keyword);
 
 
     @Query("""

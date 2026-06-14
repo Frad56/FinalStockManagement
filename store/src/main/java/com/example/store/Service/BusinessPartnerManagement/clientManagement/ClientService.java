@@ -1,6 +1,6 @@
 package com.example.store.service.BusinessPartnerManagement.clientManagement;
 
-import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;
+import com.example.store.dto.businessPartner.ClientManagement.ClientDTO;
 import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 
 import java.util.List;

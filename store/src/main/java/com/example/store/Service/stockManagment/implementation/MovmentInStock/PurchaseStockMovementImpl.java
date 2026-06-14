@@ -1,8 +1,10 @@
 package com.example.store.service.stockManagment.implementation.MovmentInStock;
 
 
+import com.example.store.exception.ElementNotFoundException;
 import com.example.store.model.purchaseManagement.PurchaseOrderLine;
 import com.example.store.model.stockManagement.MovementInStock.PurchaseStockMovement;
+import com.example.store.model.stockManagement.MovementInStock.SaleStockMovement;
 import com.example.store.model.stockManagement.ProductVariant;
 import com.example.store.repository.stockManagement.MovmentInStock.PurchaseStockMovementRepository;
 import com.example.store.service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
@@ -27,6 +29,7 @@ public class PurchaseStockMovementImpl implements PurchaseStockMovementService {
         movementInStockDB.setMovementInStockType(ENTRY);
         movementInStockDB.setQuantity(purchaseOrderLine.getQuantity());
 
+
         ProductVariant pv =purchaseOrderLine.getProductVariant();
         int currentStock = pv.getQuantityInStock() != null ? pv.getQuantityInStock() : 0;
 
@@ -36,14 +39,22 @@ public class PurchaseStockMovementImpl implements PurchaseStockMovementService {
 
         movementInStockDB.setProductVariant(purchaseOrderLine.getProductVariant());
 
-        if(purchaseOrderLine.getUnit() != null){
-            movementInStockDB.setUnit(purchaseOrderLine.getUnit());
-        }
+//        if(purchaseOrderLine.getUnit() != null){
+//            movementInStockDB.setUnit(purchaseOrderLine.getUnit());
+//        }
 
         movementInStockDB.setPurchaseOrder(purchaseOrderLine.getPurchaseOrder());
         movementInStockDB.setPurchaseOrderLine(purchaseOrderLine);
 
         return purchaseStockMovementRepository.save(movementInStockDB);
+    }
+
+    @Override
+    public void deletePurchaseOrderMovement(Long purchaseOrderLineId){
+       PurchaseStockMovement movement = purchaseStockMovementRepository.findByPurchaseOrderLine_PurchaseOrderLineId(purchaseOrderLineId)
+                .orElseThrow(() -> new ElementNotFoundException("purchaseStockMovement not found for SalesOrderLine id: " + purchaseOrderLineId));
+
+        purchaseStockMovementRepository.delete(movement);
     }
 
 

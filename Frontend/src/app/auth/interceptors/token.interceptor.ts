@@ -5,7 +5,7 @@ import { catchError, throwError } from 'rxjs';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
-  console.log(' INTERCEPTOR CALLED FOR:', req.url);  // ← AJOUTE CETTE LIGNE
+  console.log(' INTERCEPTOR CALLED FOR:', req.url); 
 
   const token = localStorage.getItem('token');
 

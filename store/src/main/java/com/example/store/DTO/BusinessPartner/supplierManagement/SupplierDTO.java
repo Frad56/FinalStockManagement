@@ -1,7 +1,7 @@
-package com.example.store.dto.BusinessPartner.supplierManagement;
+package com.example.store.dto.businessPartner.supplierManagement;
 
 
-import com.example.store.dto.BusinessPartner.BusinessPartnerDTO;
+import com.example.store.dto.businessPartner.BusinessPartnerDTO;
 import lombok.Data;
 
 

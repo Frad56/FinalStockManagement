@@ -28,7 +28,7 @@ export class ProductVariantListComponent implements OnInit {
 
   productVariants: ProductVariant[] = [];
   characteristicsMap: { [key: number]: any } = {};
-  displayedColumns: string[] = ['productVariantId', 'code', 'specificPrice', 'quantityInStock', 'productId', 'charcteristic', 'actions'];
+  displayedColumns: string[] = [ 'code', 'specificPrice', 'quantityInStock', 'productId', 'charcteristic', 'actions'];
 
   // null = mode "tous les variants", number = mode "filtré par produit"
   filteredByProductId: number | null = null;
@@ -100,6 +100,13 @@ export class ProductVariantListComponent implements OnInit {
     });
   }
 
+  addProductUnitsale(id:number){
+    this.router.navigate(['/admin/productUnitSale/add-productUnitSale-with-product-varaint-id',id]);
+  }
+
+  findProductUnitSale(id: number) {
+    this.router.navigate(['/admin/productUnitSale/productUnitSale-list-with-product-variant-id', id]);
+  }
   goBack(): void {
     this.location.back();
   }

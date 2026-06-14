@@ -8,6 +8,8 @@ import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ProductUnitSale } from '../../../../../shared/models/StockManagment/ProductUnitSale.model';
 import { ProductUnitSaleService } from '../../../../../core/services/stockManagement/productUnitSaleService/product-unit-sale.service';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
+import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
 
 @Component({
   selector: 'app-product-unit-sale-list',
@@ -26,15 +28,24 @@ private route = inject(ActivatedRoute);
 
 
 productUnitSales$! : Observable<ProductUnitSale[]>;
-displayedColumns: string[] = ['productUnitSaleId', 'productDescription','productReference', 'unit', 'unitPrice', 'conversionFactor','actions'];
+displayedColumns: string[] = [ 'productDescription','productReference', 'unit', 'unitPrice', 'conversionFactor','actions'];
 private productUnitSaleService  = inject(ProductUnitSaleService);
+private productVariantService = inject(ProductVariantService);
+productVariant!: ProductVariant;
 private router = inject(Router);
-productId!: number;
+productVariantId!: number;
 
 
   loadProductUnitSale() {
-    if (this.productId) {
-      this.productUnitSales$ = this.productUnitSaleService.findProductUnitSaleByProductId(this.productId) as any;
+
+    if (this.productVariantId) {
+      this.productUnitSales$ = this.productUnitSaleService.findProductUnitSaleByProductVariantId(this.productVariantId) as any;
+      this.productVariantService.findProductVariantById(this.productVariantId).subscribe({
+        next: (variant) => {
+          this.productVariant = variant;
+        },
+        error: (err) => console.error('Error fetching product variant:', err)
+      })
     } else {
       this.productUnitSales$ = this.productUnitSaleService.getAllProductUnitSale();
     }
@@ -43,7 +54,7 @@ productId!: number;
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      this.productId = +idParam;
+      this.productVariantId = +idParam;
     }
     this.loadProductUnitSale();
   }
@@ -59,9 +70,12 @@ deleteProductUnitSale(id:number){
  
 }
 addProductUnitSale() {
-  if (this.productId) {
-    this.router.navigate(['/admin/productUnitSale/add-productUnitSale-with-ProductId', this.productId]);
+  console.log('ADD CLICKED');
+  if (this.productVariantId) {
+        console.log('productVariantId =', this.productVariantId);
+    this.router.navigate(['/admin/productUnitSale/add-productUnitSale-with-product-varaint-id/', this.productVariantId]);
   } else {
+    console.log('no product id');
     this.router.navigate(['admin/productUnitSale/add-productUnitSale']);
   }
 }

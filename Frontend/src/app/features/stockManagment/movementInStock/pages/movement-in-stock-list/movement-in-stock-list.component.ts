@@ -27,7 +27,7 @@ private router = inject(Router);
 private movmentInStockServie = inject(MovementInStockService);
 
 movmentInStockList$!:Observable<MovementInStock[]>;
-displayedColumns: string[] = ['date', 'movementInStockType', 'quantityInStock','productVariantCode','unitSymbol'];
+displayedColumns: string[] = ['date', 'movementInStockType','productVariantCode', 'quantity','unitName'];
 
 loadMovmentInStock(){
   this.movmentInStockList$ = this.movmentInStockServie.getMovementInStockList();

@@ -1,6 +1,6 @@
 package com.example.store.controller.authController;
 
-import com.example.store.dto.Response.ApiResponse;
+import com.example.store.dto.response.ApiResponse;
 import com.example.store.dto.authentification.LoginRequest;
 import com.example.store.dto.authentification.LoginResponse;
 import com.example.store.dto.authentification.UserDTO;

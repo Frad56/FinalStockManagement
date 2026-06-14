@@ -30,10 +30,10 @@ public class SalesOrderLine {
     @JoinColumn(name = "sales_order_id",nullable = false)
     private SalesOrder salesOrder;
 
-    @JsonProperty("salesOrderId")
-    public Long getSalesOrderId() {
-        return salesOrder != null ? salesOrder.getSalesOrderId() : null;
-    }
+//    @JsonProperty("salesOrderId")
+//    public Long getSalesOrderId() {
+//        return salesOrder != null ? salesOrder.getSalesOrderId() : null;
+//    }
 
 //    @JsonProperty("TotalAmount")
 //    public void setTotalAmount(BigDecimal totalAmount) {

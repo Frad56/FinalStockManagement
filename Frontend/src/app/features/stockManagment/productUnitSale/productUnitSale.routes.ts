@@ -8,8 +8,8 @@ export const PRODUCT_UNIT_SALE_ROUTES:Routes = [
     
     { path:'productUnitSale-list', component :ProductUnitSaleListComponent},
     {path:'add-productUnitSale',component:ProductUnitSaleCreateComponent},
-    {path:'productUnitSale-list-with-productId/:id',component:ProductUnitSaleListComponent},
+    {path:'productUnitSale-list-with-product-variant-id/:id',component:ProductUnitSaleListComponent},
 
-    {path:'add-productUnitSale-with-ProductId/:id',component:ProductUnitSaleCreateComponent},
+    {path:'add-productUnitSale-with-product-varaint-id/:id',component:ProductUnitSaleCreateComponent},
     {path:'edit-productUnitSale/:id',component:ProductUnitSaleEditComponent}
 ];

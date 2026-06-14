@@ -30,4 +30,8 @@ export class ClientService {
   editClient(client:ClientDTO,id:number,):Observable<Client>{
     return this.http.put<Client>(`${this.apiUrl}/update/${id}`,client);
   }
+  findByFirstName(name:string):Observable<Client[]>{
+    return this.http.get<Client[]>(`${this.apiUrl}/searchClientByFirstName/${name}`);
+
+  }
 }

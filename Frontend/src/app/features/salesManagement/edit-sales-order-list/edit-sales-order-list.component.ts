@@ -31,7 +31,7 @@ salesOrderLines :SalesOrderLine[] =[];
 
 private router = inject(Router);
 private route = inject(ActivatedRoute);
-displayedColumns: string[] = [ 'productArticleCode', 'ProductReference', 'ProductDesignation','ProductBrand','ProductChracteristic','quantit','unitPrice','discount','total','totalAfterDiscount','actions'];
+displayedColumns: string[] = [ 'productArticleCode', 'ProductReference', 'ProductDesignation','ProductBrand','ProductChracteristic','quantit','unitPrice','Product_Unit_Sale','discount','total','totalAfterDiscount','actions'];
 
 loadSalesOrderLine(){
   this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -39,7 +39,7 @@ loadSalesOrderLine(){
     next:(lines)=>{
       this.salesOrderLines=lines;
       lines.forEach(line=>{
-        const variantId= line.productVariant.productVariantId;
+        const variantId= line.productVariantId;
         this.characteristicValue(variantId)
       })
     },error:(err)=>{

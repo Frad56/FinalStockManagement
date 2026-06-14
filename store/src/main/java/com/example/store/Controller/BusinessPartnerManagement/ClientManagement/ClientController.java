@@ -1,7 +1,7 @@
 package com.example.store.controller.businessPartnerManagement.ClientManagement;
 
 
-import com.example.store.dto.BusinessPartner.ClientManagement.ClientDTO;
+import com.example.store.dto.businessPartner.ClientManagement.ClientDTO;
 
 import com.example.store.model.businessPartnerManagement.clientManagment.Client;
 
@@ -40,8 +40,8 @@ public class ClientController {
 
     //
 
-    @PostMapping("/searchClientByFirstName")
-    public  ResponseEntity<List<Client>>findByCategoryName(@RequestBody String firstName){
+    @GetMapping ("/searchClientByFirstName/{firstName}")
+    public  ResponseEntity<List<Client>>findByCategoryName(@PathVariable("firstName") String firstName){
         return ResponseEntity.ok(clientService.findByFirstNameStartingWithIgnoreCase(firstName));
     }
 

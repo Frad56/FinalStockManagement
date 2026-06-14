@@ -20,7 +20,7 @@ public interface CategoryService {
 
     void deleteCategoryById(Long categoryId);
 
-    boolean validateValue(String value, CharacteristicTypeValue typeValue);
+   // boolean validateValue(String value, CharacteristicTypeValue typeValue);
 
    // Object convertValue(String value,CharacteristicTypeValue typeValue);
 

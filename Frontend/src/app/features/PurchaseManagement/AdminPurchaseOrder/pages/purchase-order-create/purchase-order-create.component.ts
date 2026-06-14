@@ -24,6 +24,8 @@ import { FormStateService } from '../../../../../core/services/form-state.servic
 import { SupplierService } from '../../../../../core/services/BusinessPartnerManagement/supplierManagement/supplier.service';
 import Swal from 'sweetalert2';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ProductUnitPurchaseService } from '../../../../../core/services/stockManagement/productUnitPurchase/product-unit-purchase.service';
+import { ProductUnitPurchase } from '../../../../../shared/models/StockManagment/ProductUnitPurchase.model';
 
 @Component({
   selector: 'app-purchase-order-create',
@@ -52,6 +54,7 @@ export class PurchaseOrderCreateComponent {
   protected suppliers$!:Observable<Supplier[]>;
   protected unitList$!:Observable<Unit[]>;
   private unitService = inject(UnitService);
+  private productUnitPurchase = inject(ProductUnitPurchaseService)
   
   protected productList: Product[] = [];
   filteredProducts:Product[]=[];
@@ -69,10 +72,34 @@ export class PurchaseOrderCreateComponent {
 
   VariantsSelected$ = this.productVariantService.variantsSelected$;
   formStateService = inject(FormStateService);
+  
+
+  getProductPurchaseUnit(productVariantId:number){
+    this.productUnitPurchase.findProductUnitPurchaseByProductVariantId(productVariantId).subscribe({
+      next:(result)=>{
+        console.log("ProductUnitPurchase for product variant 1:", result.length,"ok");
+      },
+      error:(err)=>{
+        console.error("Error fetching ProductUnitPurchase for product variant 1:", err);
+      }
+    })
+  }
 
 
-
+  protected productUnitPurchaseMap = new Map<number, ProductUnitPurchase[]>();
+  findProductVariantPurchaseUnit(productVariantId: number) {
+  this.productUnitPurchase.findProductUnitPurchaseByProductVariantId(productVariantId).subscribe({
+    next: (result) => {
+      this.productUnitPurchaseMap.set(productVariantId, result);
+      console.log("ProductUnitPurchase for variant", productVariantId, ":", result);
+    },
+    error: (err) => {
+      console.error("Error fetching ProductUnitPurchase for variant:", err);
+    }
+  });
+}
   ngOnInit(){
+  
     this.suppliers$ = this.supplierService.getSuppliers();
     this.unitList$ = this.unitService.getUnits();
     this.purchaseOrderForm.get('searchValue')?.valueChanges
@@ -90,17 +117,17 @@ export class PurchaseOrderCreateComponent {
          (line: any) => line.productVariantId === variant.productVariantId
          );
          
-          this.lines.push(this.fb.group({
-            productVariantId: [variant.productVariantId],
-            quantity: [1, Validators.required],
-            unitPrice: [0, Validators.required],
-            discount: [0],
-            unitId: [null],
-            tax: [19, Validators.required],
-            product: [variant.product],
-            code: [variant.code]
+         this.lines.push(this.fb.group({
+          productVariantId: [variant.productVariantId],
+          quantity: [1, [Validators.required, Validators.min(1)]],
+          unitPrice: [0, [Validators.required, Validators.min(0)]],
+          discount: [0, [Validators.required, Validators.min(0)]],
+          productUnitPurchaseId: [null],
+          tax: [19, [Validators.required, Validators.min(0)]],
+          product: [variant.product],
+          code: [variant.code]
         }));
-      
+        this.findProductVariantPurchaseUnit(variant.productVariantId);
       });
       // sig il ya une modication dans la liste des variants selected on met a jour la datasource de la table
       //met le dans une variable la nouvelle liste
@@ -341,17 +368,27 @@ export class PurchaseOrderCreateComponent {
       this.lines.removeAt(index);
     }
     this.productVariantService.removeVariantSelected(variantId);
-  
+    this.productUnitPurchaseMap.delete(variantId);
   }
-  displayedColumns: string[] = [ 'Product_designation','Product_variant_code','Product_reference','Product_quantity','Product_Unit','discount','Unit_Price','tax','delete'];
+  displayedColumns: string[] = [ 'Product_designation','Product_variant_code','Product_reference','Product_quantity','Product_Purchase_Unit','add_product_variant_Unit_Purchase','discount','Unit_Price','tax','delete'];
 
 
+  addProductVariantUnitPurchase(productVariantId:number){
+    this.router.navigate(['/admin/productUnitPurchase/add', productVariantId]);
+  }
   
   get lines(): FormArray {
     return this.purchaseOrderForm.get('lines') as FormArray;
   }
   
   VariantsSelectedList: any[] = [];
+
+
+  onPurchaseUnitSelected(lineControl: AbstractControl, selectedPup: ProductUnitPurchase) {
+    lineControl.get('unitPrice')?.setValue(selectedPup.unitPrice);
+    lineControl.get('productUnitPurchaseId')?.setValue(selectedPup.productUnitPurchaseId);
+  }
+
 
   savePurchaseOrder(){
     const purchaseOrder = this.mapfbToPurchaseOrderDTO();
@@ -360,7 +397,13 @@ export class PurchaseOrderCreateComponent {
       next:(response)=>{
         console.log("first step of creatation PurchaseOrder successful")
         this.purchaseOrderId= response.purchaseOrderId;
-        alert("ADD PurchaseOrder")
+        Swal.fire({
+          icon: 'success',
+          title: 'Purchase Order created',
+          text: 'The purchase order has been created successfully.',
+          timer: 2000,
+          showConfirmButton: false
+        });
         const priceType = this.purchaseOrderForm.get('unitPriceSelection')?.value;
         const discountType=this.purchaseOrderForm.get('discountType')?.value;
         const lines = this.lines.value.map((line:any) => {
@@ -376,7 +419,7 @@ export class PurchaseOrderCreateComponent {
           return {
             productVariantId: line.productVariantId,
             purchaseOrderId: this.purchaseOrderId,
-            unitId: line.unitId,
+            productUnitPurchaseId: line.productUnitPurchaseId,  
             quantity: line.quantity,
             discount: line.discount,
             unitPriceHt: unitPriceHT,
@@ -423,6 +466,11 @@ export class PurchaseOrderCreateComponent {
               this.lines.clear(); 
             },
             error:(err)=>{
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: err.error?.message || 'Failed to create the purchase order.',
+              });
               console.log("Error in add PurchaseOrderList");
             }
           })

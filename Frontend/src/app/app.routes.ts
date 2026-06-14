@@ -29,7 +29,7 @@ export const routes: Routes = [
 
     {path:'add-user', component:SigupComponent},
 
-    
+    {path:'productUnitPurchase', loadChildren:() => import('./features/stockManagment/productUnitPurchase/productUnitPurchase.routes').then(m => m.PRODUCT_UNIT_PURCHASE_ROUTES)},
     {path:'suppliers', loadChildren:() =>import('./features/BusinessPartnerManagement/supplierManagement/supplier/supplier.routes').then(m => m.SUPPLIER_ROUTES)},
     {path:'client', loadChildren:() =>import('./features/BusinessPartnerManagement/clientManagement/client.routes').then(m => m.CLIENT_ROUTES)},
 

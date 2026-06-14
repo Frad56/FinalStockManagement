@@ -1,11 +1,10 @@
 package com.example.store.service.AuthService;
 
-import com.example.store.dto.Response.ApiResponse;
+import com.example.store.dto.response.ApiResponse;
 import com.example.store.dto.authentification.LoginRequest;
 import com.example.store.dto.authentification.LoginResponse;
 import com.example.store.dto.authentification.UserDTO;
 import com.example.store.model.authentification.Role;
-import com.example.store.model.authentification.User;
 import com.example.store.security.details.CustomUserDetailsService;
 import com.example.store.security.jwt.CustomUserDetails;
 import com.example.store.security.jwt.JwtUtil;
@@ -14,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Service

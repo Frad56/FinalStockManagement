@@ -1,0 +1,78 @@
+package com.example.store.service.salesManagement.implementation;
+
+import com.example.store.dto.stockManagment.ProductUnitSaleDTO;
+import com.example.store.model.stockManagement.ProductUnitSale;
+import com.example.store.repository.stockManagement.ProductUnitSaleRepository;
+import com.example.store.service.salesManagement.interfaces.ProductUnitSaleService;
+import com.example.store.service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.service.stockManagment.interfaces.UnitService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+@Service
+public class ProductUnitSaleServiceImpl implements ProductUnitSaleService {
+
+
+
+    private final ProductUnitSaleRepository productUnitSaleRepository;
+    private final ProductVariantService productVariantService;
+    private final UnitService unitService;
+    public ProductUnitSaleServiceImpl(ProductUnitSaleRepository productUnitSaleRepository,
+                                      ProductVariantService productVariantService,
+                                      UnitService unitService) {
+        this.productUnitSaleRepository = productUnitSaleRepository;
+        this.productVariantService = productVariantService;
+        this.unitService = unitService;
+    }
+
+
+    private void mapDTOToProductUnitSale(ProductUnitSaleDTO productUnitSaleDTO, ProductUnitSale productUnitSale){
+        productUnitSale.setProductVariant(productVariantService.findProductVariantById(productUnitSaleDTO.getProductVariantId()));
+        productUnitSale.setUnit(unitService.findUnitById(productUnitSaleDTO.getUnitId()));
+        productUnitSale.setConversionFactor(productUnitSaleDTO.getConversionFactor());
+        productUnitSale.setUnitPrice(productUnitSaleDTO.getUnitPrice());
+    }
+
+
+    @Override
+    public ProductUnitSale saveProductUnitSale(ProductUnitSaleDTO productUnitSaleDTO) {
+        ProductUnitSale productUnitSaleEntity = new ProductUnitSale();
+        mapDTOToProductUnitSale(productUnitSaleDTO,productUnitSaleEntity);
+        return productUnitSaleRepository.save(productUnitSaleEntity);
+    }
+
+    @Override
+    public ProductUnitSale findProductUnitSaleById(Long productUnitSaleId) {
+
+        return productUnitSaleRepository.findById(productUnitSaleId).orElseThrow(()->
+                new RuntimeException("ProductUnitSale not found with id: " + productUnitSaleId));
+    }
+
+    @Override
+    public ProductUnitSale updateProductUnitSale(ProductUnitSaleDTO productUnitSaleDTO, Long productUnitSaleId) {
+        ProductUnitSale productUnitSaleDB = findProductUnitSaleById(productUnitSaleId);
+        mapDTOToProductUnitSale(productUnitSaleDTO,productUnitSaleDB);
+        return productUnitSaleRepository.save(productUnitSaleDB);
+    }
+
+    @Override
+    public void deleteProductUnitSaleById(Long productUnitSaleId) {
+        if(!productUnitSaleRepository.existsById(productUnitSaleId)){
+            throw new RuntimeException("ProductUnitSale not found with id: " + productUnitSaleId);
+        }
+        productUnitSaleRepository.deleteById(productUnitSaleId);
+    }
+
+    @Override
+    public List<ProductUnitSale> fetchProductUnitSaleList() {
+        return productUnitSaleRepository.findAll();
+    }
+
+    @Override
+    public List<ProductUnitSale> findAllByProductVariantId(Long productVariantId) {
+        return productUnitSaleRepository.findAllByProductVariant_ProductVariantId(productVariantId);
+    }
+
+}

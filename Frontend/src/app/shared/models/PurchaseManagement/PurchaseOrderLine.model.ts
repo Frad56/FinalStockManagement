@@ -2,13 +2,14 @@ import Decimal from "decimal.js";
 import { ProductVariant } from "../StockManagment/ProductVariant.model";
 import { PurchaseOrder } from "./PurchaseOrder.model";
 import { Unit } from "../StockManagment/Unit.model";
+import { ProductUnitPurchase } from "../StockManagment/ProductUnitPurchase.model";
 
 export class PurchaseOrderLine{
 
     purchaseOrderLineId!:number;
     purchaseOrder!:PurchaseOrder;
     productVariant!:ProductVariant;
-    unit!:Unit;
+    productUnitPurchase!:ProductUnitPurchase;
     quantity!:number;
     discount!:string;
     unitPriceHt!:number;

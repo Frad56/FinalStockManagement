@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client,Long> {
 
-    List<Client> findByFirstNameStartingWithIgnoreCase(String keyword);
+    List<Client> findByFirstNameContainingIgnoreCase(String keyword);
+
+    //    List<ProductVariant> findByCodeContainingIgnoreCase(String keyword);
 
 }

@@ -1,19 +1,19 @@
 package com.example.store.service.PurchaseManagement.implementation;
 
 
-import com.example.store.dto.PurchaseManagement.PurchaseOrderLineDTO;
+import com.example.store.dto.purchaseManagement.PurchaseOrderLineDTO;
 
 import com.example.store.exception.ElementNotFoundException;
 import com.example.store.model.purchaseManagement.PurchaseOrder;
 import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.model.stockManagement.ProductUnitPurchase;
 import com.example.store.model.stockManagement.ProductVariant;
 
-import com.example.store.model.stockManagement.Unit;
 import com.example.store.repository.purchaseManagement.PurchaseOrderLineRepository;
 import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderLineService;
 import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderService;
+import com.example.store.service.stockManagment.interfaces.ProductUnitPurchaseService;
 import com.example.store.service.stockManagment.interfaces.ProductVariantService;
-import com.example.store.service.stockManagment.interfaces.UnitService;
 import com.example.store.service.stockManagment.interfaces.movmentInStock.PurchaseStockMovementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,18 +29,18 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
     private final PurchaseOrderLineRepository  purchaseOrderLineRepository;
     private final PurchaseOrderService purchaseOrderService;
     private final ProductVariantService productVariantService;
-    private final UnitService unitService;
+    private final ProductUnitPurchaseService productUnitPurchaseService;
     private final PurchaseStockMovementService purchaseStockMovementService;
 
     public PurchaseOrderLineServiceImpl(PurchaseOrderLineRepository  purchaseOrderLineRepository,
                                         PurchaseOrderService purchaseOrderService,
                                         ProductVariantService productVariantService,
-                                        UnitService unitService,
+                                        ProductUnitPurchaseService productUnitPurchaseService,
                                         PurchaseStockMovementService purchaseStockMovementService){
         this.purchaseOrderLineRepository=purchaseOrderLineRepository;
         this.purchaseOrderService=purchaseOrderService;
         this.productVariantService=productVariantService;
-        this.unitService=unitService;
+        this.productUnitPurchaseService=productUnitPurchaseService;
         this.purchaseStockMovementService=purchaseStockMovementService;
     }
 
@@ -88,14 +88,17 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
         System.out.println("purchaseOrder.getPurchaseOrderId() = " + purchaseOrder.getPurchaseOrderId());
         purchaseOrderLine.setPurchaseOrder(purchaseOrder);
 
-
-
-        if (purchaseOrderLineDTO.getUnitId() != null) {
-            Unit unit = unitService.findUnitById(purchaseOrderLineDTO.getUnitId());
-            purchaseOrderLine.setUnit(unit);
+        if (purchaseOrderLineDTO.getProductUnitPurchaseId() != null) {
+            ProductUnitPurchase  productUnitPurchase = productUnitPurchaseService.findProductUnitPurchaseById(purchaseOrderLineDTO.getProductUnitPurchaseId());
+            purchaseOrderLine.setProductUnitPurchase(productUnitPurchase);
+            System.out.println("***********************************************************");
+            System.out.println("********************** "+purchaseOrderLine.getProductUnitPurchase().getUnit()+" **********************");
+            System.out.println("***********************************************************");
         } else {
-            purchaseOrderLine.setUnit(null);
+            System.out.println("***********************  C'est null        **************************");
+            purchaseOrderLine.setProductUnitPurchase(null);
         }
+
         if (purchaseOrderLineDTO.getQuantity() == null) {
             throw new IllegalArgumentException("Quantity is required");
         }
@@ -193,11 +196,12 @@ public class PurchaseOrderLineServiceImpl  implements PurchaseOrderLineService {
         PurchaseOrder purchaseOrder = purchaseOrderLine.getPurchaseOrder();
         BigDecimal totalAmountPurchaseOrder = purchaseOrder.getTotalAmount();
         BigDecimal totalPurchaseOrderLine = purchaseOrderLine.getTotal();
-        if (totalAmountPurchaseOrder != null || totalPurchaseOrderLine != null) {
+        if (totalAmountPurchaseOrder != null && totalPurchaseOrderLine != null) {
             BigDecimal newTotalAmount = totalAmountPurchaseOrder.subtract(totalPurchaseOrderLine);
             purchaseOrder.setTotalAmount(newTotalAmount);
             purchaseOrderService.updatePurchaseOrderTotalAmount(purchaseOrder);
         }
+        purchaseStockMovementService.deletePurchaseOrderMovement(purchaseOrderLineId);
         purchaseOrderLineRepository.deleteById(purchaseOrderLineId);
     }
 

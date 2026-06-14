@@ -1,6 +1,6 @@
 export interface ProductUnitSaleDTO{
 
-    productId:number;
+    productVariantId:number;
     unitId:number;
     unitPrice:number;
     conversionFactor:number;

@@ -11,6 +11,7 @@ import { SalesOrderLineDTO } from '../../../shared/models/dto/SalesManegementDTO
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductVariant } from '../../../shared/models/StockManagment/ProductVariant.model';
+import { ProductService } from '../../../core/services/stockManagement/productService/product.service';
 
 @Component({
   selector: 'app-edit-sale-order-line',
@@ -67,6 +68,7 @@ export class EditSaleOrderLineComponent {
 
   private saleOrderLineId!:number;
   private salesOrderLineService = inject(SalesOrderLineService);
+  private productService = inject(ProductService);
 
   productVariantCode!: string;
   productVariantId!: number;
@@ -78,18 +80,16 @@ export class EditSaleOrderLineComponent {
         next:(salesOrderLine)=>{
           console.log("Sales Order Line :",salesOrderLine);
 
-
           if (salesOrderLine.salesOrderId) {
             this.salesOrderId = salesOrderLine.salesOrderId;
           } else {
             console.error("salesOrder absent dans la réponse backend");
           }
-          if(salesOrderLine.productVariant.code ){
-            this.productVariantCode =salesOrderLine.productVariant.code
-            this.productVariantId = salesOrderLine.productVariant.productVariantId
+          if (salesOrderLine.productVariantId) {
+            this.productVariantId = salesOrderLine.productVariantId;
           }
-
           this.saleOrderLineForm.patchValue({
+           // productVariantId:this.productVariantId,
             quantity:salesOrderLine.quantity,
             unitPrice:salesOrderLine.unitPrice,
             discount:salesOrderLine.discount
@@ -106,11 +106,9 @@ export class EditSaleOrderLineComponent {
   onSubmit(){
     if(this.saleOrderLineForm.invalid) return;
     const SalesOrderLineDTO = this.mapFormToSaleOrderLine();
-
     this.salesOrderLineService.editSalesOrderLine(SalesOrderLineDTO, this.saleOrderLineId).subscribe({
      next:(resp)=>{
-        alert(this.unitPrice )
-
+      alert(this.unitPrice )
       console.log("SaleOrderLine edtied successfully ",resp);
       alert("SaleOrderLine edtied successfully ")
       this.saleOrderLineForm.reset();

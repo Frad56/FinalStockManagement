@@ -1,9 +1,10 @@
+import { ProductVariant } from "./ProductVariant.model";
 import { Unit } from "./Unit.model";
 import { Product } from "./product.model";
 
 export class ProductUnitSale{
     productUnitSaleId!:number;
-    product!:Product;
+    productVariant!:ProductVariant;
     unit!:Unit;
     unitPrice!:number;
     conversionFactor!:number;

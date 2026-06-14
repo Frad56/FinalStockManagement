@@ -14,6 +14,8 @@ import { MatCardModule } from '@angular/material/card';
 import { PurchaseOrderLine } from '../../../../../shared/models/PurchaseManagement/PurchaseOrderLine.model';
 import { PurchaseOrderLineDTO } from '../../../../../shared/models/dto/PurchaseManagementDTO/PurchaseOrderLine.dto';
 import { PurchaseOrderService } from '../../../../../core/services/PurchaseManagement/PurchaseOrder/purchase-order.service';
+import { ProductUnitPurchase } from '../../../../../shared/models/StockManagment/ProductUnitPurchase.model';
+import { ProductUnitPurchaseService } from '../../../../../core/services/stockManagement/productUnitPurchase/product-unit-purchase.service';
 
 @Component({
   selector: 'app-purchase-order-line-edit',
@@ -40,17 +42,17 @@ export class PurchaseOrderLineEditComponent {
   private route = inject(ActivatedRoute);
   purchaseOrderLineService = inject(PurchaseOrderLineService);
   purchaseOrderService = inject(PurchaseOrderService);
-  unitService = inject(UnitService);
+  unitService = inject(ProductUnitPurchaseService);
   private location = inject(Location);
 
-  protected unitList$!:Observable<Unit[]>;
+  protected unitList$!:Observable<ProductUnitPurchase[]>;
   
 
 
   purchaseOrderLineForm = this.fb.group({
       purchaseOrderId: [null as number | null, Validators.required],
       productVariantId: [null as number | null, Validators.required],
-      unitId: [null as number | null],
+      productUnitPurchaseId: [null as number | null],
       quantity: [null as number | null, Validators.required],
       discount: [null as string | null],
       unitPriceHt: [null as number | null],
@@ -69,13 +71,13 @@ export class PurchaseOrderLineEditComponent {
         next:(purchaseOrderLine)=>{
           this.purchaseOrderLine = purchaseOrderLine; 
           
-          this.unitList$=this.unitService.getUnits();
+          this.unitList$=this.unitService.findProductUnitPurchaseByProductVariantId(purchaseOrderLine.productVariant.productVariantId);
 
           console.log("purchaseOrderLine:",purchaseOrderLine);
           this.purchaseOrderLineForm.patchValue({
             purchaseOrderId: purchaseOrderLine.purchaseOrder.purchaseOrderId,
             productVariantId: purchaseOrderLine.productVariant.productVariantId,
-            unitId: purchaseOrderLine.unit?.unitId ?? null,
+            productUnitPurchaseId: purchaseOrderLine.productUnitPurchase?.productUnitPurchaseId ?? null,
             quantity: purchaseOrderLine.quantity,
             discount: purchaseOrderLine.discount,
             unitPriceHt: null,

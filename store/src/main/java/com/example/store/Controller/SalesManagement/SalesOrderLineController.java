@@ -22,31 +22,31 @@ public class SalesOrderLineController {
 
 
     @PostMapping("/addSalesOrderLine")
-    public ResponseEntity<SalesOrderLine> addSalesOrderLine(@Valid @RequestBody SalesOrderLineDTO salesOrderLineDTO){
+    public ResponseEntity<SalesOrderLineDTO> addSalesOrderLine(@Valid @RequestBody SalesOrderLineDTO salesOrderLineDTO){
         return ResponseEntity.ok(salesOrderLineService.saveSaleOrderLine(salesOrderLineDTO));
     }
 
 
     @GetMapping("/listSalesOrderLine")
-    public ResponseEntity<List<SalesOrderLine>> fetchSalesOrderLineList(){
+    public ResponseEntity<List<SalesOrderLineDTO>> fetchSalesOrderLineList(){
         return ResponseEntity.ok(salesOrderLineService.fetchSalesOrderLineList());
     }
 
     @GetMapping("/listSalesOrderLine/{salesOrderId}")
-    public  ResponseEntity<List<SalesOrderLine>> fetchSalesOrderLineListBySalesOrderId(@PathVariable("salesOrderId") Long saleOrderId){
+    public  ResponseEntity<List<SalesOrderLineDTO>> fetchSalesOrderLineListBySalesOrderId(@PathVariable("salesOrderId") Long saleOrderId){
         return ResponseEntity.ok(salesOrderLineService.fetchSalesOrderLineListBySalesOrderId(saleOrderId));
 
     }
 
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<SalesOrderLine> findSalesOrderLineById(@PathVariable("id") Long salesOrderLineId){
+    public ResponseEntity<SalesOrderLineDTO> findSalesOrderLineById(@PathVariable("id") Long salesOrderLineId){
         return ResponseEntity.ok(salesOrderLineService.findSalesOrderLineById(salesOrderLineId));
     }
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<SalesOrderLine> updateSalesOrderLine(
+    public ResponseEntity<SalesOrderLineDTO> updateSalesOrderLine(
             @Valid @RequestBody SalesOrderLineDTO salesOrderLineDTO,
             @PathVariable("id") Long salesOrderLineId
     ) {

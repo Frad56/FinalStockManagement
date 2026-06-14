@@ -8,11 +8,6 @@
 
   <table mat-table [dataSource]="productVariants" class="mat-elevation-z8">
 
-    <!-- ID -->
-    <ng-container matColumnDef="productVariantId">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let v">{{ v.productVariantId }}</td>
-    </ng-container>
 
     <!-- Code -->
     <ng-container matColumnDef="code">
@@ -54,6 +49,12 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let v">
+        <button class="action-btn btn-blue"  (click)="addProductUnitsale(v.productVariantId)" matTooltip="Add Unit Sale">
+          add Product Unit Sale
+        </button>
+        <button class="action-btn btn-unit-sale btn-blue"  (click)="findProductUnitSale(v.productVariantId)" matTooltip="see Product Unit Sale List">
+          Unit Sale List
+       </button>
         <button mat-icon-button matTooltip="Edit" class="btn-edit"
                 (click)="editProductVariant(v.productVariantId)">
           <img src="https://cdn-icons-png.flaticon.com/512/764/764599.png" alt="edit" width="20" height="20">

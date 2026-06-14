@@ -1,6 +1,7 @@
 package com.example.store.service.stockManagment.implementation.MovmentInStock;
 
 
+import com.example.store.exception.ElementNotFoundException;
 import com.example.store.model.stockManagement.MovementInStock.SaleStockMovement;
 import com.example.store.model.stockManagement.MovementInStockType;
 import com.example.store.model.stockManagement.ProductVariant;
@@ -24,6 +25,7 @@ public class SaleStockMovementImpl implements SaleStockMovementService {
     @Override
     public SaleStockMovement createSaleOrderMovement(SalesOrderLine salesOrderLine){
         SaleStockMovement saleStockMovementDB= new SaleStockMovement();
+
         saleStockMovementDB.setDate(new Date().toInstant().atZone(systemDefault()).toLocalDateTime());
         saleStockMovementDB.setMovementInStockType(MovementInStockType.EXIT);
 
@@ -36,14 +38,24 @@ public class SaleStockMovementImpl implements SaleStockMovementService {
 
         saleStockMovementDB.setProductVariant(salesOrderLine.getProductVariant());
 
-        if(salesOrderLine.getProductUnitSale() != null){
-            saleStockMovementDB.setProductUnitSale(salesOrderLine.getProductUnitSale());
-        }
+
         saleStockMovementDB.setSalesOrder(salesOrderLine.getSalesOrder());
         saleStockMovementDB.setSalesOrderLine(salesOrderLine);
+//        if(salesOrderLine.getProductUnitSale() != null){
+//
+//        }
 
         return saleStockMovementRepository.save(saleStockMovementDB);
 
+    }
+
+    @Override
+    public void deleteSaleOrderMovement(Long salesOrderLineId){
+
+        SaleStockMovement movement = saleStockMovementRepository.findBySalesOrderLine_SalesOrderLineId(salesOrderLineId)
+                .orElseThrow(() -> new ElementNotFoundException("SaleStockMovement not found for SalesOrderLine id: " + salesOrderLineId));
+
+        saleStockMovementRepository.delete(movement);
     }
 
 

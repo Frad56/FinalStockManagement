@@ -68,7 +68,7 @@ export class PurchaseOrderListEditComponent {
           next:(response)=>{
             Swal.fire(
               'Deleted!',
-              'Your file has been deleted.',
+              'Your Purchase Order Line has been deleted.',
               'success'
             )
             this.findPurchaseOrderLineListByOrderId(this.id);

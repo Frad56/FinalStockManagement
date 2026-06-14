@@ -58,10 +58,10 @@ export class AdminPurchaseOrderListComponent {
 
   private router = inject(Router);
 
-  findPurchaseOrderLineListByOrderId(id:number){
-      this.purchaseOrderLineService.getListByPurchaseOrderId(id).subscribe({
-        next:(response)=>{
-          alert("edit!")
+ // findPurchaseOrderLineListByOrderId(id:number){
+ //     this.purchaseOrderLineService.getListByPurchaseOrderId(id).subscribe({
+  //      next:(response)=>{
+    /*      alert("edit!")
           console.log("Purchase Orders:", response);
         },
         error:(error)=>{
@@ -69,11 +69,12 @@ export class AdminPurchaseOrderListComponent {
         }
       }) ;
   }
+  */
   editPurchaseOrderLineList(id:number){
     this.router.navigate(['/admin/purchase-order/edit-purchase-order-list',id]);
   }
 
-  deletePurchaseOrder(id:number){
+  deletePurchaseOrder(id: number){
     Swal.fire({
       title: "Are you sure you want to delete this Purchase Order ?",
       icon: 'warning',
@@ -82,34 +83,24 @@ export class AdminPurchaseOrderListComponent {
       cancelButtonColor: '#d33',
     }).then((result) => {
       if(result.isConfirmed){
-        this.purchaseOrderLineService.deletePurchaseOrderLineByPurchaseOrderId(id).subscribe({
+        this.purchaseOrderService.deletePurchaseOrder(id).subscribe({
           next:(response)=>{
-            console.log("purchase Order Line ListDeleted! :",response)
-            this.purchaseOrderService.deletePurchaseOrder(id).subscribe({ 
-              next:(response)=>{
-                console.log("Deleted! :",response)
-                Swal.fire('Deleted!', 'The product Variant has been deleted.', 'success');
-                this.loadPurchaseOrders();
-              },error:(error)=>{
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  text: error.error?.message || 'An error occurred while deleting!'
-                });
-              }
-            });
-          },error:(error)=>{
+            console.log("Purchase Order Deleted! :", response);
+            Swal.fire('Deleted!', 'The Purchase Order has been deleted.', 'success');
+            this.loadPurchaseOrders(); 
+          },
+          error:(error)=>{
+            console.error("Error deleting purchase order:", error);
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: error.error?.message || 'An error occurred while deleting purchaseOrderLine!'
+              text: error.error?.message || 'An error occurred while deleting!'
             });
           }
         });
-        
       }
-    }) 
-    }
+    });
+  }
 
 
 

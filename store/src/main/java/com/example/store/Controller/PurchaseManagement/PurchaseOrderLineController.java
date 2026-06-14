@@ -1,7 +1,7 @@
 package com.example.store.controller.purchaseManagement;
 
 
-import com.example.store.dto.PurchaseManagement.PurchaseOrderLineDTO;
+import com.example.store.dto.purchaseManagement.PurchaseOrderLineDTO;
 import com.example.store.model.purchaseManagement.PurchaseOrderLine;
 import com.example.store.service.PurchaseManagement.interfaces.PurchaseOrderLineService;
 import jakarta.validation.Valid;

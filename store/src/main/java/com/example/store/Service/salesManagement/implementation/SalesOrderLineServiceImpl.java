@@ -1,15 +1,20 @@
 package com.example.store.service.salesManagement.implementation;
 
+import com.example.store.dto.salesManagement.SalesOrderDTO;
 import com.example.store.dto.salesManagement.SalesOrderLineDTO;
 import com.example.store.exception.ArgumentNotValidException;
 import com.example.store.exception.ElementNotFoundException;
+import com.example.store.model.stockManagement.ProductUnitSale;
 import com.example.store.model.stockManagement.ProductVariant;
 import com.example.store.model.salesManagement.SalesOrder;
 import com.example.store.model.salesManagement.SalesOrderLine;
 import com.example.store.repository.salesManagement.SalesOrderLineRepository;
+import com.example.store.repository.salesManagement.SalesOrderRepository;
+import com.example.store.service.salesManagement.interfaces.ProductUnitSaleService;
 import com.example.store.service.salesManagement.interfaces.SalesOrderLineService;
 import com.example.store.service.salesManagement.interfaces.SalesOrderService;
 import com.example.store.service.stockManagment.interfaces.ProductVariantService;
+import com.example.store.service.stockManagment.interfaces.movmentInStock.SaleStockMovementService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +27,29 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
 
     private final SalesOrderLineRepository salesOrderLineRepository;
     private final ProductVariantService productVariantService;
-    private final SalesOrderService salesOrderService;
+    private final SalesOrderRepository salesOrderRepository;
+    private final SalesOrderMapper salesOrderMapper;
+    private final SaleStockMovementService saleStockMovementService;
+    private final ProductUnitSaleService productUnitSaleService;
+
     public SalesOrderLineServiceImpl(SalesOrderLineRepository salesOrderLineRepository,ProductVariantService productVariantService,
-                                     SalesOrderService salesOrderService){
+                                     SalesOrderRepository salesOrderRepository,
+                                     SalesOrderMapper salesOrderMapper,
+                                     SaleStockMovementService saleStockMovementService,
+                                     ProductUnitSaleService productUnitSaleService){
         this.salesOrderLineRepository=salesOrderLineRepository;
         this.productVariantService=productVariantService;
-        this.salesOrderService=salesOrderService;
+        this.salesOrderRepository=salesOrderRepository;
+        this.salesOrderMapper=salesOrderMapper;
+        this.saleStockMovementService=saleStockMovementService;
+        this.productUnitSaleService=productUnitSaleService;
     }
 
 
     private void mapDTOToSalesOrderLine(SalesOrderLineDTO salesOrderLineDTO,SalesOrderLine salesOrderLine){
         if(salesOrderLineDTO.getSalesOrderId() != null){
-            SalesOrder salesOrder = salesOrderService.findSalesOrderById(salesOrderLineDTO.getSalesOrderId());
+            SalesOrder salesOrder= salesOrderRepository.findById(salesOrderLineDTO.getSalesOrderId()).orElseThrow(()->
+                    new ElementNotFoundException(salesOrderLineDTO.getSalesOrderId()));
             salesOrderLine.setSalesOrder(salesOrder);
         }else {
             throw new ArgumentNotValidException("Sale Order Id should not be null");
@@ -42,14 +58,18 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
         if(salesOrderLineDTO.getProductVariantId() != null){
             ProductVariant pv = productVariantService.findProductVariantById(salesOrderLineDTO.getProductVariantId());
             salesOrderLine.setProductVariant(pv);
-            BigDecimal unitPrice = pv.getSpecificPrice();
+
+            BigDecimal unitPrice = salesOrderLineDTO.getUnitPrice() != null   && salesOrderLineDTO.getUnitPrice().compareTo(BigDecimal.ZERO) > 0
+                    ? salesOrderLineDTO.getUnitPrice()
+                    : pv.getSpecificPrice();
 
             if(salesOrderLineDTO.getQuantity() != null){
-                BigDecimal quantity = salesOrderLine.getQuantity();
+                BigDecimal quantity = salesOrderLineDTO.getQuantity();
                 salesOrderLine.setQuantity(quantity);
 
                 BigDecimal total = unitPrice.multiply(quantity);
                 salesOrderLine.setTotal(total);
+                salesOrderLine.setUnitPrice(unitPrice);
                 if(salesOrderLineDTO.getDiscount() != null && salesOrderLineDTO.getDiscount().compareTo(BigDecimal.ZERO) > 0){
                     salesOrderLine.setDiscount(salesOrderLineDTO.getDiscount());
                     salesOrderLine.setTotalAfterDiscount(total.subtract(salesOrderLine.getDiscount()));
@@ -60,6 +80,10 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
             }else {
                throw new ArgumentNotValidException("Quantity should not be null");
             }
+                if(salesOrderLineDTO.getProductUnitSaleId() != null){
+                    ProductUnitSale pus =  productUnitSaleService.findProductUnitSaleById(salesOrderLineDTO.getProductUnitSaleId());
+                    salesOrderLine.setProductUnitSale(pus);
+                }
 
 
         }else {
@@ -67,35 +91,52 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
         }
     }
 
+
     @Override
-    public SalesOrderLine saveSaleOrderLine(SalesOrderLineDTO salesOrderLineDTO){
+    public  SalesOrder findSalesOrder(Long salesOrderId){
+        return salesOrderRepository.findById(salesOrderId).orElseThrow(()->
+                new ElementNotFoundException(salesOrderId));
+
+    }
+    @Override
+    public SalesOrderLineDTO saveSaleOrderLine(SalesOrderLineDTO salesOrderLineDTO){
         SalesOrderLine salesOrderLine =new SalesOrderLine();
         mapDTOToSalesOrderLine(salesOrderLineDTO,salesOrderLine);
-        return salesOrderLineRepository.save(salesOrderLine);
+        salesOrderLineRepository.save(salesOrderLine);
+        return salesOrderMapper.salesOrderLineToDTO(salesOrderLine);
     }
     @Override
-    public List<SalesOrderLine> fetchSalesOrderLineList(){
-        return salesOrderLineRepository.findAll();
+    public List<SalesOrderLineDTO> fetchSalesOrderLineList(){
+        return salesOrderLineRepository.findAll()
+                .stream()
+                .map(salesOrderMapper::salesOrderLineToDTO)
+                .toList();
     }
 
     @Override
-    public  List<SalesOrderLine> fetchSalesOrderLineListBySalesOrderId(Long saleOrderId){
-        return salesOrderLineRepository.findBySalesOrder_SalesOrderId(saleOrderId);
+    public  List<SalesOrderLineDTO> fetchSalesOrderLineListBySalesOrderId(Long saleOrderId){
+        return salesOrderLineRepository
+                .findBySalesOrder_SalesOrderId(saleOrderId)
+                .stream()
+                .map(salesOrderMapper::salesOrderLineToDTO)
+                .toList();
     }
 
 
     @Override
-    public SalesOrderLine findSalesOrderLineById(Long salesOrderLineId){
-        return salesOrderLineRepository.findById(salesOrderLineId).orElseThrow(()->
-                new ElementNotFoundException(salesOrderLineId));
+    public SalesOrderLineDTO findSalesOrderLineById(Long salesOrderLineId){
+        SalesOrderLine line =
+                salesOrderLineRepository.findById(salesOrderLineId)
+                        .orElseThrow(() -> new ElementNotFoundException(salesOrderLineId));
+
+        return salesOrderMapper.salesOrderLineToDTO(line);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public SalesOrderLine updateSalesOrderLine(SalesOrderLineDTO salesOrderLineDTO, Long salesOrderLineId){
-        SalesOrderLine salesOrderLine =findSalesOrderLineById(salesOrderLineId);
-
-
+    public SalesOrderLineDTO updateSalesOrderLine(SalesOrderLineDTO salesOrderLineDTO, Long salesOrderLineId){
+        SalesOrderLine salesOrderLine =salesOrderLineRepository.findById(salesOrderLineId)
+                .orElseThrow(() -> new ElementNotFoundException(salesOrderLineId));
 
         BigDecimal oldOrderLineTotal = salesOrderLine.getTotalAfterDiscount();
         System.out.println("Old salesOrderLineTotal :"+oldOrderLineTotal);
@@ -103,7 +144,8 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
         mapDTOToSalesOrderLine(salesOrderLineDTO,salesOrderLine);
 
 
-        SalesOrder salesOrder = salesOrderService.findSalesOrderById(salesOrderLineDTO.getSalesOrderId());
+        SalesOrder salesOrder=findSalesOrder(salesOrderLineDTO.getSalesOrderId());
+
         BigDecimal oldSalesOrderTotal= salesOrder.getTotalAmount();
 
         BigDecimal subtractOldSaleOrderLine  = oldSalesOrderTotal.subtract(oldOrderLineTotal);
@@ -112,8 +154,9 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
         System.out.println("Old salesOrderLine :"+newSaleOrderTotal);
         salesOrder.setTotalAmount(newSaleOrderTotal);
 
+        SalesOrderLine saved = salesOrderLineRepository.save(salesOrderLine);
 
-        return salesOrderLineRepository.save(salesOrderLine);
+        return salesOrderMapper.salesOrderLineToDTO(saved);
     }
 
 
@@ -121,20 +164,23 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void deleteSalesOrderLineById(Long salesOrderLineId){
-        SalesOrderLine salesOrderLine =findSalesOrderLineById(salesOrderLineId);
-        SalesOrder saleOrder = salesOrderLine.getSalesOrder();
+        SalesOrderLine line =
+                salesOrderLineRepository.findById(salesOrderLineId)
+                        .orElseThrow(() -> new ElementNotFoundException(salesOrderLineId));
+
+        SalesOrder saleOrder = line.getSalesOrder();
 
         BigDecimal totalAmount = saleOrder.getTotalAmount();
-        BigDecimal totalSalesOrderLine = salesOrderLine.getTotalAfterDiscount();
+        BigDecimal totalSalesOrderLine = line.getTotalAfterDiscount();
 
-        if(totalAmount != null || totalSalesOrderLine != null){
+        if(totalAmount != null &&  totalSalesOrderLine != null){
 
             System.out.println("total avant le delete "+totalAmount);
             BigDecimal newTotalAmount = totalAmount.subtract(totalSalesOrderLine);
             saleOrder.setTotalAmount(newTotalAmount);
             System.out.println("Total apres le delete "+saleOrder.getTotalAmount());
         }
-
+        saleStockMovementService.deleteSaleOrderMovement(salesOrderLineId);
         salesOrderLineRepository.deleteById(salesOrderLineId);
     }
 
@@ -142,7 +188,7 @@ public class SalesOrderLineServiceImpl  implements SalesOrderLineService  {
     public void saveListSalesOrderLine(List<SalesOrderLineDTO> salesOrderLineList){
         for(SalesOrderLineDTO salesOrderLineDTO:salesOrderLineList){
             ProductVariant pv = productVariantService.findProductVariantById(salesOrderLineDTO.getProductVariantId());
-            SalesOrder salesOrder =salesOrderService.findSalesOrderById(salesOrderLineDTO.getSalesOrderId());
+            SalesOrder salesOrder= findSalesOrder(salesOrderLineDTO.getSalesOrderId());
 
             SalesOrderLine salesOrderLine = new SalesOrderLine();
             mapDTOToSalesOrderLine(salesOrderLineDTO,salesOrderLine);

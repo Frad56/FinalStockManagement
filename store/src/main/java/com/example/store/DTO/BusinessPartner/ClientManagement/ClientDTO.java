@@ -1,6 +1,6 @@
-package com.example.store.dto.BusinessPartner.ClientManagement;
+package com.example.store.dto.businessPartner.ClientManagement;
 
-import com.example.store.dto.BusinessPartner.BusinessPartnerDTO;
+import com.example.store.dto.businessPartner.BusinessPartnerDTO;
 import lombok.Data;
 
 

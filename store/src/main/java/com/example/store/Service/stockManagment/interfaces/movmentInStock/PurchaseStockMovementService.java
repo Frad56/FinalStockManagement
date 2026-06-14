@@ -8,4 +8,5 @@ public interface PurchaseStockMovementService {
 
      PurchaseStockMovement createFromPurchaseOrderLine(PurchaseOrderLine purchaseOrderLine) ;
 
+     void deletePurchaseOrderMovement(Long purchaseOrderLineId);
     }

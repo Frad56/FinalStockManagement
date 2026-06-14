@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SalesOrderDTO } from '../../../shared/models/dto/SalesManegementDTO/SalesOrder.dto';
 
 @Component({
   selector: 'app-sales-list',
@@ -25,8 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class SalesListComponent {
 
   private saleService = inject(SalesOrderService);
-  displayedColumns: string[] = [  'salesOrderDate', 'salesOrderDate','totalAmount','clientName','actions'];
-  saleOrdersList$!:Observable<SalesOrder[]>;
+  displayedColumns: string[] = [  'salesOrderDate', 'totalAmount','clientName','actions'];
+  saleOrdersList$!:Observable<SalesOrderDTO[]>;
   private router = inject(Router);
 
   loadSaleOrder(){

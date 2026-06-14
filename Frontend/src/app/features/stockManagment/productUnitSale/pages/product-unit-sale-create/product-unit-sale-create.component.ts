@@ -16,6 +16,8 @@ import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { ProductUnitSaleDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductUnitSale.dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ProductVariant } from '../../../../../shared/models/StockManagment/ProductVariant.model';
+import { ProductVariantService } from '../../../../../core/services/stockManagement/productVariantService/product-variant.service';
 @Component({
   selector: 'app-product-unit-sale-create',
   standalone: true,
@@ -34,11 +36,11 @@ export class ProductUnitSaleCreateComponent  implements OnInit{
 private productUnitSaleService= inject(ProductUnitSaleService);
 private location = inject(Location);
 private formBuilder = inject(FormBuilder);
-private productService = inject(ProductService);
+private productVariantService = inject(ProductVariantService);
 private unitService = inject(UnitService);
 
-product!: Product;
-private findProduct !:Observable<Product>;
+productVariant!: ProductVariant;
+
 private route = inject(ActivatedRoute);
 
 protected products!:Observable<Product[]>;
@@ -47,7 +49,7 @@ protected units!:Observable<Unit[]>;
 id!:number;
 
 productUnitSaleForm = this.formBuilder.group({
-  productId : [null as number | null, Validators.required],
+  productVariantId : [null as number | null, Validators.required],
   unitPrice :['',Validators.required],
   conversionFactor:['',Validators.required],
   unitId :[null as number | null, Validators.required]
@@ -59,11 +61,11 @@ ngOnInit() {
   
   if (!id) return;
 
-  this.productService.findProductById(id).subscribe(p =>{
-    this.product =p;
+  this.productVariantService.findProductVariantById(id).subscribe(p =>{
+    this.productVariant =p;
 
   this.productUnitSaleForm.patchValue({
-    productId:p.productId
+    productVariantId:p.productVariantId
     });
   });
   this.units = this.unitService.getUnits();
@@ -72,7 +74,7 @@ ngOnInit() {
 
   if (this.id) {
     this.productUnitSaleForm.patchValue({
-      productId: this.id
+      productVariantId: this.id
     });
   }
 }
@@ -84,17 +86,22 @@ onSubmit(){
   if(this.productUnitSaleForm.invalid) return;
   const productUnitSaleDTO  = this.mapFormToProductUnitSale();
   this.productUnitSaleService.addProductUnitSale(productUnitSaleDTO).subscribe({
-    next :(response) =>{
-      alert('product Unit Sale Created successfully');
-      this.productUnitSaleForm.reset();
-      
+    next: () => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Created!',
+        text: 'Article Unit Created edited successfully.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+  
+      this.goBack();
     },
-    error :(error)=> {
-      console.error('Error creating product', error,productUnitSaleDTO);
+    error: (error) => {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: error.error?.message || 'An error occurred while creation!'
+        text: error.error?.message || 'An error occurred while updating!'
       });
     }
   })

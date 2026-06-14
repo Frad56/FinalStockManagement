@@ -60,10 +60,6 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 
         Product product =productService.findProductById(productVariantDTO.getProductId());
 
-
-
-
-
         if((productVariantDTO.getSpecificPrice() == null)){
             productVariantDTO.setSpecificPrice(product.getBasePrice());
         }
@@ -208,6 +204,6 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 
     @Override
     public List<ProductVariant> findByCodeStartingWithIgnoreCase(CodeRequest keyword){
-        return productVariantRepository.findByCodeStartingWithIgnoreCase(keyword.getCode());
+        return productVariantRepository.findByCodeContainingIgnoreCase(keyword.getCode());
     }
 }

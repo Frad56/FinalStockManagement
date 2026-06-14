@@ -1,7 +1,7 @@
 package com.example.store.controller.businessPartnerManagement.supplierManagement;
 
 
-import com.example.store.dto.BusinessPartner.supplierManagement.SupplierDTO;
+import com.example.store.dto.businessPartner.supplierManagement.SupplierDTO;
 import com.example.store.model.businessPartnerManagement.supplierManagement.Supplier;
 import com.example.store.service.BusinessPartnerManagement.supplierManagement.SupplierService;
 import jakarta.validation.Valid;

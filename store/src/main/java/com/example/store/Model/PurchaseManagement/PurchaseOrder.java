@@ -25,7 +25,6 @@ public class PurchaseOrder{
     private Supplier supplier;
 
 
-
     @CreationTimestamp
     @Column(updatable = false, name = "order_date")
     private Date orderDate;

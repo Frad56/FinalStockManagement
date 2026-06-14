@@ -15,6 +15,7 @@ import { Product } from '../../../../../shared/models/StockManagment/product.mod
 import { Unit } from '../../../../../shared/models/StockManagment/Unit.model';
 import { ActivatedRoute } from '@angular/router';
 import { ProductUnitSaleDTO } from '../../../../../shared/models/dto/stockManagmentDTO/ProductUnitSale.dto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-unit-sale-edit',
@@ -45,7 +46,7 @@ protected units!:Observable<Unit[]>;
 id!:number;
 
 productUnitSaleForm = this.formBuilder.group({
-  productId : ['',Validators.required],
+  productVariantId : ['',Validators.required],
   unitPrice :['',Validators.required],
   conversionFactor:['',Validators.required],
   unitId :[null as number | null, Validators.required]
@@ -59,7 +60,7 @@ ngOnInit(): void {
     this.productUnitSaleService.findProductUnitSaleById(this.id).subscribe({
       next:(productUnitSale) =>{
         this.productUnitSaleForm.patchValue({
-          productId: String(productUnitSale.product.productId),
+          productVariantId: String(productUnitSale.productVariant.productVariantId),
           unitPrice:String(productUnitSale.unitPrice),
           conversionFactor:String(productUnitSale.conversionFactor),
           unitId:productUnitSale.unit.unitId,
@@ -79,19 +80,23 @@ onSubmit(){
   const productUnitSaleDTO = this.mapFormToProductUnitSaleForm();
   console.log("#########",this.id);
   this.productUnitSaleService.editProductUnitSale(productUnitSaleDTO,this.id).subscribe({
-    next:(res)=>{
-      alert("Product Unit Sale edtied successfully");
-      this.location.back();
+    next: () => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Updated!',
+        text: 'Product Unit Sale edited successfully.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+  
+      this.goBack();
     },
-    error: (err) => {
-      console.error('Error edting ', err);
-    
-      if (err.error?.message) {
-        alert(err.error.message);   
-      } else {
-        alert('Erreur serveur lors de  editing ');
-      }
-      console.log("la response ",productUnitSaleDTO);
+    error: (error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.error?.message || 'An error occurred while updating!'
+      });
     }
   })
 

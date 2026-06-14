@@ -7,5 +7,8 @@ public class ElementNotFoundException extends RuntimeException{
     public ElementNotFoundException(String name ){
         super("Element not found with  :"+name);
     }
+    public ElementNotFoundException(Long id, String information) {
+        super("Element not found with id: " + id + " (" + information + ")");
+    }
 
 }

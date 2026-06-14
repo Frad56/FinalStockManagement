@@ -6,8 +6,7 @@ export class MovementInStock{
     movementInStockId!:number;
     date!:Date;
     movementInStockType!:MovementInStockType;
-    quantityInStock!:number;
+    quantity!:number;
     productVariant!:ProductVariant;
-    unit!:Unit;
 
 }

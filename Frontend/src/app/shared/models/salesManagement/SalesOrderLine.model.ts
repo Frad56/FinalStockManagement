@@ -3,8 +3,17 @@ import { ProductVariant } from "../StockManagment/ProductVariant.model";
 import { SalesOrder } from "./SalesOrder.model";
 
 export interface SalesOrderLine {
-    productVariant: ProductVariant;
+    productVariantId: number;
     salesOrderId:number;
+
+    productVariantCode    : string;
+    productReference      : string;
+    productDesignation    : string;
+    productBrand          : string;
+
+    productUnitSaleName:string;
+    productUnitSaleId : number;
+
     unitPrice: number;
     quantity: number;
     discount: number;

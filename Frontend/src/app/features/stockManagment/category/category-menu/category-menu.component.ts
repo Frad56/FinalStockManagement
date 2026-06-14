@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCard } from '@angular/material/card';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-category-menu',
   standalone: true,
@@ -18,7 +19,8 @@ import { MatCard } from '@angular/material/card';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    MatCard
+    MatCard,
+      TranslateModule
   ],
   templateUrl: './category-menu.component.html',
   styleUrl: './category-menu.component.css'
@@ -28,10 +30,24 @@ export class CategoryMenuComponent implements OnInit {
   roots: CategoryTest[] = [];
   activeRoot?: CategoryTest;
 
+  private translate = inject(TranslateService);
   categoryService = inject(CategoryService);
   private router = inject(Router);
 
+  changeLanguage(lang: string): void {
+
+    this.translate.use(lang);
+  
+    localStorage.setItem('lang', lang);
+  
+  }
+
+     
+
   ngOnInit(): void {
+    const lang = localStorage.getItem('lang') || 'en';
+    this.translate.setDefaultLang('en');
+    this.translate.use(lang);
     this.loadCategories();
   }
 

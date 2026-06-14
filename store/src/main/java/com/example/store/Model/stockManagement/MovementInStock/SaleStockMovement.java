@@ -28,7 +28,5 @@ public class SaleStockMovement extends MovementInStock{
     private SalesOrderLine salesOrderLine;
 
 
-    @ManyToOne
-    @JoinColumn(name = "product_unit_sale_id")
-    private ProductUnitSale productUnitSale;
+
 }

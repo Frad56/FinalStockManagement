@@ -4,9 +4,9 @@
 
     <h2 class="title">Create Product Unit Price Sale</h2>
 
-    <div *ngIf="product" class="product-badge">
-      <span class="badge-label">Product</span>
-      <span class="badge-value">{{ product.reference }}</span>
+    <div *ngIf="productVariant" class="product-badge">
+      <span class="badge-label">Product Variant Code</span>
+      <span class="badge-value">{{ productVariant.code }}</span>
     </div>
 
     <form [formGroup]="productUnitSaleForm"

@@ -26,13 +26,8 @@ import { ProductCharacteristicService } from '../../../../../core/services/stock
 import Swal from 'sweetalert2';
 import { CategoryChildren } from '../../../../../shared/models/dto/stockManagmentDTO/CategoryChildren.dto';
 import { FlatCategoryOption } from '../../../../../shared/models/StockManagment/FlatCategoryOption.model';
+import { CharacteristicItem } from '../../../../../shared/models/StockManagment/CharacteristicItem.model';
 
-
-export interface CharacteristicItem {
-  id: number;
-  name: string;
-  completed:boolean;
-}
 
 @Component({
   selector: 'app-product-create',
@@ -60,9 +55,7 @@ export class ProductCreateComponent implements OnInit{
   private categoryService = inject(CategoryService);
   private location = inject(Location);
 
-  
   private characteristicService = inject(CharacteristicService);
-
   readonly characteristicsState = signal({
     completed: false,
     items: [] as CharacteristicItem[],
@@ -70,13 +63,25 @@ export class ProductCreateComponent implements OnInit{
 
   flatCategories: FlatCategoryOption[] = [];
 
-  private flattenCategories(
-    nodes: CategoryChildren[],
-    depth: number = 0
-  ): FlatCategoryOption[] {
+  //Electronics
+  //--phones
+  //--Laptop
+  // nodes :Electronics[1,name:"Electornics",descptions:"",Children:[ [2,"phone"],[3,"Laptop"] ]]
+  private flattenCategories(nodes: CategoryChildren[],depth: number = 0): FlatCategoryOption[] {
+
     const result: FlatCategoryOption[] = [];
-    for (const node of nodes) {
+
+     // nodes :Electronics[1,name:"Electornics",descptions:"",Children:[ [2,"phone"],[3,"Laptop"] ]]
+    for  (const node of nodes) {
+    //    for  (const node of nodes) {
+      //node:Electronics
+
+      // !node.children :undefined childern:parameters node[1,"electronic"] not node[1,"electronic",children:[]]
+      //donc it was a leaf a childe it havent childrens
       const isLeaf = !node.children || node.children.length === 0;
+
+
+      //  \u00A0 Unicode Character :Non-Breaking Space
       const indent = '\u00A0'.repeat(depth * 4);
       const icon = isLeaf ? '🏷' : (depth === 0 ? '📁' : '📂');
       result.push({
@@ -101,7 +106,7 @@ export class ProductCreateComponent implements OnInit{
     designation:[''],
     brand:[''],
     description: [''],
-    basePrice: ['', [Validators.required, Validators.min(0)]],
+    basePrice: ['', [Validators.min(0)]],
     categoryId:['',Validators.required],
     aisleId:['',Validators.required]
   });

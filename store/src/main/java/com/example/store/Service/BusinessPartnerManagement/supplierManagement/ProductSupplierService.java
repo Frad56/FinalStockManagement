@@ -1,6 +1,6 @@
 package com.example.store.service.BusinessPartnerManagement.supplierManagement;
 
-import com.example.store.dto.BusinessPartner.supplierManagement.ProductSupplierDTO;
+import com.example.store.dto.businessPartner.supplierManagement.ProductSupplierDTO;
 import com.example.store.model.businessPartnerManagement.supplierManagement.ProductSupplier;
 
 import java.util.List;

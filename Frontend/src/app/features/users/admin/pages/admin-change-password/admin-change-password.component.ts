@@ -7,6 +7,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ResetPasswordRequest } from '../../../../../auth/auth/ResetPasswordRequest';
 import { AdminResetPasswordService } from '../../../../../auth/service/adminResetPasswordService/admin-reset-password.service';
 import { OldPasswordVerification } from '../../../../../auth/auth/OldPasswordVerification';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-change-password',
@@ -48,7 +49,10 @@ export class AdminChangePasswordComponent {
   toggleNewPassword() {
     this.showNewPassword = !this.showNewPassword;
   }
+ 
   ngOnInit(){
+    const lang = localStorage.getItem('lang') || 'en';
+
     this.adminEmailService.getMyEmail().subscribe({  
       next: (res) => {
         console.log('Current email:', res.email);

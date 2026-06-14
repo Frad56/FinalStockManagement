@@ -26,25 +26,25 @@ public class SalesOrderController {
 
 
     @PostMapping("/addSalesOrder")
-    public ResponseEntity<SalesOrder> addSalesOrder(@Valid @RequestBody SalesOrderDTO salesOrderDTO){
+    public ResponseEntity<SalesOrderDTO> addSalesOrder(@Valid @RequestBody SalesOrderDTO salesOrderDTO){
         return ResponseEntity.ok(salesOrderService.saveSaleOrder(salesOrderDTO));
     }
 
 
     @GetMapping("/listSalesOrder")
-    public ResponseEntity<List<SalesOrder>> fetchSalesOrderList(){
+    public ResponseEntity<List<SalesOrderDTO>> fetchSalesOrderList(){
         return ResponseEntity.ok(salesOrderService.fetchSalesOrderList());
     }
 
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<SalesOrder> findSalesOrderById(@PathVariable("id") Long salesOrderId){
-        return ResponseEntity.ok(salesOrderService.findSalesOrderById(salesOrderId));
+    public ResponseEntity<SalesOrderDTO> findSalesOrderById(@PathVariable("id") Long salesOrderId){
+        return ResponseEntity.ok(salesOrderService.findSalesOrderByIdDTO(salesOrderId));
     }
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<SalesOrder> updateSalesOrder(
+    public ResponseEntity<SalesOrderDTO> updateSalesOrder(
             @Valid @RequestBody SalesOrderDTO salesOrderDTO,
             @PathVariable("id") Long salesOrderId
     ) {

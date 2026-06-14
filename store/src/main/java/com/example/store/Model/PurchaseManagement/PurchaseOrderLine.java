@@ -1,6 +1,8 @@
 package com.example.store.model.purchaseManagement;
 
 
+import com.example.store.model.stockManagement.ProductUnitPurchase;
+import com.example.store.model.stockManagement.ProductUnitSale;
 import com.example.store.model.stockManagement.ProductVariant;
 import com.example.store.model.stockManagement.Unit;
 import jakarta.persistence.*;
@@ -31,8 +33,8 @@ public class PurchaseOrderLine {
     private ProductVariant productVariant;
 
     @ManyToOne
-    @JoinColumn(name = "unitId",nullable = true)
-    private Unit unit;
+    @JoinColumn(name = "product_unit_purchase_id",nullable = true)
+    private ProductUnitPurchase productUnitPurchase;
 
     @Column(name = "quantity")
     private BigDecimal quantity;

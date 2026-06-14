@@ -32,7 +32,7 @@
     <ng-container matColumnDef="Product_Unit">
         <th mat-header-cell *matHeaderCellDef> <div class="header-title"> Unit </div></th>
         <td mat-cell  *matCellDef="let purchaseOrderLine">
-            {{purchaseOrderLine.unit?.name}}
+            {{purchaseOrderLine?.productUnitPurchase?.unit?.name}}
         </td>
     </ng-container>
   

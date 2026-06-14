@@ -5,5 +5,7 @@ import com.example.store.model.salesManagement.SalesOrderLine;
 
 public interface SaleStockMovementService {
     SaleStockMovement createSaleOrderMovement(SalesOrderLine salesOrderLine) ;
+    void deleteSaleOrderMovement(Long salesOrderLineId) ;
+
 
 }

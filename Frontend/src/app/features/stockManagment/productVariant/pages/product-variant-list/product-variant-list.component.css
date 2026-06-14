@@ -92,6 +92,35 @@
   .top-actions {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   }
+
+  /* Action column */
+.mat-column-actions {
+  text-align: center;
+  min-width: 320px;
+}
+
+th.mat-header-cell.mat-column-actions {
+  text-align: center;
+}
+
+/* Product Unit Sale buttons */
+.action-btn {
+  background-color: #123375;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: 0.2s ease;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}

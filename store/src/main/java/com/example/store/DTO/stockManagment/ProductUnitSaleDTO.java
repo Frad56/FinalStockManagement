@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductUnitSaleDTO {
 
-    private Long productId;
+    private Long productVariantId;
     private Long unitId;
     private  Double unitPrice;
     private Double conversionFactor;

@@ -1,4 +1,4 @@
-package com.example.store.dto.PurchaseManagement;
+package com.example.store.dto.purchaseManagement;
 
 
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ public class PurchaseOrderLineDTO {
 
     private Long purchaseOrderId;
     private Long productVariantId;
-    private Long unitId;
+    private Long productUnitPurchaseId;
     private BigDecimal quantity;
     private String discount;
     private BigDecimal unitPriceHt;

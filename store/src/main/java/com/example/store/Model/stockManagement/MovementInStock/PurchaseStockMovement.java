@@ -2,6 +2,7 @@ package com.example.store.model.stockManagement.MovementInStock;
 
 import com.example.store.model.purchaseManagement.PurchaseOrder;
 import com.example.store.model.purchaseManagement.PurchaseOrderLine;
+import com.example.store.model.stockManagement.ProductUnitPurchase;
 import com.example.store.model.stockManagement.Unit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,5 @@ public class PurchaseStockMovement extends MovementInStock{
     @JoinColumn(name = "purchase_order_line_id")
     private PurchaseOrderLine purchaseOrderLine;
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
 
 }

@@ -23,9 +23,18 @@
         <td mat-cell *matCellDef="let salesOrder"> {{salesOrder.totalAmount}} </td>
       </ng-container>
 
+
+
       <ng-container matColumnDef="clientName">
-        <th mat-header-cell *matHeaderCellDef> contactName </th>
-        <td mat-cell *matCellDef="let salesOrder"> {{salesOrder?.client?.contactName}} </td>
+        <th mat-header-cell *matHeaderCellDef> Client</th>
+        <td mat-cell *matCellDef="let salesOrder"> 
+          <span *ngIf="!salesOrder?.clientId" class="anonymous">
+            Anonymous
+          </span>
+          <span *ngIf="salesOrder?.clientId">
+            {{ salesOrder.clientFirstName }} - {{ salesOrder.clientLastName }}
+          </span>
+        </td>
       </ng-container>
       
   

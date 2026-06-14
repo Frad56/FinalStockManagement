@@ -70,37 +70,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 
 
-    @Override
-    public boolean validateValue(String value, CharacteristicTypeValue typeValue){
-
-        switch (typeValue) {
-            case STRING:
-                return value != null;
-            case DECIMAL:
-                try {
-                    Double.parseDouble(value);
-                    return true;
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            case INTEGER:
-                try {
-                    Integer.parseInt(value);
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            case BOOLEAN:
-                return "true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value);
-            case DATE:
-                try{
-                    LocalDate.parse(value);
-                    return true;
-                }catch (DateTimeException e) {
-                    return false;
-                }
-        }
-        return false;
-    }
 
 //    @Override
 //    public Object convertValue(String value,CharacteristicTypeValue typeValue){
@@ -145,18 +114,24 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryRepository.findAll();
 
         Map<Long, CategoryDTOTest> map = new LinkedHashMap<>();
+        // First pass: create DTOs and put them in the map
         for (Category category : categories) {
             map.put(category.getCategoryId(), toTreeDTO(category));
         }
 
+        // Second pass: build the tree structure
         List<CategoryDTOTest> roots = new ArrayList<>();
 
         for (Category category : categories) {
+            // Get the corresponding DTO from the map
             CategoryDTOTest current = map.get(category.getCategoryId());
 
+            // If the category has no parent, it's a root node
             if (category.getParent() == null) {
                 roots.add(current);
             } else {
+                // If it has a parent, find the parent DTO and add the current DTO to its children list
+                //put the child in the children list of the parent
                 CategoryDTOTest parent = map.get(category.getParent().getCategoryId());
                 if (parent != null) {
                     parent.getChildren().add(current);
@@ -172,22 +147,22 @@ public class CategoryServiceImpl implements CategoryService {
 
 
 
-    private CategoryDTO toDTO(Category category) {
-        CategoryDTO dto = new CategoryDTO();
-        dto.setCategoryId(category.getCategoryId());
-        dto.setName(category.getName());
-        dto.setDescription(category.getDescription());
-        dto.setParentId(
-                category.getParent() != null ? category.getParent().getCategoryId() : null
-        );
-        dto.setChildrenIds(
-                category.getChildren() == null ? new ArrayList<>() :
-                        category.getChildren().stream()
-                                .map(Category::getCategoryId)
-                                .collect(Collectors.toList())
-        );
-        return dto;
-    }
+//    private CategoryDTO toDTO(Category category) {
+//        CategoryDTO dto = new CategoryDTO();
+//        dto.setCategoryId(category.getCategoryId());
+//        dto.setName(category.getName());
+//        dto.setDescription(category.getDescription());
+//        dto.setParentId(
+//                category.getParent() != null ? category.getParent().getCategoryId() : null
+//        );
+//        dto.setChildrenIds(
+//                category.getChildren() == null ? new ArrayList<>() :
+//                        category.getChildren().stream()
+//                                .map(Category::getCategoryId)
+//                                .collect(Collectors.toList())
+//        );
+//        return dto;
+//    }
     public void sortTree(List<CategoryDTOTest> nodes) {
         nodes.sort(Comparator.comparing(
                 CategoryDTOTest::getName,

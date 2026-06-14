@@ -1,4 +1,4 @@
-package com.example.store.dto.PurchaseManagement.request;
+package com.example.store.dto.purchaseManagement.request;
 
 import lombok.Data;
 

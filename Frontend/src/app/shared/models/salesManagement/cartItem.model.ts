@@ -5,4 +5,5 @@ export interface CartItem {
     quantity: number;
     quantityInStock:number;
     discount: number;
+    productUnitSaleId?: number | null; 
   }

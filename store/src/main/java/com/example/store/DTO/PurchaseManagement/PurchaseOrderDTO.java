@@ -1,4 +1,4 @@
-package com.example.store.dto.PurchaseManagement;
+package com.example.store.dto.purchaseManagement;
 
 import com.example.store.model.purchaseManagement.Status;
 import lombok.AllArgsConstructor;

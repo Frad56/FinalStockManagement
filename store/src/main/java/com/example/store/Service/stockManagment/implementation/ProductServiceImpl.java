@@ -12,7 +12,6 @@ import com.example.store.model.stockManagement.Aisle;
 import com.example.store.model.stockManagement.Category;
 import com.example.store.model.stockManagement.Product;
 import com.example.store.repository.purchaseManagement.PurchaseOrderLineRepository;
-import com.example.store.repository.purchaseManagement.PurchaseOrderRepository;
 import com.example.store.repository.stockManagement.ProductCharacteristicRepository;
 import com.example.store.repository.stockManagement.ProductRepository;
 import com.example.store.repository.stockManagement.ProductUnitSaleRepository;
@@ -98,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
         if(!productRepository.existsById(productId)){
             throw new ElementNotFoundException(productId);
         }
-        boolean isProductInUnitSale = productUnitSaleRepository.existsByProduct_ProductId(productId);
+        boolean isProductInUnitSale = productUnitSaleRepository.existsByProductVariant_ProductVariantId(productId);
         boolean isProductInPurchaseOrder = purchaseOrderLineRepository.existsByProductVariant_Product_ProductId(productId);
 
         if(isProductInUnitSale || isProductInPurchaseOrder){

@@ -1,0 +1,8 @@
+{
+    "CATEGORY": {
+      "MANAGEMENT": "Gestion des catégories",
+      "DESCRIPTION": "Gérer les catégories et sous-catégories",
+      "ADD_CATEGORY": "Ajouter une catégorie",
+      "DELETE": "Supprimer"
+    }
+  }

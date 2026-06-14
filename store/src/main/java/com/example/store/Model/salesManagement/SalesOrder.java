@@ -38,8 +38,8 @@ public class SalesOrder {
     private PaymentType paymentType;
 
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    //, orphanRemoval = true si je supp une ligne il le eviter de  orderLines mais la ligne reste existante
+    @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL)
     private List<SalesOrderLine> orderLines;
 
 

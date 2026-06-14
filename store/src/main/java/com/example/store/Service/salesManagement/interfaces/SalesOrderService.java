@@ -9,11 +9,12 @@ import java.util.List;
 
 public interface SalesOrderService {
 
-    SalesOrder saveSaleOrder(SalesOrderDTO salesOrderDTO);
-    List<SalesOrder> fetchSalesOrderList();
+    SalesOrderDTO saveSaleOrder(SalesOrderDTO salesOrderDTO);
+    List<SalesOrderDTO> fetchSalesOrderList();
     BigDecimal calculateSalesOrderLineTotal(SalesOrderLine salesOrderLine);
+    SalesOrderDTO findSalesOrderByIdDTO(Long salesOrderId);
     SalesOrder findSalesOrderById(Long salesOrderId);
-    SalesOrder updateSalesOrder(SalesOrderDTO salesOrderDTO, Long salesOrderId);
+    SalesOrderDTO updateSalesOrder(SalesOrderDTO salesOrderDTO, Long salesOrderId);
     void deleteSalesOrderById(Long salesOrderId);
 
 }

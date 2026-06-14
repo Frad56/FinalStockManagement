@@ -95,4 +95,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(EmptyOrInvalidFieldException.class)
+    public ResponseEntity<?> handlerEmptyOrInvalidFieldException(EmptyOrInvalidFieldException ex){
+
+        Map<String,Object> error = new HashMap<>();
+        error.put("message",ex.getMessage());
+        return new ResponseEntity<>(error,HttpStatus.CONFLICT);
+    }
+
 }

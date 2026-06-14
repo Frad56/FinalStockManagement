@@ -12,12 +12,11 @@ export class SalesOrderService {
   private http = inject(HttpClient);
 
 
-  getSalesOrders():Observable<SalesOrder[]>{
-    return this.http.get<SalesOrder[]>(`${this.apiUrl}/listSalesOrder`);
+  getSalesOrders():Observable<SalesOrderDTO[]>{
+    return this.http.get<SalesOrderDTO[]>(`${this.apiUrl}/listSalesOrder`);
   }
 
   addSalesOrder(salesOrder :SalesOrderDTO):Observable<SalesOrder>{
-    console.log("Aisle service is called to add a new addSalesOrder");
     return this.http.post<SalesOrder>(`${this.apiUrl}/addSalesOrder`,salesOrder)
   
   }
