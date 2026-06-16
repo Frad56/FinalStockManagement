@@ -51,15 +51,14 @@ export class LoginComponent {
 
     this.authService.login(this.userForm.value).subscribe({
       next: (response: LoginResponse) => {
-    
-        //localStorage.setItem('token', response.token);
-       //localStorage.setItem('role', response.role);
-    
+  
+        const role = response.role?.trim();
+        console.log('Navigation avec role:', JSON.stringify(role));
         if (response.role === 'ADMIN') {
           this.router.navigate(['/admin-dashboard']);
         } else if (response.role === 'WORKER') {
           this.router.navigate(['/worker-dashboard']);
-        } else {
+        } else if (response.role === 'STOCK_KEEPER') {
           this.router.navigate(['/magasiner-dashboard']);
         }
       },

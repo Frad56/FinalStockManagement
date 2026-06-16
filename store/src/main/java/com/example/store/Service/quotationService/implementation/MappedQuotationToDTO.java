@@ -13,6 +13,7 @@ public class MappedQuotationToDTO {
     public QuotationDTO quotationToDTO(Quotation quotation) {
         QuotationDTO quotationDTO = new QuotationDTO();
 
+        quotationDTO.setQuotationDate(quotation.getQuotationDate());
         quotationDTO.setQuotationId(quotation.getQuotationId());
         quotationDTO.setTotalAmount(quotation.getTotalAmount());
         if(quotation.getClient() != null){

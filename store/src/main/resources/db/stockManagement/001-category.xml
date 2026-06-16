@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,147 +6,324 @@
         http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="cat-1" author="dev">
-    <!--Quincaillerie -->
-        <insert tableName="category">
-            <column name="name" value="Quincaillerie"/>
-            <column name="description" value="Matériel général"/>
-            <column name="parent_id" valueComputed="NULL"/>
-        </insert>
+    <!-- ===== QUINCAILLERIE (root) ===== -->
+    <changeSet id="cat-quincaillerie" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Quincaillerie' AND parent_id IS NULL
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            VALUES ('Quincaillerie', 'Matériel général', NULL);
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Outillage manuel"/>
-            <column name="description" value="Outils manuel"/>
-            <column name="parent_id" value="1"/>
-        </insert>
-                <!--les enfants de Outillage manuel-->
-                <insert tableName="category">
-                    <column name="name" value="Outil de mesure"/>
-                    <column name="description" value="Outil de mesure"/>
-                    <column name="parent_id" value="2"/>
-                </insert>
+    <!-- ===== OUTILLAGE MANUEL ===== -->
+    <changeSet id="cat-outillage-manuel" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Outillage manuel'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Outillage manuel', 'Outils manuel', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Quincaillerie' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
-                <insert tableName="category">
-                    <column name="name" value="Outil de coupe"/>
-                    <column name="description" value="Outil de coupe"/>
-                    <column name="parent_id" value="2"/>
-                </insert>
+    <!-- ===== Outil de mesure ===== -->
+    <changeSet id="cat-outil-mesure" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Outil de mesure'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Outil de mesure', 'Outil de mesure', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-                <insert tableName="category">
-                    <column name="name" value="Outil de Serrage"/>
-                    <column name="description" value="Outil de Serrage"/>
-                    <column name="parent_id" value="2"/>
-                </insert>
-                    <!--  Outil de serrage enfants  -->
-                                <insert tableName="category">
-                                    <column name="name" value="Tournevis"/>
-                                    <column name="description" value="Tournevis"/>
-                                    <column name="parent_id" value="5"/>
-                                </insert>
-                                <insert tableName="category">
-                                    <column name="name" value="Clés"/>
-                                    <column name="description" value="Clés"/>
-                                    <column name="parent_id" value="5"/>
-                                </insert>
-                                <insert tableName="category">
-                                    <column name="name" value="Peince"/>
-                                    <column name="description" value="Peince"/>
-                                    <column name="parent_id" value="5"/>
-                                </insert>
-                                <insert tableName="category">
-                                    <column name="name" value="autre outils de serrage"/>
-                                    <column name="description" value="autre outils de serrage"/>
-                                    <column name="parent_id" value="5"/>
-                                </insert>
+    <!-- ===== Outil de coupe ===== -->
+    <changeSet id="cat-outil-coupe" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Outil de coupe'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Outil de coupe', 'Outil de coupe', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-                <insert tableName="category">
-                    <column name="name" value="Outils d'impact"/>
-                    <column name="description" value="Outils d'impact"/>
-                    <column name="parent_id" value="2"/>
-                </insert>
+    <!-- ===== Outil de Serrage ===== -->
+    <changeSet id="cat-outil-serrage" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Outil de Serrage'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Outil de Serrage', 'Outil de Serrage', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-            <insert tableName="category">
-                <column name="name" value="Outil pour la peinture"/>
-                <column name="description" value="Outil pour la peinture"/>
-                <column name="parent_id" value="2"/>
-            </insert>
+    <!-- ===== Tournevis ===== -->
+    <changeSet id="cat-tournevis" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Tournevis'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Tournevis', 'Tournevis', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outil de Serrage') AS tmp;
+        </sql>
+    </changeSet>
 
-            <insert tableName="category">
-                <column name="name" value="Outillae spécifique mécanique"/>
-                <column name="description" value="Outillae spécifique mécanique"/>
-                <column name="parent_id" value="2"/>
-            </insert>
+    <!-- ===== Clés ===== -->
+    <changeSet id="cat-cles" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Clés'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Clés', 'Clés', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outil de Serrage') AS tmp;
+        </sql>
+    </changeSet>
 
-            <insert tableName="category">
-                <column name="name" value="Autres outillages manuels"/>
-                <column name="description" value="Autres outillages manuels"/>
-                <column name="parent_id" value="2"/>
-            </insert>
+    <!-- ===== Pince ===== -->
+    <changeSet id="cat-pince" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Pince'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Pince', 'Pince', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outil de Serrage') AS tmp;
+        </sql>
+    </changeSet>
 
+    <!-- ===== Autre outils de serrage ===== -->
+    <changeSet id="cat-autre-serrage" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'autre outils de serrage'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'autre outils de serrage', 'autre outils de serrage', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outil de Serrage') AS tmp;
+        </sql>
+    </changeSet>
 
+    <!-- ===== Outils d'impact ===== -->
+    <changeSet id="cat-outil-impact" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = "Outils d'impact"
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT "Outils d'impact", "Outils d'impact", category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-                <!-- -->
-        <insert tableName="category">
-            <column name="name" value="Electroportatifs"/>
-            <column name="description" value="Electroportatifs"/>
-            <column name="parent_id" value="1"/>
-        </insert>
-        <insert tableName="category">
-            <column name="name" value="Droguerie"/>
-            <column name="description" value="Droguerie"/>
-            <column name="parent_id" value="1"/>
-        </insert>
+    <!-- ===== Outil pour la peinture ===== -->
+    <changeSet id="cat-outil-peinture" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Outil pour la peinture'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Outil pour la peinture', 'Outil pour la peinture', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Accessoires"/>
-            <column name="description" value="Accessoires"/>
-            <column name="parent_id" value="1"/>
-        </insert>
-    <!--Maison  -->
-        <insert tableName="category">
-            <column name="name" value="Maison"/>
-            <column name="description" value="Maison"/>
-            <column name="parent_id" valueComputed="NULL"/>
-        </insert>
+    <!-- ===== Outillage spécifique mécanique ===== -->
+    <changeSet id="cat-outillage-mecanique" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Outillage spécifique mécanique'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Outillage spécifique mécanique', 'Outillage spécifique mécanique', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Jardin"/>
-            <column name="description" value="Jardin"/>
-            <column name="parent_id" value="13"/>
-        </insert>
+    <!-- ===== Autres outillages manuels ===== -->
+    <changeSet id="cat-autres-outillages" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Autres outillages manuels'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Autres outillages manuels', 'Autres outillages manuels', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Electricié et luminaires"/>
-            <column name="description" value="Electricié et luminaires"/>
-            <column name="parent_id" value="13"/>
-        </insert>
+    <!-- ===== Electroportatifs ===== -->
+    <changeSet id="cat-electroportatifs" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Electroportatifs'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Electroportatifs', 'Electroportatifs', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Quincaillerie' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Sécurité"/>
-            <column name="description" value="Electricié et luminaires"/>
-            <column name="parent_id" value="13"/>
-        </insert>
+    <!-- ===== Droguerie ===== -->
+    <changeSet id="cat-droguerie" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Droguerie'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Droguerie', 'Droguerie', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Quincaillerie' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Sanitaire"/>
-            <column name="description" value="Sanitaire"/>
-            <column name="parent_id" value="13"/>
-        </insert>
+    <!-- ===== Accessoires ===== -->
+    <changeSet id="cat-accessoires" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Accessoires'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Accessoires', 'Accessoires', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Quincaillerie' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Déco"/>
-            <column name="description" value="Déco"/>
-            <column name="parent_id" value="13"/>
-        </insert>
+    <!-- ===== MAISON (root) ===== -->
+    <changeSet id="cat-maison" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Maison' AND parent_id IS NULL
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            VALUES ('Maison', 'Maison', NULL);
+        </sql>
+    </changeSet>
 
-        <insert tableName="category">
-            <column name="name" value="Cuisine"/>
-            <column name="description" value="cuisine"/>
-            <column name="parent_id" value="13"/>
-        </insert>
+    <!-- ===== Jardin ===== -->
+    <changeSet id="cat-jardin" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Jardin'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Jardin', 'Jardin', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Maison' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
+    <!-- ===== Electricité et luminaires ===== -->
+    <changeSet id="cat-electricite" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Electricité et luminaires'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Electricité et luminaires', 'Electricité et luminaires', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Maison' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
+    <!-- ===== Sécurité ===== -->
+    <changeSet id="cat-securite" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Sécurité'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Sécurité', 'Sécurité', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Maison' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
 
+    <!-- ===== Sanitaire ===== -->
+    <changeSet id="cat-sanitaire" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Sanitaire'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Sanitaire', 'Sanitaire', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Maison' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
+
+    <!-- ===== Déco ===== -->
+    <changeSet id="cat-deco" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Déco'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Déco', 'Déco', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Maison' AND parent_id IS NULL) AS tmp;
+        </sql>
+    </changeSet>
+
+    <!-- ===== Cuisine ===== -->
+    <changeSet id="cat-cuisine" author="dev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM category WHERE name = 'Cuisine'
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO category (name, description, parent_id)
+            SELECT 'Cuisine', 'cuisine', category_id
+            FROM (SELECT category_id FROM category WHERE name = 'Maison' AND parent_id IS NULL) AS tmp;
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

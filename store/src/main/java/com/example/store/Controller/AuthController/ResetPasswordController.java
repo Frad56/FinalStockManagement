@@ -37,13 +37,13 @@ public class ResetPasswordController {
         return ResponseEntity.ok(Map.of("message","Password changed successfully."));
     }
     
-  @PostMapping("/verify-password")
+  @PostMapping("/verify-email ")
     public ResponseEntity<Map<String,String>> existsByEmail(@RequestBody EmailRequestDTO email){
       resetPasswordService.existsByEmail(email);
         return ResponseEntity.ok(Map.of("message", "this email doesn't exist"));
   }
 
-  @PostMapping("/verify-email")
+  @PostMapping("/verify-password")
   public ResponseEntity<Map<String,String>> verifyOldPassword(@RequestBody OldPasswordVerification oldPasswordVerification){
 
       resetPasswordService.oldPasswordVerification(oldPasswordVerification);

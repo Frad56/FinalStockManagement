@@ -15,7 +15,8 @@
  
       <ng-container matColumnDef="salesOrderDate">
         <th mat-header-cell *matHeaderCellDef> sales Order Date </th>
-        <td mat-cell *matCellDef="let salesOrder"> {{salesOrder.salesOrderDate}} </td>
+        
+        <td mat-cell *matCellDef="let salesOrder">   {{ salesOrder.salesOrderDate | date:'dd/MM/yyyy HH:mm' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="totalAmount">

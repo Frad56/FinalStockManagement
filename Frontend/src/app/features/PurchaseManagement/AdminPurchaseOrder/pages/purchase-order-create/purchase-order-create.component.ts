@@ -26,6 +26,9 @@ import Swal from 'sweetalert2';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductUnitPurchaseService } from '../../../../../core/services/stockManagement/productUnitPurchase/product-unit-purchase.service';
 import { ProductUnitPurchase } from '../../../../../shared/models/StockManagment/ProductUnitPurchase.model';
+import { HttpClient } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-purchase-order-create',
@@ -38,7 +41,9 @@ import { ProductUnitPurchase } from '../../../../../shared/models/StockManagment
     MatCardModule,
     ReactiveFormsModule,
   MatTableModule,
-MatTabsModule],
+MatTabsModule,
+MatProgressSpinnerModule,
+MatIconModule],
   templateUrl: './purchase-order-create.component.html',
   styleUrl: './purchase-order-create.component.css'
 })
@@ -277,21 +282,24 @@ export class PurchaseOrderCreateComponent {
     })
     
   }
-  findProductVariantListByDesignation(designation:DesignationRequest){
+
+  private navigateToSelectVariants(): void {
+    const userRole = localStorage.getItem('role')?.trim();
+    if (userRole === 'ADMIN') {
+      this.router.navigate(['/admin/purchase-order/select-product-variants']);
+    } else if (userRole === 'STOCK_KEEPER') {
+      this.router.navigate(['/common-purchase-order/select-product-variants']);
+    }
+  }
+  findProductVariantListByDesignation(designation: DesignationRequest) {
     this.productVariantService.findProductVariantByProductDesignation(designation).subscribe({
-      next:(variants)=>{
-        console.log("Successful operation to find product variants by designation")
+      next: (variants) => {
+        console.log("Successful operation to find product variants by designation");
         this.productVariantService.setVariants(variants);
-        this.router.navigate(['/admin/purchase-order/select-product-variants']);
+        this.navigateToSelectVariants(); 
       },
-      error:(error)=>{
-        console.error("Failed operation to find product variants by Designation");
-        
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: error.error?.message ||  'Failed to load product variants',
-        });
+      error: (error) => {
+        Swal.fire({ icon: 'error', title: 'Error', text: error.error?.message || 'Failed to load product variants' });
       }
     });
   }
@@ -312,17 +320,10 @@ export class PurchaseOrderCreateComponent {
       next: (variants) => {
         console.log("Successful operation to find product variants by Reference");
         this.productVariantService.setVariants(variants);
-        this.router.navigate(['/admin/purchase-order/select-product-variants']);
+        this.navigateToSelectVariants(); 
       },
-  
       error: (error) => {
-        console.error("Failed operation to find product variants by Reference");
-  
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: error.error?.message ||  'Failed to load product variants',
-        });
+        Swal.fire({ icon: 'error', title: 'Error', text: error.error?.message || 'Failed to load product variants' });
       }
     });
   }
@@ -338,24 +339,18 @@ export class PurchaseOrderCreateComponent {
       }
     })
   }
-  findProductVariantListByCategoryName(categoryName:CategoryRequest){
-    this.productVariantService.findProductVariantByCategoryName(categoryName).subscribe({
-      next:(variants)=>{
-        console.log("Successful operation to find product variants by category");
-        this.productVariantService.setVariants(variants);
-        this.router.navigate(['/admin/purchase-order/select-product-variants']);
-      },
-      error:(error)=>{
-        console.error("Failed operation to find product variants by category");
-        
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: error.error?.message ||  'Failed to load product variants',
-        });
-      }
-    });
-  }
+findProductVariantListByCategoryName(categoryName: CategoryRequest) {
+  this.productVariantService.findProductVariantByCategoryName(categoryName).subscribe({
+    next: (variants) => {
+      console.log("Successful operation to find product variants by category");
+      this.productVariantService.setVariants(variants);
+      this.navigateToSelectVariants(); 
+    },
+    error: (error) => {
+      Swal.fire({ icon: 'error', title: 'Error', text: error.error?.message || 'Failed to load product variants' });
+    }
+  });
+}
 
 
   removeVariantSelected(variantId: number) {
@@ -494,4 +489,36 @@ export class PurchaseOrderCreateComponent {
   goBack() {
     this.location.back();
   }
+
+
+
+  //========================================================================
+  private http = inject(HttpClient);
+  isScanning = false;
+  scanDone = false;
+  onFileSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  if (!input.files?.length) return;
+
+  const file = input.files[0];
+  const formData = new FormData();
+  formData.append('image', file);
+
+  this.isScanning = true;
+  this.scanDone = false;
+
+  this.http.post('http://localhost:8080/api/scan/upload', formData)
+    .subscribe({
+      next: (result) => {
+        console.log('Résultat scan:', result);
+        this.isScanning = false;
+        this.scanDone = true;
+  
+      },
+      error: (err) => {
+        console.error('Erreur:', err);
+        this.isScanning = false;
+      }
+    });
+}
 }

@@ -34,9 +34,14 @@ public class MapDTOToQuotation {
             Client client= clientService.findClientById(quotationDTO.getClientId());
             quotation.setClient(client);
         }
+        if (quotationDTO.getQuotationLineListDTO() == null ||
+                quotationDTO.getQuotationLineListDTO().isEmpty()) {
+            throw new IllegalArgumentException("Quotation must have at least one line");
+        }
         BigDecimal quotationTotal=BigDecimal.ZERO;
         for(QuotationLineDTO dtoLine : quotationDTO.getQuotationLineListDTO()){
                     QuotationLine line = new QuotationLine();
+                    line.setQuotation(quotation);
                     QuotationLineDTO Saved= quotationLineService.mapDTOToQuotationLine(dtoLine,line);
                     quotationTotal =quotationTotal.add(Saved.getQuotationLineTotal());
 

@@ -11,14 +11,15 @@ import com.example.store.model.stockManagement.ProductVariant;
 import com.example.store.repository.quotationManagement.QuotationLineRepository;
 import com.example.store.repository.quotationManagement.QuotationRepository;
 import com.example.store.service.quotationService.interfaces.QuotationLineService;
-import com.example.store.service.quotationService.interfaces.QuotationService;
 import com.example.store.service.salesManagement.interfaces.ProductUnitSaleService;
+import com.example.store.service.stockManagment.interfaces.CharacteristicValueService;
 import com.example.store.service.stockManagment.interfaces.ProductVariantService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class QuotationLineServiceImpl  implements QuotationLineService {
@@ -28,33 +29,75 @@ public class QuotationLineServiceImpl  implements QuotationLineService {
     private final ProductUnitSaleService productUnitSaleService;
     private final ProductVariantService productVariantService;
     private final MappedQuotationToDTO mappedQuotationToDTO;
+    private final CharacteristicValueService characteristicValueService;
 
     public QuotationLineServiceImpl(QuotationLineRepository quotationLineRepository,
                                     QuotationRepository quotationRepository,
                                     ProductUnitSaleService productUnitSaleService,
                                     ProductVariantService productVariantService,
-                                    MappedQuotationToDTO mappedQuotationToDTO){
+                                    MappedQuotationToDTO mappedQuotationToDTO,
+                                    CharacteristicValueService characteristicValueService){
         this.quotationLineRepository=quotationLineRepository;
         this.quotationRepository=quotationRepository;
         this.productUnitSaleService=productUnitSaleService;
         this.productVariantService=productVariantService;
         this.mappedQuotationToDTO=mappedQuotationToDTO;
+        this.characteristicValueService=characteristicValueService;
     }
 
 
 
 
-    public QuotationLineDTO quotationLineToDTO(QuotationLine line){
+    public QuotationLineDTO quotationLineToDTO(QuotationLine line) {
+        if (line == null) {
+            return null;
+        }
+
         QuotationLineDTO quotationLineDTO = new QuotationLineDTO();
 
-        quotationLineDTO.setQuotationId(line.getQuotation().getQuotationId());
-        quotationLineDTO.setQuotationLineId(line.getQuotationLineId());
-        quotationLineDTO.setQuotationLineTotal(line.getQuotationLineTotal());
-        quotationLineDTO.setDiscount(line.getDiscount());
+        ProductVariant productVariant = line.getProductVariant();
+        if (productVariant != null) {
+            Long productVariantId = productVariant.getProductVariantId();
+            quotationLineDTO.setProductVariantId(productVariantId);
+            quotationLineDTO.setProductVariantCode(productVariant.getCode());
+
+            if (characteristicValueService != null && productVariantId != null) {
+                try {
+                    Map<String, String> characteristicValue = characteristicValueService
+                            .findCharacteristicValueByProductVariantId(productVariantId);
+                    quotationLineDTO.setCharacteristicValue(characteristicValue);
+                } catch (Exception e) {
+                    quotationLineDTO.setCharacteristicValue(null);
+                }
+            }
+        }
+
+        if (line.getQuantity() != null) {
+            quotationLineDTO.setQuantity(line.getQuantity());
+        }
+
+        if (line.getUnitPrice() != null) {
+            quotationLineDTO.setUnitPrice(line.getUnitPrice());
+        }
+
+        if (line.getQuotation() != null && line.getQuotation().getQuotationId() != null) {
+            quotationLineDTO.setQuotationId(line.getQuotation().getQuotationId());
+        }
+
+        if (line.getQuotationLineId() != null) {
+            quotationLineDTO.setQuotationLineId(line.getQuotationLineId());
+        }
+
+        if (line.getQuotationLineTotal() != null) {
+            quotationLineDTO.setQuotationLineTotal(line.getQuotationLineTotal());
+        }
+
+        if (line.getDiscount() != null) {
+            quotationLineDTO.setDiscount(line.getDiscount());
+        }
 
         return quotationLineDTO;
     }
-
 
     @Override
     public QuotationLineDTO mapDTOToQuotationLine(QuotationLineDTO dtoLine , QuotationLine line){
@@ -64,9 +107,6 @@ public class QuotationLineServiceImpl  implements QuotationLineService {
             Quotation quotation = quotationRepository.findById(dtoLine.getQuotationId()).orElseThrow(()
                     ->new ElementNotFoundException(dtoLine.getQuotationId()));
             line.setQuotation(quotation);
-        }else {
-            throw new EmptyOrInvalidFieldException("you should write quotation Id");
-
         }
         //pv
         if(dtoLine.getProductVariantId() != null) {
@@ -113,6 +153,7 @@ public class QuotationLineServiceImpl  implements QuotationLineService {
     }
 
 
+
     @Override
     public List<QuotationLineDTO> fetchQuotationLineByQuotationId(Long quotationId){
         List<QuotationLine> quotationLineList = quotationLineRepository.findByQuotation_QuotationId(quotationId);
@@ -155,6 +196,10 @@ public class QuotationLineServiceImpl  implements QuotationLineService {
         return  quotationLineToDTO(quotationLine);
     }
 
+    @Override
+    public QuotationLineDTO findQuotationLineByIdAndReturnDTO(Long quotationLineId){
+        return quotationLineToDTO(findQuotationLineById(quotationLineId));
+    }
 
     @Override
     public BigDecimal calculateQuotationLineTotal(QuotationLine quotationLine){
@@ -174,8 +219,6 @@ public class QuotationLineServiceImpl  implements QuotationLineService {
     }
 
 
-
-
     @Override
     public void deleteQuotationLine(Long quotationLineId){
         QuotationLine quotationLine =findQuotationLineById(quotationLineId);
@@ -192,5 +235,23 @@ public class QuotationLineServiceImpl  implements QuotationLineService {
             System.out.println("Total apres le delete "+quotation.getTotalAmount());
         }
         quotationLineRepository.deleteById(quotationLineId);
+    }
+
+    @Override
+    public  QuotationLineDTO createQuotationLineFromQuotationId(QuotationLineDTO quotationLineDTO){
+        QuotationLine quotationLine = new QuotationLine();
+        Quotation quotation = quotationLine.getQuotation();
+
+        BigDecimal quotationLineTotalAmount = quotationLine.getQuotationLineTotal();
+        BigDecimal quotationTotalAmount= quotation.getTotalAmount();
+
+        if(quotationLineTotalAmount != null &&  quotationTotalAmount != null){
+
+            System.out.println("Line total avant + de line "+quotationLineTotalAmount+ " ,total avant: "+quotationTotalAmount);
+            BigDecimal newTotalAmount = quotationTotalAmount.add(quotationLineTotalAmount);
+            quotation.setTotalAmount(newTotalAmount);
+            System.out.println("Total apres le + "+quotation.getTotalAmount());
+        }
+        return quotationLineToDTO(quotationLine);
     }
 }

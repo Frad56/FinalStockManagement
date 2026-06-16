@@ -15,7 +15,7 @@ public class QuotationDTO {
     private BigDecimal totalAmount;
 
 
-    private Long ClientId;
+    private Long clientId;
     private String clientFirstName;
     private String clientLastName;
     private String clientNumber;

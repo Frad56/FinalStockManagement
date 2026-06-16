@@ -13,5 +13,6 @@ public interface QuotationService {
      QuotationDTO saveQuotation( QuotationDTO  quotationDTO);
      List<QuotationDTO> fetchQuotationList();
      Quotation findQuotationById(Long quotationId);
+     void deleteQuotation(Long quotationId);
 
 }

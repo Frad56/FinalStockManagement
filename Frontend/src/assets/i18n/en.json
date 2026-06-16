@@ -1,8 +1,14 @@
 {
-    "CATEGORY": {
-      "MANAGEMENT": "Gestion des catégories",
-      "DESCRIPTION": "Gérer les catégories et sous-catégories",
-      "ADD_CATEGORY": "Ajouter une catégorie",
-      "DELETE": "Supprimer"
-    }
+  "CATEGORY": {
+    "MANAGEMENT": "Category Management",
+    "DESCRIPTION": "Manage categories and subcategories",
+    "ADD_CATEGORY": "Add Category",
+    "DELETE": "Delete"
+  },
+  "CHEKOUT": {
+    "MANAGEMENT": "Checkout Management",
+    "DESCRIPTION": "Manage checkout and related information",
+    "ADD_CHEKOUT": "Add Checkout",
+    "DELETE": "Delete"
   }
+}

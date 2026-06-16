@@ -92,7 +92,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
                 throw new EmptyOrInvalidFieldException("you should write product Variant Id");
             }
 
-            if(l.getQuantity() != null  && l.getQuantity().compareTo(BigDecimal.ONE) > 1 ){
+            if(l.getQuantity() != null  && l.getQuantity().compareTo(BigDecimal.ZERO) > 0 ){
                 line.setQuantity(l.getQuantity());
             }else {
                 throw  new EmptyOrInvalidFieldException("invalid quantity");

@@ -31,7 +31,7 @@ export class AisleListComponent implements OnInit {
   loadAisle(){
     this.aisles$ = this.aisleService.getAisles();
   }
-  ngOnInit(): void {
+  ngOnInit() {
       this.loadAisle();
   }
 

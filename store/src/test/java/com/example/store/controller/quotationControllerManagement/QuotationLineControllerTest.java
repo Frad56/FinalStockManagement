@@ -2,9 +2,11 @@ package com.example.store.controller.quotationControllerManagement;
 
 import com.example.store.controller.quotationController.QuotationLineController;
 import com.example.store.dto.quotationManagement.QuotationLineDTO;
+import com.example.store.security.jwt.JwtUtil;
 import com.example.store.service.quotationService.interfaces.QuotationLineService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -18,8 +20,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(QuotationLineController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class QuotationLineControllerTest {
 
     @MockBean
@@ -28,6 +32,13 @@ public class QuotationLineControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private com.example.store.security.details.CustomUserDetailsService customUserDetailsService;
+
+    @MockBean
+    private JwtUtil jwtUtil;
+
+    @WithMockUser
     @Test
     void shouldReturnQuotationLines() throws Exception {
 
@@ -45,6 +56,7 @@ public class QuotationLineControllerTest {
     }
 
 
+    @WithMockUser
     @Test
     void shouldDeleteQuotationLine() throws Exception {
 
@@ -62,6 +74,7 @@ public class QuotationLineControllerTest {
                 .deleteQuotationLine(1L);
     }
 
+    @WithMockUser
     @Test
     void shouldUpdateQuotationLine() throws Exception {
 

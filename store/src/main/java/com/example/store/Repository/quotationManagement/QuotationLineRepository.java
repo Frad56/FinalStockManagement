@@ -13,5 +13,6 @@ import java.util.Optional;
 public interface QuotationLineRepository  extends JpaRepository<QuotationLine,Long> {
 
     List<QuotationLine> findByQuotation_QuotationId(Long quotationId);
+    void deleteByQuotation_QuotationId(Long quotationId);
 
 }

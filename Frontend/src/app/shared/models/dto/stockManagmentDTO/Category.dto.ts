@@ -3,6 +3,6 @@ export interface CategoryDTO{
    
     name:string;
     description:string;
-    parentId:number;
+    parentId?: number | null; 
 
 }

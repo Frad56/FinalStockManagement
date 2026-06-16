@@ -7,6 +7,7 @@ import com.example.store.dto.stockManagment.request.DesignationRequest;
 import com.example.store.dto.stockManagment.request.ReferenceRequest;
 import com.example.store.exception.ElementAlreadyExistException;
 import com.example.store.exception.ElementNotFoundException;
+import com.example.store.exception.InternalServerException;
 import com.example.store.exception.ResourceInUseException;
 import com.example.store.model.stockManagement.Aisle;
 import com.example.store.model.stockManagement.Category;
@@ -93,18 +94,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void deleteProductById(Long productId){
-        if(!productRepository.existsById(productId)){
-            throw new ElementNotFoundException(productId);
-        }
-        boolean isProductInUnitSale = productUnitSaleRepository.existsByProductVariant_ProductVariantId(productId);
-        boolean isProductInPurchaseOrder = purchaseOrderLineRepository.existsByProductVariant_Product_ProductId(productId);
+    public void deleteProductById(Long productId) {
+        try {
+            if (!productRepository.existsById(productId)) {
+                throw new ElementNotFoundException(productId);
+            }
 
-        if(isProductInUnitSale || isProductInPurchaseOrder){
-            throw new ResourceInUseException("This Product is already used and cannot be deleted");
+            boolean isProductInUnitSale = productUnitSaleRepository
+                    .existsByProductVariant_ProductVariantId(productId);
+            boolean isProductInPurchaseOrder = purchaseOrderLineRepository
+                    .existsByProductVariant_Product_ProductId(productId);
+
+            if (isProductInUnitSale || isProductInPurchaseOrder) {
+                throw new ResourceInUseException("This Product is already used and cannot be deleted");
+            }
+
+            productCharacteristicRepository.deleteByProduct_ProductId(productId);
+            productRepository.deleteById(productId);
+
+        } catch (ElementNotFoundException | ResourceInUseException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new InternalServerException("Error while deleting product with ID: " + productId, e);
         }
-        productCharacteristicRepository.deleteByProduct_ProductId(productId);
-        productRepository.deleteById(productId);
     }
 
 

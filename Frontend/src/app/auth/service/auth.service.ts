@@ -22,20 +22,14 @@ export class AuthService {
 
  
   login(data: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.API}/signin`, data)
-      .pipe(
-        tap(response => {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.role);
-          this.codeSubject.next(response.isEmailChanged.toString());
-          alert("value :"+this.codeSubject.value)
-          alert("token :"+response.token)
-    
-          
-          
-      
-        })
-      );
+    return this.http.post<LoginResponse>(`${this.API}/signin`, data).pipe(
+      tap(response => {
+        const cleanRole = response.role?.trim();
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('role', cleanRole);
+        console.log(' Role stocké:', JSON.stringify(cleanRole));
+      })
+    );
   }
   
   getIsEmailChanged(){

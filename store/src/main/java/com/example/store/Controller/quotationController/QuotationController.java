@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/quotation")
@@ -33,4 +34,10 @@ public class QuotationController {
     public ResponseEntity<List<QuotationDTO>> fetchQuotationList(){
         return ResponseEntity.ok(quotationService.fetchQuotationList());
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String,String>> deleteQuotationById(@PathVariable("id") Long quotationId) {
+        quotationService.deleteQuotation(quotationId);
+        return ResponseEntity.ok(Map.of("message", "Deleted Successfully"));
+    }
+
 }

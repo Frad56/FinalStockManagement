@@ -46,7 +46,7 @@ export class CategoryMenuComponent implements OnInit {
 
   ngOnInit(): void {
     const lang = localStorage.getItem('lang') || 'en';
-    this.translate.setDefaultLang('en');
+    this.translate.setDefaultLang('fr');
     this.translate.use(lang);
     this.loadCategories();
   }

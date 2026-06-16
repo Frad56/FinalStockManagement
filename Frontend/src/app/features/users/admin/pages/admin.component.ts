@@ -205,7 +205,13 @@ signUp(){this.router.navigate(['/admin/add-user']);}
         this.router.navigate(['/admin/sale/sales-list']);
 
       }
+      addQuatation(){
+        this.router.navigate(['/admin/quotation/add']);
+      }
   
+    quatationList(){
+      this.router.navigate(['/admin/quotation/list']);
+    }
       addPurchaseOrder(){
         this.router.navigate(['/admin/purchase-order/add-purchase-order']);
 

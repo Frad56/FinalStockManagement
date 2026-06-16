@@ -11,7 +11,29 @@
           <button mat-stroked-button color="primary" (click)="toggleSearchBar()">
             Add Product(s) to Order
           </button>
+          <!-- Upload -->
+          <!-- Input file caché -->
+          <input #fileInput type="file" accept="image/*"
+            style="display:none"
+            (change)="onFileSelected($event)">
 
+          <!-- Bouton upload amélioré -->
+          <button mat-stroked-button (click)="fileInput.click()" [disabled]="isScanning"
+            style="display: inline-flex; align-items: center; gap: 8px;">
+            <mat-icon>upload_file</mat-icon>
+            Scanner une facture
+          </button>
+
+          <!-- Statut inline, pas en dessous -->
+          <span *ngIf="isScanning" style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: gray;">
+            <mat-spinner diameter="16"></mat-spinner>
+            Scan en cours…
+          </span>
+          <span *ngIf="scanDone && !isScanning" style="color: green; font-size: 13px; display: inline-flex; align-items: center; gap: 4px;">
+            <mat-icon style="font-size: 16px; height: 16px; width: 16px;">check_circle</mat-icon>
+            Scan terminé
+          </span>
+          <!---->
           <div *ngIf="showSearchBar" class="search-section">
 
             <!-- Search type -->

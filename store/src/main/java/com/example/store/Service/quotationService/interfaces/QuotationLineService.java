@@ -10,10 +10,12 @@ public interface QuotationLineService {
 
     QuotationLine findQuotationLineById(Long quotationLineId);
     QuotationLineDTO mapDTOToQuotationLine(QuotationLineDTO dtoLine , QuotationLine line);
+    QuotationLineDTO findQuotationLineByIdAndReturnDTO(Long quotationLineId);
     List<QuotationLineDTO> fetchQuotationLineByQuotationId(Long quotationId);
     QuotationLineDTO updateQuotationLine(QuotationLineDTO dto,Long id);
     BigDecimal calculateQuotationLineTotal(QuotationLine quotationLine);
     void deleteQuotationLine(Long quotationLineId);
+    QuotationLineDTO createQuotationLineFromQuotationId(QuotationLineDTO quotationLineDTO);
 
 
 }

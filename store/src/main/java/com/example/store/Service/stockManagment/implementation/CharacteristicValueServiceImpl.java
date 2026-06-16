@@ -163,6 +163,14 @@ public class CharacteristicValueServiceImpl implements CharacteristicValueServic
                         cv -> cv.getCharacteristic().getName() ,
                         cv ->  cv.getValue()
                 ));
+
+        //en cas deux caractéristiques ont le même nom pour un même variant mais c'est pas le cas ici!
+//        return characteristicValueList.stream()
+//                .collect(Collectors.toMap(
+//                        cv -> cv.getCharacteristic().getName(),
+//                        cv -> cv.getValue(),
+//                        (existing, duplicate) -> existing  // ← garde le premier en cas de doublon
+//                ));
     }
 
     public Map<String, String> UpdateCharacteristicValueByProductVariantId(Long productVariantId) {

@@ -40,10 +40,11 @@ export class CategoryCreateComponent implements OnInit {
   private mapFormCatgory():CategoryDTO
   {
     const v = this.categoryForm.getRawValue();
+    const parentIdRaw = v.parentId;
     return {
       name: v.name ?? '',
       description: v.description ?? '',
-      parentId: parseInt(v.parentId!),
+      parentId: parentIdRaw ? parseInt(parentIdRaw) : null,
     };
   }
 

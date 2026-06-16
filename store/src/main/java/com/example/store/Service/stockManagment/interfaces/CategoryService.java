@@ -5,6 +5,7 @@ import com.example.store.dto.stockManagment.CategoryDTO;
 import com.example.store.dto.stockManagment.CategoryDTOTest;
 import com.example.store.model.stockManagement.Category;
 import com.example.store.model.stockManagement.CharacteristicTypeValue;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface CategoryService {
 
     List<Category> leafCategoryList();
 
+
+    @Query("SELECT c FROM Category c WHERE c.products IS EMPTY")
     List<Category> findCategoriesWithoutProducts();
 
 
