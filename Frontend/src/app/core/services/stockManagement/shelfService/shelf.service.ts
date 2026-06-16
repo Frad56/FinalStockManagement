@@ -9,7 +9,7 @@ import { ShelfDTO } from '../../../../shared/models/dto/stockManagmentDTO/Shelf.
 })
 export class ShelfService {
 
-  private apiUrl = 'http://localhost:8080/api/shelf';
+  private apiUrl = 'https://finalstockmanagement-8.onrender.com/api/shelf';
   private http = inject(HttpClient);
 
   getShelfs():Observable<Shelf[]>{
