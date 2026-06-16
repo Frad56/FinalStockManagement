@@ -10,7 +10,7 @@ import { ClientDTO } from '../../../../shared/models/dto/BusinessPartnerDTO/clie
 export class ClientService {
 
   constructor() { }
-  private apiUrl = 'https://finalstockmanagement-8.onrender.com/api';
+  private apiUrl = 'https://finalstockmanagement-8.onrender.com/api/client';
   private http = inject(HttpClient);
 
   getClients():Observable<Client[]>{
