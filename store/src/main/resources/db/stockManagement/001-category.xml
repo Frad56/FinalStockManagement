@@ -134,9 +134,7 @@
     <!-- ===== Outils d'impact ===== -->
     <changeSet id="cat-outil-impact" author="dev">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">
-                SELECT COUNT(*) FROM category WHERE name = "Outils d'impact"
-            </sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM category WHERE name = 'Outils d''impact'</sqlCheck>
         </preConditions>
         <sql>
             INSERT INTO category (name, description, parent_id)
