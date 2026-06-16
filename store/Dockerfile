@@ -3,9 +3,8 @@ FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Étape 2 : Exécution de l'application Java
-FROM openjdk:17-jdk-slim
-# CORRECTION ICI : Le jar est buildé dans le dossier target local du dossier store
+# Étape 2 : Exécution de l'application Java (Image corrigée et stable)
+FROM eclipse-temurin:17-jre-alpine
 COPY --from=build target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
