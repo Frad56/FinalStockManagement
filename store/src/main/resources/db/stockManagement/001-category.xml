@@ -132,17 +132,16 @@
     </changeSet>
 
     <!-- ===== Outils d'impact ===== -->
-    <changeSet id="cat-outil-impact" author="dev">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM category WHERE name = 'Outils d''impact'</sqlCheck>
-        </preConditions>
-        <sql>
-            INSERT INTO category (name, description, parent_id)
-            SELECT "Outils d'impact", "Outils d'impact", category_id
-            FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
-        </sql>
-    </changeSet>
-
+  <changeSet id="cat-outil-impact" author="dev">
+    <preConditions onFail="MARK_RAN">
+        <sqlCheck expectedResult="0">SELECT COUNT(*) FROM category WHERE name = 'Outils d''impact'</sqlCheck>
+    </preConditions>
+    <sql>
+        INSERT INTO category (name, description, parent_id)
+        SELECT 'Outils d''impact', 'Outils d''impact', category_id
+        FROM (SELECT category_id FROM category WHERE name = 'Outillage manuel') AS tmp;
+    </sql>
+</changeSet>
     <!-- ===== Outil pour la peinture ===== -->
     <changeSet id="cat-outil-peinture" author="dev">
         <preConditions onFail="MARK_RAN">
